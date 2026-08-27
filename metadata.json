@@ -1,0 +1,6 @@
+{
+  "name": "شبكة الاولى نت",
+  "description": "بوابة تسجيل الدخول وشبكة الأولى نت للاتصالات اللاسلكية",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

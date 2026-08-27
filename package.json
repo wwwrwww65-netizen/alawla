@@ -1,0 +1,14 @@
+{
+  "name": "alawla-hotspot",
+  "version": "1.0.0",
+  "description": "شبكة الاولى نت - بوابة الهوتسبوت",
+  "type": "module",
+  "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js",
+    "build": "echo 'Build complete'"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
