@@ -106,12 +106,34 @@ app.all('/login', (req, res) => {
     });
   }
 
-  // If no username is provided at all:
+  // If no username is provided (e.g. initial handshake /login?var=callBack on page load/refresh)
   if (!username) {
+    if (simulatedSession.logged_in) {
+      return res.json({
+        logged_in: "yes",
+        username: simulatedSession.username,
+        domain: simulatedSession.domain,
+        link_only: "http://1.1.1.1/status",
+        link_login_only: "http://1.1.1.1/login",
+        link_logout: "http://1.1.1.1/logout",
+        link_status: "http://1.1.1.1/status",
+        nas_id: "MikroTik-Node-01",
+        ip: simulatedSession.ip,
+        mac: simulatedSession.mac,
+        action: "onLoggedIn"
+      });
+    }
+
     return res.json({
       logged_in: "no",
-      error: "invalid username or password",
-      action: "onLoginError"
+      link_only: "http://1.1.1.1/status",
+      link_login_only: "http://1.1.1.1/login",
+      link_logout: "http://1.1.1.1/logout",
+      link_status: "http://1.1.1.1/status",
+      nas_id: "MikroTik-Node-01",
+      ip: simulatedSession.ip,
+      mac: simulatedSession.mac,
+      action: "onLoginStart"
     });
   }
 

@@ -332,6 +332,19 @@
                 <p id="blocker-warning-msg"></p>
             </div>
         </div>
+
+        <!-- 3. Action Notice Toast (إشعار منبثق من أعلى الشاشة لتسجيل الخروج وقطع الاتصال) -->
+        <div class="error action-notice-toast" id="action-notice-toast" style="display: none;" onclick="hideActionNoticeToast()">
+            <div class="toast-icon-wrap" id="action-notice-icon-wrap">
+                <svg viewBox="0 0 24 24" id="action-notice-icon">
+                    <path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/>
+                </svg>
+            </div>
+            <div class="toast-body-content">
+                <p id="action-notice-msg"></p>
+                <span id="action-notice-sub"></span>
+            </div>
+        </div>
     </div>
 
     <div class="container">
@@ -1353,14 +1366,14 @@
 
                         <!-- Session Action Controls -->
                         <div class="status-actions-row">
-                            <button class="btn-danger-glass app-logout" erase-cookie clear-hot-cookie type="button">
+                            <button id="out" class="btn-danger-glass app-logout" erase-cookie clear-hot-cookie type="button">
                                 <svg viewBox="0 0 24 24" class="action-btn-icon">
                                     <path
                                         d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z" />
                                 </svg>
                                 <span>تسجيل الخروج</span>
                             </button>
-                            <button class="btn-secondary-glass app-logout" type="button">
+                            <button id="cut" class="btn-secondary-glass app-logout" type="button">
                                 <svg viewBox="0 0 24 24" class="action-btn-icon">
                                     <path
                                         d="M16.01 7L16 3h-2v4h-4V3H8v4h-.01C6.89 7 6 7.89 6 8.98v5.52L9.5 18v3h5v-3l3.5-3.51V9c0-1.1-.9-2-1.99-2z" />
@@ -1950,19 +1963,23 @@
 
             window.ModalScrollLock = {
                 lockCount: 0,
+                savedScrollY: 0,
 
                 isAnyModalOpen: function () {
-                    var appModal = document.querySelector('.app.active:not(#status)');
+                    var appModal = document.querySelector('.app.active:not(#status), .app.modal-closing:not(#status)');
                     var ntModal = document.querySelector('.nt-modal-overlay:not(.nt-modal-hide), .nt-card-overlay:not(.nt-card-hide)');
                     return !!(appModal || ntModal);
                 },
 
                 lock: function () {
+                    if (this.lockCount === 0) {
+                        this.savedScrollY = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+                        document.body.classList.add('modal-scroll-locked');
+                        document.body.style.overflow = 'hidden';
+                        document.documentElement.classList.add('modal-scroll-locked');
+                        document.documentElement.style.overflow = 'hidden';
+                    }
                     this.lockCount++;
-                    document.documentElement.classList.add('modal-scroll-locked');
-                    document.body.classList.add('modal-scroll-locked');
-                    document.body.style.overflow = 'hidden';
-                    document.documentElement.style.overflow = 'hidden';
                 },
 
                 unlock: function (force) {
@@ -1974,10 +1991,10 @@
 
                     if (this.lockCount === 0 || !this.isAnyModalOpen()) {
                         this.lockCount = 0;
-                        document.documentElement.classList.remove('modal-scroll-locked');
                         document.body.classList.remove('modal-scroll-locked');
                         document.body.style.overflow = '';
                         document.documentElement.style.overflow = '';
+                        document.documentElement.classList.remove('modal-scroll-locked');
                     }
                 },
 
@@ -1994,7 +2011,7 @@
                     // Prevent background scrolling on touch gestures outside scrollable modal containers
                     document.addEventListener('touchmove', function (e) {
                         if (document.body.classList.contains('modal-scroll-locked')) {
-                            var scrollable = e.target.closest('.modal-sheet-card, .nt-modal, .nt-card, .price-div, .sell-point-div');
+                            var scrollable = e.target.closest('.modal-sheet-card, .nt-modal, .nt-card, .price-div, .sell-point-div, .loan-body, .quran-reader-stage, .table-wrapper, .wrapper');
                             if (!scrollable) {
                                 e.preventDefault();
                             }
@@ -2004,7 +2021,7 @@
                     // Prevent wheel scroll bleed-through to underlying background
                     document.addEventListener('wheel', function (e) {
                         if (document.body.classList.contains('modal-scroll-locked')) {
-                            var scrollable = e.target.closest('.modal-sheet-card, .nt-modal, .nt-card, .price-div, .sell-point-div');
+                            var scrollable = e.target.closest('.modal-sheet-card, .nt-modal, .nt-card, .price-div, .sell-point-div, .loan-body, .quran-reader-stage, .table-wrapper, .wrapper');
                             if (!scrollable) {
                                 e.preventDefault();
                             }
@@ -2029,6 +2046,33 @@
             };
             window.ModalScrollLock.init();
 
+            // Universal Modal History Stack for Phone Back Button
+            var modalHistoryCount = 0;
+            var isPoppingForClose = false;
+
+            function pushModalHistory(modalId) {
+                try {
+                    window.history.pushState({ aloulaModal: modalId, timestamp: Date.now() }, '', window.location.href);
+                    modalHistoryCount++;
+                } catch (e) {}
+            }
+
+            function popModalHistory() {
+                if (modalHistoryCount > 0) {
+                    modalHistoryCount--;
+                    isPoppingForClose = true;
+                    try {
+                        window.history.back();
+                    } catch (e) {}
+                    setTimeout(function () {
+                        isPoppingForClose = false;
+                    }, 350);
+                }
+            }
+
+            window.pushModalHistory = pushModalHistory;
+            window.popModalHistory = popModalHistory;
+
             function openAppModal(modalId) {
                 window.animating = false;
                 const modal = typeof modalId === 'string' ? document.getElementById(modalId) : modalId;
@@ -2042,10 +2086,20 @@
                     }
                 }
 
-                // Close any other open modals
-                document.querySelectorAll('.app.active').forEach(m => {
+                // If another modal was already active, replace state to avoid duplicate history stack
+                const currentlyOpen = document.querySelector('.app.active:not(#status)');
+                if (currentlyOpen && currentlyOpen !== modal) {
+                    try {
+                        window.history.replaceState({ aloulaModal: modal.id, timestamp: Date.now() }, '', window.location.href);
+                    } catch (e) {}
+                } else if (!currentlyOpen && modal.id !== 'status') {
+                    pushModalHistory(modal.id);
+                }
+
+                // Close any other open modals immediately
+                document.querySelectorAll('.app.active, .app.modal-closing').forEach(m => {
                     if (m !== modal && m.id !== 'status') {
-                        m.classList.remove('active');
+                        m.classList.remove('active', 'modal-closing');
                         m.style.display = 'none';
                     }
                 });
@@ -2056,8 +2110,10 @@
                     loginEl.classList.add('inactive');
                 }
 
-                modal.style.display = 'block';
-                // Trigger reflow for CSS transition
+                modal.classList.remove('modal-closing');
+                modal.style.display = 'flex';
+                modal.scrollTop = 0;
+                // Trigger reflow for CSS entry animation
                 void modal.offsetWidth;
                 modal.classList.add('active');
 
@@ -2069,34 +2125,39 @@
                 }
             }
 
-            function closeAppModal(modalOrId) {
+            function closeAppModal(modalOrId, fromPopState) {
                 window.animating = false;
-                let target = null;
+                let targets = [];
                 if (typeof modalOrId === 'string') {
-                    target = document.getElementById(modalOrId);
+                    const el = document.getElementById(modalOrId);
+                    if (el) targets.push(el);
                 } else if (modalOrId instanceof HTMLElement) {
-                    target = modalOrId;
-                }
-
-                if (target) {
-                    target.classList.remove('active');
-                    setTimeout(() => {
-                        if (!target.classList.contains('active')) {
-                            target.style.display = 'none';
-                        }
-                    }, 180);
+                    targets.push(modalOrId);
                 } else {
                     document.querySelectorAll('.app.active').forEach(m => {
-                        if (m.id !== 'status') {
-                            m.classList.remove('active');
-                            setTimeout(() => {
-                                if (!m.classList.contains('active')) {
-                                    m.style.display = 'none';
-                                }
-                            }, 180);
-                        }
+                        if (m.id !== 'status') targets.push(m);
                     });
                 }
+
+                if (targets.length === 0) return;
+
+                // Pop history if closed from user interaction (button click/backdrop) rather than phone back button
+                if (!fromPopState) {
+                    popModalHistory();
+                }
+
+                targets.forEach(target => {
+                    if (target.id === 'status') return;
+                    target.classList.remove('active');
+                    target.classList.add('modal-closing');
+
+                    setTimeout(() => {
+                        if (target.classList.contains('modal-closing') && !target.classList.contains('active')) {
+                            target.classList.remove('modal-closing');
+                            target.style.display = 'none';
+                        }
+                    }, 240);
+                });
 
                 const isStatusActive = document.getElementById('status')?.classList.contains('active');
                 const loginEl = document.getElementById('login');
@@ -2106,17 +2167,81 @@
                     loginEl.classList.remove('inactive');
                 }
 
-                // Unlock background scroll
-                if (window.ModalScrollLock) {
-                    window.ModalScrollLock.unlock();
-                } else {
-                    document.body.style.overflow = '';
-                }
+                // Unlock background scroll smoothly after animation
+                setTimeout(() => {
+                    if (window.ModalScrollLock) {
+                        window.ModalScrollLock.unlock();
+                    } else {
+                        document.body.style.overflow = '';
+                    }
+                }, 240);
             }
 
             // Expose globally for legacy/inline scripts
             window.openAppModal = openAppModal;
             window.closeAppModal = closeAppModal;
+
+            // Phone Hardware / Gesture Back Button Listener (popstate)
+            window.addEventListener('popstate', function (event) {
+                if (isPoppingForClose) {
+                    isPoppingForClose = false;
+                    return;
+                }
+
+                // 1. Check for notification overlay
+                const ntModal = document.querySelector('.nt-modal-overlay');
+                if (ntModal) {
+                    if (modalHistoryCount > 0) modalHistoryCount--;
+                    const closeBtn = ntModal.querySelector('.nt-modal-close');
+                    if (closeBtn) {
+                        closeBtn.click();
+                    } else if (typeof ntModal.remove === 'function') {
+                        ntModal.remove();
+                    } else if (ntModal.parentNode) {
+                        ntModal.parentNode.removeChild(ntModal);
+                    }
+                    return;
+                }
+
+                // 2. Check for Quran reader modal
+                const quranModal = document.getElementById('quran-modal');
+                if (quranModal && quranModal.classList.contains('active')) {
+                    if (modalHistoryCount > 0) modalHistoryCount--;
+                    if (typeof window.closeQuranModal === 'function') {
+                        window.closeQuranModal(true);
+                    } else {
+                        closeAppModal(quranModal, true);
+                    }
+                    return;
+                }
+
+                // 3. Check for any active app modals (price, sell-point, loan, speed-modal, status-speed-modal, app-store, block)
+                const activeModals = document.querySelectorAll('.app.active:not(#status)');
+                if (activeModals.length > 0) {
+                    if (modalHistoryCount > 0) modalHistoryCount--;
+                    activeModals.forEach(m => {
+                        closeAppModal(m, true);
+                    });
+                    return;
+                }
+            });
+
+            // Desktop / Physical Keyboard Escape Key Handler
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' || e.keyCode === 27) {
+                    const quranModal = document.getElementById('quran-modal');
+                    if (quranModal && quranModal.classList.contains('active')) {
+                        if (typeof window.closeQuranModal === 'function') {
+                            window.closeQuranModal();
+                        }
+                        return;
+                    }
+                    const activeModal = document.querySelector('.app.active:not(#status)');
+                    if (activeModal) {
+                        closeAppModal(activeModal);
+                    }
+                }
+            });
 
             // Universal Click Handler for All Modal Close & Cancel Buttons
             document.addEventListener('click', function (e) {

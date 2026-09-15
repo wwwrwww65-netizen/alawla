@@ -45,6 +45,10 @@
         void modal.offsetWidth;
         modal.classList.add('active');
 
+        if (typeof window.pushModalHistory === 'function') {
+            window.pushModalHistory('quran-modal');
+        }
+
         // Reset UI visibility and scale
         showUI();
         window.quranResetZoom();
@@ -66,9 +70,13 @@
         updateBookmarkUI();
     };
 
-    window.closeQuranModal = function () {
+    window.closeQuranModal = function (fromPopState) {
         const modal = document.getElementById('quran-modal');
         if (!modal) return;
+
+        if (!fromPopState && typeof window.popModalHistory === 'function') {
+            window.popModalHistory();
+        }
 
         modal.classList.remove('active');
         document.body.classList.remove('quran-reading-mode');

@@ -72,12 +72,8 @@ body,
 .screen-content,
 .screen__content,
 .login,
-.app,
 #login,
 #status,
-#price,
-#sell-point,
-#block,
 .screen-background {
   background:       var(--color-bg-page) !important;
   background-color: var(--color-bg-page) !important;
@@ -1250,25 +1246,68 @@ input[name="username"] {
 
 
 /* ══════════════════════════════════════════════════════════════════
-   15. النوافذ المنبثقة (Modals / Bottom Sheets)
+   15. النوافذ المنبثقة العصرية الشفافة والمعتمة (Modern Glass Modals)
+   خلفية معتمة شبه شفافة مع تمويه عصري تظهر الصفحة الخلفية بوضوح تام
    ══════════════════════════════════════════════════════════════════ */
 
-.app {
-  background:          rgba(4, 7, 14, 0.82) !important;
-  backdrop-filter:     blur(8px) !important;
-  -webkit-backdrop-filter: blur(8px) !important;
+.app:not(#status):not(#quran-modal),
+#price,
+#sell-point,
+#loan,
+#speed-modal,
+#status-speed-modal,
+#app-store,
+#block,
+.loyalty-modal,
+.popup-overlay {
+  background: rgba(5, 9, 17, 0.58) !important;
+  background-color: rgba(5, 9, 17, 0.58) !important;
+  backdrop-filter: blur(8px) saturate(130%) !important;
+  -webkit-backdrop-filter: blur(8px) saturate(130%) !important;
+  overscroll-behavior: contain !important;
+  touch-action: pan-y !important;
 }
 
 .modal-sheet-card {
   background:    var(--color-bg-card) !important;
-  border:        1px solid rgba(223, 171, 82, 0.25) !important;
+  border:        1px solid rgba(223, 171, 82, 0.32) !important;
   border-radius: 20px !important;
-  box-shadow:    0 25px 50px rgba(0, 0, 0, 0.75), 0 0 20px rgba(223, 171, 82, 0.18) !important;
+  box-shadow:    0 25px 50px rgba(0, 0, 0, 0.8), 0 0 24px rgba(223, 171, 82, 0.18) !important;
   color:         var(--color-text-main) !important;
+  max-height:    min(85vh, calc(100dvh - 36px)) !important;
+  overflow-y:    auto !important;
+  overflow-x:    hidden !important;
+  -webkit-overflow-scrolling: touch !important;
+  overscroll-behavior: contain !important;
+  touch-action:  pan-y !important;
+}
+
+/* تخصيص شريط التمرير الأنيق للنافذة المنبثقة */
+.modal-sheet-card::-webkit-scrollbar {
+  width: 5px !important;
+}
+.modal-sheet-card::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.03) !important;
+  border-radius: 9999px !important;
+}
+.modal-sheet-card::-webkit-scrollbar-thumb {
+  background: rgba(223, 171, 82, 0.45) !important;
+  border-radius: 9999px !important;
+}
+.modal-sheet-card::-webkit-scrollbar-thumb:hover {
+  background: rgba(223, 171, 82, 0.75) !important;
 }
 
 .modal-header {
-  border-bottom: 1px solid rgba(223, 171, 82, 0.16) !important;
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 10 !important;
+  background: var(--color-bg-card, #0C1322) !important;
+  border-bottom: 1px solid rgba(223, 171, 82, 0.18) !important;
+  padding-top: 4px !important;
+  padding-bottom: 10px !important;
+  margin-top: -4px !important;
+  margin-bottom: 14px !important;
 }
 .modal-header .title {
   color:           #DFAB52 !important;
@@ -1757,11 +1796,44 @@ tbody td:first-child {
 }
 
 .error p#error,
-#error {
+#error,
+.action-notice-toast p#action-notice-msg {
   color:       #FFFFFF !important;
   font-size:   14px !important;
-  font-weight: 700 !important;
+  font-weight: 800 !important;
   margin:      0 !important;
+}
+
+.action-notice-toast span#action-notice-sub {
+  color:       #DFAB52 !important;
+  font-size:   12px !important;
+  font-weight: 700 !important;
+  display:     block !important;
+  margin-top:  2px !important;
+}
+
+.action-notice-toast.notice-logout {
+  border-color: rgba(239, 68, 68, 0.45) !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.75), 0 0 16px rgba(239, 68, 68, 0.2) !important;
+}
+
+.action-notice-toast.notice-logout .toast-icon-wrap {
+  background: rgba(239, 68, 68, 0.15) !important;
+  border-color: rgba(239, 68, 68, 0.45) !important;
+}
+
+.action-notice-toast.notice-logout .toast-icon-wrap svg {
+  fill: #F87171 !important;
+  filter: drop-shadow(0 0 4px rgba(239, 68, 68, 0.5)) !important;
+}
+
+.action-notice-toast.notice-logout span#action-notice-sub {
+  color: #FDA4AF !important;
+}
+
+.action-notice-toast.notice-logout::after {
+  background: linear-gradient(90deg, #F43F5E 0%, #E11D48 100%) !important;
+  box-shadow: 0 0 8px rgba(225, 29, 72, 0.6) !important;
 }
 
 .error-close-btn {
