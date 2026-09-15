@@ -1212,44 +1212,68 @@ input[name="username"] {
 
 
 /* ══════════════════════════════════════════════════════════════════
-   14. الشريط السفلي — Bottom Navigation Bar
+   14. الشريط السفلي العصري الشفاف — 2026 Floating Ultra-Glassmorphism
+   تم إنزاله قليلاً (bottom: 4px) مع خلفية زجاجية شفافة متوهجة تعكس محتوى الصفحة
+   وفق أحدث معايير تجربة المستخدم (Apple Liquid Glass & Android 15 Edge-to-Edge)
    ══════════════════════════════════════════════════════════════════ */
 
 .bottom-nav-bar {
-  background:          rgba(8, 13, 24, 0.95) !important;
-  border:              1px solid rgba(223, 171, 82, 0.2) !important;
-  backdrop-filter:     blur(20px) !important;
-  -webkit-backdrop-filter: blur(20px) !important;
-  box-shadow:          var(--shadow-nav) !important;
+  position: fixed !important;
+  bottom: calc(4px + env(safe-area-inset-bottom, 0px)) !important;
+  right: 50% !important;
+  transform: translateX(50%) !important;
+  width: calc(100% - 18px) !important;
+  max-width: 480px !important;
+  height: 60px !important;
+  background: rgba(10, 16, 29, 0.42) !important;
+  border: 1px solid rgba(223, 171, 82, 0.25) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.22) !important;
+  border-radius: 20px !important;
+  backdrop-filter: blur(28px) saturate(190%) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(190%) !important;
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.45), 0 0 20px rgba(223, 171, 82, 0.12), inset 0 1px 1px rgba(255, 255, 255, 0.18) !important;
+  z-index: 100 !important;
+}
+
+@media (max-width: 480px) {
+  .bottom-nav-bar {
+    bottom: calc(3px + env(safe-area-inset-bottom, 0px)) !important;
+    height: 56px !important;
+    width: calc(100% - 14px) !important;
+  }
 }
 
 /* أزرار التنقل غير المفعلة */
 .nav-item-btn {
-  color: #94A3B8 !important;
-  transition: all 0.2s ease !important;
+  color: rgba(248, 250, 252, 0.75) !important;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
-.nav-item-btn svg { fill: #94A3B8 !important; }
+.nav-item-btn svg { 
+  fill: rgba(248, 250, 252, 0.75) !important;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.5)) !important;
+}
 
 /* حالة التحويم */
 .nav-item-btn:hover {
   color:      #DFAB52 !important;
-  background: var(--color-gold-pale) !important;
+  background: rgba(223, 171, 82, 0.16) !important;
 }
 .nav-item-btn:hover svg { 
   fill: #DFAB52 !important;
-  filter: drop-shadow(0 0 5px rgba(223, 171, 82, 0.5)) !important;
+  filter: drop-shadow(0 0 6px rgba(223, 171, 82, 0.6)) !important;
 }
 
-/* الزر المفعل (الرئيسية) — الذهب العسلي */
+/* الزر المفعل (الرئيسية) — الذهب العسلي الملكي الزجاجي */
 .nav-item-btn.active {
   color:       #DFAB52 !important;
-  background:  var(--color-gold-pale) !important;
-  border:      1px solid var(--color-gold-border) !important;
-  box-shadow:  0 0 12px rgba(223, 171, 82, 0.35) !important;
+  background:  rgba(223, 171, 82, 0.2) !important;
+  border:      1px solid rgba(223, 171, 82, 0.48) !important;
+  box-shadow:  0 2px 12px rgba(223, 171, 82, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.25) !important;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6) !important;
 }
 .nav-item-btn.active svg { 
   fill: #DFAB52 !important;
-  filter: drop-shadow(0 0 6px rgba(223, 171, 82, 0.75)) !important;
+  filter: drop-shadow(0 0 8px rgba(223, 171, 82, 0.85)) !important;
 }
 
 
