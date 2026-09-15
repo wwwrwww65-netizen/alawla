@@ -34,6 +34,20 @@
             var netName = cfg.siteName || 'يمن نت';
             document.title = 'شبكة ' + netName + ' اللاسلكية';
 
+            // Zero-Flicker instant state detection:
+            // If the user already has an active logged-in session, immediately show status screen
+            // and hide login screen before the DOM even begins rendering to prevent ANY flicker or jump.
+            try {
+                var hasActiveSession = localStorage.getItem("hotspot_active_session") === "1" || /(?:^|;\s*)hotspot_active_session=1/.test(document.cookie);
+                if (hasActiveSession) {
+                    document.documentElement.classList.add("initial-status-mode");
+                    var zeroFlickerStyle = document.createElement('style');
+                    zeroFlickerStyle.id = 'zero-flicker-style';
+                    zeroFlickerStyle.textContent = 'html.initial-status-mode #login { display: none !important; visibility: hidden !important; opacity: 0 !important; } html.initial-status-mode #status { display: block !important; visibility: visible !important; opacity: 1 !important; }';
+                    document.head.appendChild(zeroFlickerStyle);
+                }
+            } catch (err) {}
+
             // If Quran is disabled, immediately insert a style rule to hide it with !important before rendering
             if (cfg.quranV !== true) {
                 var styleEl = document.createElement('style');
