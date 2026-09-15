@@ -1,0 +1,516 @@
+﻿<!doctypehtml>
+    <html lang="ar">
+    <meta charset="UTF-8">
+    <title data-network-name>شبكة{{network-name}} اللاسلكيه</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="#fff">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- <link rel="stylesheet" href="css/swiper.css"> -->
+    <style>
+        .swiper-slide img {
+            border-radius: 10px;
+            width: 100%;
+            height: auto;
+            max-height: 200px;
+        }
+
+
+        .swiper-button-next,
+        .swiper-button-prev {
+            color: #b9b9b9;
+            position: absolute;
+            height: 40px;
+            border-radius: 5px
+        }
+
+        .swiper-button-prev {
+            left: -20px
+        }
+
+        .swiper-button-next {
+            right: -20px
+        }
+
+        .swiper-container {
+            position: relative;
+            overflow: hidden;
+            height: auto
+        }
+    </style>
+
+    <body translate="no">
+        <div class="container">
+            <div class="error-container">
+                <div class="error">
+                    <div class="fade-in">
+                        <p id="error">
+                    </div>
+                </div>
+            </div>
+            <div class="screen">
+                <div class="screen-content">
+                    <div class="login" id="login" style="visibility: visible;">
+
+                        <div class="card ">
+                            <div class="online">
+                                • متصل
+                            </div>
+                            <div class="netdeg"></div>
+                            <div class="coloredicon wifi"></div>
+                            <div class="r c p wb s w70">✨ شبكة لاسلكية متطورة ✨</div>
+                            <div class="hi"> يمن نت </div>
+                            <div class="r c p wb s w70 bkg">⚡لخدمات الانترنت ⚡ </div>
+                            <div class="fath">
+                                <div class="slider">
+                                    <div class="sectn">اتصال سريع خدمه مميزه وتقنيه متجدده</div>
+                                    <div class="sectn">توصيل مودمات للمنازل </div>
+                                    <div class="sectn">سبحان الله </div>
+                                    <div class="sectn">و الحمدلله </div>
+                                    <div class="sectn">و لا إاله الا الله </div>
+                                    <div class="sectn">و الله أكبر </div>
+                                    <div class="sectn">سبحان الله العظيم </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="btns">
+
+                        </div>
+
+                        <div style="font-size: 12px;" data-show-date-field><span hot-date></span>,الموافق <span
+                                hot-hijri-date></span></div>
+
+
+                        <form class="login-form" name="login">
+
+
+                            <div class="card">
+                                <div class="speed  coloredicon"></div>
+                                <div class="speed chek coloredicon"></div>
+
+                                <h3>أختيار سرعة الأنترنت </h3>
+                                <h6>اختر السرعة التي تناسبك </h6>
+                                <div class="speed-chose">
+                                    <input type="radio" value="512K/1M" name="speed" id="default"
+                                        checked>
+                                    <label for="default"> سرعة أفتراضية 🏠</label>
+
+                                    <input type="radio" name="speed" value="256K/512K***"
+                                        id="economic">
+                                    <label for="economic"> سرعة أقتصادية 🐌</label>
+
+                                    <input type="radio" name="speed" value="512K/1532K***"
+                                        id="middle">
+                                    <label for="middle"> سرعة متوسطة ✨</label>
+
+                                    <input type="radio" name="speed" id="normal"
+                                        value="512K/1024k|0|pm|all|*no**|non***">
+                                    <label for="normal">سرعة عادية ✔️</label>
+
+                                    <input type="radio" value="1M/4M" name="speed" id="high">
+                                    <label for="high">سرعة عالية 🐎</label>
+
+                                    <input type="radio" value="1M/8M" name="speed" id="very">
+                                    <label for="very"> سرعة فائقة ⚡</label>
+                                </div>
+                                <div class="r c p wb s w70 bkg">تم أختيار ✅<span id="choes">سرعة أفتراضية 🏠 </span>
+                                </div>
+                            </div>
+                            <div class="login-field">
+                                <input name="username" class="login-input" placeholder="ادخل رقم الكرت هنا"
+                                    username-field improve-input autocomplete="off">
+
+                            </div>
+
+                            <select name="" id="se">
+                                <option value="0" selected disabled>دخول بكرت سابق</option>
+                                <option value="relod">تحديث</option>
+                            </select>
+
+                            <div class="login-field password-field">
+                                <input type="hidden" name="password" class="login-input"
+                                    placeholder="ادخل كلمة السر هنا" improve-input>
+                            </div>
+
+
+                            <button class="button login-submit" parent-id="status" enable-hot-cookie><span
+                                    class="button-text">تسجيل
+                                    الدخول</span></i></button>
+
+                            <br> <br>
+                            <div class="card none" style="border-radius: 10px ; display: none;">
+                                <div class="btnu">
+                                    <div
+                                        style="display: flex; align-items: center;justify-content: space-between;gap: 10px;margin: 0px auto;">
+                                        <div class="update  coloredicon"></div>
+
+                                        <div>
+                                            <h3>ايقاف التحديثات جوجل </h3>
+                                            <h6>ايقاف التحديثات التلقائية </h6>
+                                        </div>
+                                        <div class="switch"><input id="chupdate" value=""
+                                                class="check-toggle check-toggle-round-flat" type="checkbox"><label
+                                                for="chupdate"></label><span class="on">لا </span><span class="off">نعم
+                                            </span></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+                        <div class="btns">
+
+                            <button type="button" parent-id="price">
+                                <div class="rbtn rd">
+                                    <div class="btnicon d">
+                                    </div>
+                                </div>أسعار الكروت
+                            </button>
+
+                            <button type="button" parent-id="new">
+                                <div class="rbtn rn">
+                                    <div class="btnicon n">
+                                    </div>
+                                </div>الخدمات
+                            </button>
+
+
+                            <button type="button" parent-id="sell-point">
+                                <div class="rbtn rl">
+                                    <div class="btnicon l">
+                                    </div>
+                                </div>نقاط البيع
+                            </button>
+
+
+                            <button type="button" parent-id="info">
+                                <div class="rbtn ri">
+                                    <div class="btnicon i">
+                                    </div>
+                                </div>تعليمات
+                            </button>
+
+                            <a href="https://wa.me/967770807056">
+                                <button type="button">
+                                    <div class="rbtn rw">
+                                        <div class="btnicon w">
+                                        </div>
+                                    </div>رسالة
+                                </button>
+                            </a>
+                            <a href="tel:+967770807056">
+                                <button type="button">
+                                    <div class="rbtn rt">
+                                        <div class="btnicon t">
+                                        </div>
+                                    </div>اتصل بنا
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="app " id="price">
+                        <div class="title">
+
+                            <div class="app-logout"> </div>
+
+
+                            <div class="rbtn rl">
+                                <div class="btnicon d">
+                                </div>
+                            </div>
+                            <p class="hi ">الأسعار </p>
+                        </div>
+                        <div id="profiles">
+
+                        </div>
+                    </div>
+                    <div class="app " id="new">
+                        <div class="title">
+
+                            <div class="app-logout"> </div>
+
+
+                            <div class="rbtn rl">
+                                <div class="btnicon n">
+                                </div>
+                            </div>
+                            <p class="hi ">الخدمات </p>
+                        </div>
+                        <div class="app-bot card">
+                            <p>اهلابك زائرنا &#128525</p>
+
+                        </div>
+                    </div>
+                    <div class="app " id="sell-point">
+                        <div class="title">
+
+                            <div class="app-logout"> </div>
+
+
+                            <div class="rbtn rl">
+                                <div class="btnicon l">
+                                </div>
+                            </div>
+                            <p class="hi ">نقاط البيع </p>
+                        </div>
+                        <div class="app-bot card">
+                            <table>
+                                <tbody id="sell-points">
+                                    <tr>
+                                        <td>
+                                            جميع البقالات المجاورة للشبكة
+                                    <tr>
+
+                                </tbody>
+                            </table>
+
+
+                        </div>
+                    </div>
+                    <div class="app " id="info">
+                        <div class="title">
+
+                            <div class="app-logout"> </div>
+
+
+                            <div class="rbtn rl">
+                                <div class="btnicon i">
+                                </div>
+                            </div>
+                            <p class="hi ">تعليمات</p>
+                        </div>
+
+                        <div class="app-bot card">
+
+                            <p>1- ننصح باختيار تعطيل التحديثات التلقائية من المتجر لتجنب استهلاك البيانات .
+                            <p>2-• تطبيق <strong><span style=color:#1b7bf8>( Facebook ) الازرق
+                                    </span></strong>يستهلك البيانات إستهلاك كبير ، لمن يريد إستهلاك أقل يستخدم
+                                التطبيق الاخر الذي من نفس الشركه ولكنه أخف إسمه <strong><span
+                                        style="color:rgb(154, 154, 154)">(
+                                        Facebook Lite الابيض )</span></strong>
+                            <p>3- تطبيقات <strong><span style=color:#ff4b4b>يوتيوب ( YouTube ) </span></strong> يعرض
+                                جودة الفيديوهات بشكل تلقائي حسب سرعة العميل <strong><span style=color:#ff4b4b>مما
+                                        يؤدي الى استهلاك البيانات (الرصيد) </span></strong>لمن يريد إستهلاك أقل
+                                (جودة فيديو متوسطة) يقوم بـ تغيير من الاعدادات جودة الفيديو من تلقائية الى مثلا 360
+                                بيكسل او ( حسب الدقة المطلوبة وكذالك الحال في تطبيق الفيسبوك والفيدميت والسنابتوب
+                                وغيرها.
+                            <p>5- • تأكد من<strong><span style=color:#ff4b4b> إغلاق خاصية التحميل التلقائي للفيديوهات
+                                        والصور والملفات </span></strong></p>الموجوده في تطبيقات : <table
+                                style=margin-top:25px>
+                                <tbody>
+                                    <tr>
+                                        <td>• تطبيق <strong><span>( Google Play ) قووقل
+                                                    بلاي</span></strong>. </td>
+                                    </tr>
+                                    <tr>
+                                        <td>• تطبيق <strong><span>( Whatsapp ) واتس
+                                                    اب</span></strong>.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>• تطبيق <strong><span>( Facebook ) فيس
+                                                    بوك</span></strong>.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>• تطبيق <strong><span>( Teleram )
+                                                    تلقرام</span></strong>.</td>
+                                    </tr>
+                            </table>
+
+                        </div>
+                    </div>
+
+
+                    <div class="app" id="status">
+
+                        <div class="card">
+                            <div class="squre ">
+                                <div class="sbox"></div>
+                                <div class="sbox"></div>
+                                <div class="sbox"></div>
+                                <div class="sbox"></div>
+                            </div>
+                            مرحبا بك في !
+                            <div class="hi">
+                                يمن نت
+                            </div>
+                        </div>
+                        <div class="app-top">
+                            <p class="title">تم تسجيل الدخول بنجاح
+                            </p>
+
+                                <div class="btns" style="margin-top: 10px;">
+                                    <button type="button" data-esterahah>
+                                        <div class="rbtn rn">
+                                            <div class="btnicon n"></div>
+                                        </div>الاستراحة
+                                    </button>
+
+                                    <button type="button" data-mobasher>
+                                        <div class="rbtn ri">
+                                            <div class="btnicon i"></div>
+                                        </div>مباشر
+                                    </button>
+                                </div>
+
+                            <div style="width: 100%; height: auto;margin: 0 auto;position: relative;">
+                                <div class="swiper-container">
+                                    <div class="swiper-wrapper" id="contents2">
+                                    </div>
+                                </div>
+                                <div class="swiper-pagination"></div>
+                                <div class="swiper-scrollbar "></div>
+                            </div>
+
+
+                            <div class="app-bot card">
+
+
+                                <div style="padding: 0 ;" class=" data flex">
+
+                                    <div id="limitstat" class="imgstatus">
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 150 150"
+                                            preserveAspectRatio="none" width="70" height="70">
+                                            <circle cx="75" cy="75" stroke="#bcbcbc" r="68" fill="none"
+                                                stroke-width="10" fill-rule="inherit"></circle>
+                                            <circle id="myCircle" cx="75" cy="75" stroke="#56aeee" r="68" fill="none"
+                                                stroke-width="10" fill-rule="inherit"></circle>
+                                        </svg>
+                                        <div id="cirvalue" class="cirvalue">
+                                            100%
+                                        </div>
+                                    </div>
+                                    <div style="width: calc(100% - 90px ); text-align: right;"> التحميل المتبقي : <div
+                                            id="remain_bytes_total" style="text-align: right; font-weight: 1000;">
+                                            🔥🔥غير محدود
+                                            🔥🔥</div>
+                                    </div>
+
+                                </div>
+                                <div class="data flex" style="background: #fff ;border-radius: 30px;">
+                                    <div style="text-align: center;width: 170px;">
+                                        <div> التحميل <div style="color: #16a34a; font-size: 16px;" id="bytes_out">0
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="imgstatus">
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 150 150"
+                                            preserveAspectRatio="none" width="70" height="70">
+                                            <circle cx="75" cy="75" stroke="#db2777" r="68" fill="none"
+                                                stroke-width="10" fill-rule="inherit"></circle>
+                                            <circle id="Circle2" cx="75" cy="75" stroke="#16a34a" r="68" fill="none"
+                                                stroke-width="10" stroke-dasharray="263" fill-rule="inherit"></circle>
+                                        </svg>
+                                        <div style="font-size: 12px; text-align: center; color: #5951e7 ; font-weight: 1000 ;"
+                                            class="cirvalue">
+                                            استهلاك
+                                        </div>
+                                        <div style="display: none;" id="temp"></div>
+                                    </div>
+
+                                    <div style="text-align: right;width: 170px;">
+
+
+                                        <div> الرفع <div style="color: #db2777;font-size: 16px;" id="bytes_in">0
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="sim"><span>الوقت المتبقي :</span><span id="session_time_left">غير
+                                        محدود</span>
+                                </div>
+                                <div class="sim"><span>متصل منذ :</span><span id="uptime">0 ثانية </span></div>
+
+
+
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="card" style="display: none;">
+                                    <div class="btnu">
+                                        <div
+                                            style="display: flex; align-items: center;justify-content: space-between;gap: 10px;margin: 0px auto;">
+                                            <div class="update  coloredicon"></div>
+
+                                            <div>
+                                                <h3> <span>إيقاف التحديثات و المتجر :</span><span style="display: none;"
+                                                        id="update">تم تفعيلها
+                                                    </span> </h3>
+                                            </div>
+                                            <div class="switch"><input id="uch" value=""
+                                                    class="check-toggle check-toggle-round-flat" type="checkbox"><label
+                                                    for="uch"></label><span class="on">لا </span><span class="off">نعم
+                                                </span></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <h3>خدمة العملاء</h3>
+                                <h4>770807056</h4>
+
+                                <div class="logbtn flex">
+                                    <button id="out" style="background: #dc3747;" class="app-logout logout-submit"
+                                        erase-cookie clear-hot-cookie>تسجيل
+                                        الخروج
+                                    </button>
+                                    <button id="cut" class="app-sbmit app-logout">
+                                        قطع الاتصال
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                    <div class="app" id="block">
+                        <div class="status-div">
+                            <div class="wrapper">
+                                <p class="title">انت محظور
+                                <div style="padding: 25px">
+                                    <p class="contact-text">لقد تم حظرك بسبب محاولات تسجيل الدخول الكثيرة الخاطئة
+                                    <div class="app-user"><span>بقي على فك الحظر: </span><span count-down-span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="social-login">
+                            <h5 class="contact back" data-service-number>خدمة العملاء:{{770807056}}</h5>
+                        </div>
+                    </div>
+
+                    <div class="app" id="app-store">
+                        <div class="sell-point-div">
+                            <div class="wrapper" id="grid"></div>
+                        </div>
+                        <div class="social-login"><button class="app-logout button app-submit back">الصفحة
+                                السابقة</button>
+                            <h5 class="contact back" data-service-number>خدمة العملاء:{{770807056}}</h5>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <span style="display: none;" id="winmsg">
+                <!-- هنا يتم وضع نص الاشعارات -->
+
+                <!-- هنا يتم وضع نص الاشعارات -->
+            </span>
+        </div>
+        </div>
+        <script src="js/init.min.js"></script>
+        <script src="js/hotInImprover.min.js"></script>
+        <script src="js/hotCookie.min.js"></script>
+        <script src="js/hotOptions.min.js"></script>
+        <script src="js/hotBlocker.min.js"></script>
+        <script src="js/main.min.js"></script>
+        <script src="js/hotCookie.min.js"></script>
+        <!-- <script src="js/swi.min.js"></script> -->
+        <!-- <script src="js/swiprtorign.min.js"></script> -->

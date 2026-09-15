@@ -1,0 +1,82 @@
+﻿Config({
+    "network-name": " يمن نت   ",
+    "service-number": " 770807056 ",
+    "login-type": "",
+    "speed-select": 0,
+    "speed-var": "speed",
+    "speed-option": "",
+    "news-line": "مرحبا  بكم  في شبكتنا  تذكر ان الله ينظر إليك فلا تجعله أهون الناظرين إليك * نسعى لتقديم أفضل خدمة إنترنت سريعة ومتميزة ",
+    "input-autocomplete": "on",
+    "input-type": "tel", 
+    "input-rm-white-spaces": 1,
+    "input-to-lower": 0,
+    "input-to-upper": 0,
+    "input-to-arabic-numbers": 1,
+    "input-only-numbers": 0,
+    "input-no-numbers": 0,
+    "input-only-alphanumeric": 1,
+    "enable-hot-cookie": 1,
+    "enable-hot-blocker": 1,
+    "clear-router-cookie": 1,
+    "clear-hot-cookie": 1,
+    "block-time": 2,
+    "try-count": 5,
+    "warn-when": 3,
+    "warn-message": "تحذير !! عدد محاولاتك الخاطئة اصبح {{tryCounter}} محاولات, عدد المحاولات المسموح بها هي {{tryCount}} محاولات فقط, عدد محاولاتك المتبقية {{restTryCount}} محاولات, سيتم حظرك لمدة {{blockTime}} دقائق اذا تجاوزت العدد المسموح للمحاولات",
+    "price-button": true,
+    "sell-point-button": true,
+    "show-date-field": true,
+    "loan-button": true ,
+    "loan-text": "...",
+    "redirect-to-esterahah": "http://2.2.2.2",
+    "redirect-to-mobasher": "http://2.2.2.2:85/",
+    profiles: [{
+            price: "100  ريال",
+            time: "3ساعات",
+            transfer: "400 ميجا",
+            validity: "30 أيام",
+        },
+		 {
+            price: "100  ريال",
+            time: "3 ساعات",
+            transfer: "مفتوح",
+            validity: "30 أيام",
+        },
+        {
+            price: "200  ريال",
+            time: "7 ساعات",
+            transfer: "800 ميجا",
+            validity: "30 أيام",
+        },
+        {
+            price: "250  ريال",
+            time: "مفتوح ",
+            transfer: "1 جيجا",
+            validity: "يوم",
+        },
+		 {
+            price: "300  ريال",
+            time: "10 ساعات",
+            transfer: "مفتوح",
+            validity: "30 أيام",
+        },
+        {
+            price: "500 ريال",
+            time: "20ساعه",
+            transfer: "2 جيجا ",
+            validity: "30 ايام",
+        },
+        {
+            price: "1000 ريال",
+            time: "مفتوح ",
+            transfer: "4 جيجا  ",
+            validity: "30 ايام  ",
+        }
+
+    ],
+    "sell-points": [
+        {
+            name: 'حميع البقالات المجاورة للشبكة '
+        }
+    ],
+});
