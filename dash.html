@@ -1113,39 +1113,49 @@
                             <textarea class="form-control" id="textSlider1Input" placeholder="النص المتحرك أو الآية القرآنية..." oninput="updateConfigField('textSlider1', this.value)"></textarea>
                         </div>
 
-                        <!-- Error Report Button Toggle -->
-                        <div class="feature-toggle-card" style="margin-top: 18px;">
-                            <div class="feature-toggle-info">
-                                <div class="feature-toggle-icon" style="color: #f59e0b; background: rgba(245, 158, 11, 0.12);"><i class="fas fa-sms"></i></div>
-                                <div>
-                                    <div class="feature-toggle-title">زر إرسال الخطأ عبر SMS</div>
-                                    <div class="feature-toggle-desc">إظهار زر عند حدوث خطأ لإرسال رسالة SMS للمشرف</div>
-                                </div>
-                            </div>
-                            <div class="switch-container">
-                                <span class="status-badge" id="badgeErb">مفعل</span>
-                                <label class="switch">
-                                    <input type="checkbox" id="erbVToggle" onchange="updateToggleField('erbV', this.checked, 'badgeErb')">
-                                    <span class="slider"></span>
-                                </label>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- SECTION 2: LIVE BROADCAST & LOUNGE (WITH DEDICATED TOGGLES) -->
+            <!-- SECTION 2: LIVE BROADCAST, LOUNGE & HOLY QURAN -->
             <div class="col-6">
                 <div class="card">
                     <div class="card-header">
                         <h2 class="card-title">
-                            <i class="fas fa-tv"></i> البث المباشر واستراحة الشبكة
+                            <i class="fas fa-tv"></i> البث المباشر واستراحة الشبكة والقرآن الكريم
                         </h2>
                     </div>
 
                     <div class="card-body">
+                        <!-- Holy Quran Toggle & URL -->
+                        <div class="feature-toggle-card" style="border-color: rgba(223, 171, 82, 0.35);">
+                            <div class="feature-toggle-info">
+                                <div class="feature-toggle-icon" style="color: #dfab52; background: rgba(223, 171, 82, 0.15);"><i class="fas fa-quran"></i></div>
+                                <div>
+                                    <div class="feature-toggle-title">شريط وزر القرآن الكريم (المصحف الشريف)</div>
+                                    <div class="feature-toggle-desc">إظهار أو إخفاء زر وشريط المصحف في صفحتي تسجيل الدخول والحالة (Status)</div>
+                                </div>
+                            </div>
+                            <div class="switch-container">
+                                <span class="status-badge" id="badgeQuran">مفعل</span>
+                                <label class="switch">
+                                    <input type="checkbox" id="quranVToggle" onchange="updateToggleField('quranV', this.checked, 'badgeQuran')">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="quranUrlInput"><i class="fas fa-link"></i> رابط مخصص لزر القرآن (اختياري)</label>
+                            <div style="display: flex; gap: 8px;">
+                                <input type="url" class="form-control" id="quranUrlInput" placeholder="اتركه فارغاً لفتح المصحف المدمج مجاناً، أو ضع رابط خارجي" oninput="updateConfigField('quranUrl', this.value)">
+                                <button class="btn btn-outline btn-icon" onclick="testLink('quranUrlInput')" title="تجربة الرابط"><i class="fas fa-external-link-alt"></i></button>
+                            </div>
+                            <div class="form-hint"><i class="fas fa-info-circle" style="color: #dfab52;"></i> إذا تُرك فارغاً؛ سيفتح زر القرآن قارئ المصحف الشريف المدمج بالشبكة تلقائياً بدون رصيد</div>
+                        </div>
+
                         <!-- Live Broadcast Toggle & URL -->
-                        <div class="feature-toggle-card">
+                        <div class="feature-toggle-card" style="margin-top: 24px;">
                             <div class="feature-toggle-info">
                                 <div class="feature-toggle-icon" style="color: #3b82f6; background: rgba(59, 130, 246, 0.15);"><i class="fas fa-video"></i></div>
                                 <div>
@@ -1374,6 +1384,112 @@
                 </div>
             </div>
 
+            <!-- SECTION 7: SECURITY, BLOCKER & COOKIES (نظام الحظر والحماية والتذكر) -->
+            <div class="col-12">
+                <div class="card" style="border: 1px solid rgba(239, 68, 68, 0.25);">
+                    <div class="card-header" style="background: rgba(239, 68, 68, 0.08);">
+                        <h2 class="card-title" style="color: #f87171;">
+                            <i class="fas fa-shield-halved"></i> نظام الحماية والحظر وحفظ الكروت (Security, Blocker & Cookies)
+                        </h2>
+                    </div>
+
+                    <div class="card-body">
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px;">
+                            
+                            <!-- Blocker Settings -->
+                            <div style="background: rgba(15, 23, 42, 0.4); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 18px;">
+                                <div class="feature-toggle-card" style="margin-bottom: 16px; background: rgba(239, 68, 68, 0.08); border-color: rgba(239, 68, 68, 0.25);">
+                                    <div class="feature-toggle-info">
+                                        <div class="feature-toggle-icon" style="color: #ef4444; background: rgba(239, 68, 68, 0.15);"><i class="fas fa-user-lock"></i></div>
+                                        <div>
+                                            <div class="feature-toggle-title">نظام حظر التخمين (HotBlocker)</div>
+                                            <div class="feature-toggle-desc">حظر المستخدم عند تكرار إدخال كروت خاطئة</div>
+                                        </div>
+                                    </div>
+                                    <div class="switch-container">
+                                        <span class="status-badge" id="badgeBlocker">مفعل</span>
+                                        <label class="switch">
+                                            <input type="checkbox" id="blockerVToggle" onchange="updateBlockerToggle(this.checked)">
+                                            <span class="slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                                    <div class="form-group">
+                                        <label class="form-label" for="tryCountInput">
+                                            <i class="fas fa-calculator"></i> الحد الأقصى للمحاولات
+                                        </label>
+                                        <input type="number" class="form-control" id="tryCountInput" min="1" max="20" placeholder="5" oninput="updateConfigField('try-count', parseInt(this.value) || 5)">
+                                        <div class="form-hint">عدد المحاولات الخاطئة قبل الحظر</div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-label" for="warnWhenInput">
+                                            <i class="fas fa-triangle-exclamation"></i> بدء التحذير عند
+                                        </label>
+                                        <input type="number" class="form-control" id="warnWhenInput" min="1" max="20" placeholder="3" oninput="updateConfigField('warn-when', parseInt(this.value) || 3)">
+                                        <div class="form-hint">إظهار تنبيه للمستخدم عند الوصول إليها</div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" style="margin-top: 14px;">
+                                    <label class="form-label" for="blockTimeInput">
+                                        <i class="fas fa-stopwatch"></i> مدة الحظر المؤقت (بالدقائق)
+                                    </label>
+                                    <input type="number" class="form-control" id="blockTimeInput" min="1" max="120" placeholder="5" oninput="updateConfigField('block-time', parseInt(this.value) || 5)">
+                                    <div class="form-hint">كم دقيقة يتم حظر المستخدم وعرض العداد التنازلي له</div>
+                                </div>
+
+                                <div class="form-group" style="margin-top: 14px;">
+                                    <label class="form-label" for="warnMsgInput">
+                                        <i class="fas fa-comment-slash"></i> نص رسالة التحذير للمستخدم
+                                    </label>
+                                    <textarea class="form-control" id="warnMsgInput" rows="2" style="min-height: 70px;" oninput="updateConfigField('warn-message', this.value)"></textarea>
+                                    <div class="form-hint">استخدم المتغيرات: <code>{{restTryCount}}</code> للمحاولات المتبقية و <code>{{blockTime}}</code> لوقت الحظر</div>
+                                </div>
+                            </div>
+
+                            <!-- Cookies & Previous Card Settings -->
+                            <div style="background: rgba(15, 23, 42, 0.4); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 18px; display: flex; flex-direction: column; justify-content: space-between;">
+                                <div>
+                                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 16px; color: #10b981; font-weight: 700; font-size: 1rem;">
+                                        <i class="fas fa-cookie-bite"></i> نظام الكوكيز وحفظ الكروت (HotCookie)
+                                    </div>
+
+                                    <div class="feature-toggle-card" style="margin-bottom: 14px; background: rgba(255,255,255,0.03);">
+                                        <div class="feature-toggle-info">
+                                            <div class="feature-toggle-icon" style="color: #10b981; background: rgba(16, 185, 129, 0.15);"><i class="fas fa-history"></i></div>
+                                            <div>
+                                                <div class="feature-toggle-title">تفعيل ميزة تذكر الكروت السابقة</div>
+                                                <div class="feature-toggle-desc">حفظ الكرت في المتصفح وإتاحة زر (دخول بكرت سابق)</div>
+                                            </div>
+                                        </div>
+                                        <div class="switch-container">
+                                            <span class="status-badge" id="badgeCookie">مفعل</span>
+                                            <label class="switch">
+                                                <input type="checkbox" id="cookieVToggle" onchange="updateToggleField('enableHotCookie', this.checked, 'badgeCookie')">
+                                                <span class="slider"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div style="background: rgba(16, 185, 129, 0.08); border-radius: 8px; padding: 14px; font-size: 0.85rem; color: #a7f3d0; line-height: 1.7;">
+                                        <i class="fas fa-info-circle"></i> <strong>كيف يعمل؟</strong>
+                                        <ul style="margin: 6px 16px 0 0; padding: 0;">
+                                            <li>يقوم بحفظ كرت المستخدم تلقائياً في التخزين المحلي الآمن.</li>
+                                            <li>يسمح بالضغط على زر "كرت سابق" لتعبئة الكرت بلمسة واحدة دون كتابته.</li>
+                                            <li>يتذكر اختيار المستخدم لسرعته المفضلة وخيار إيقاف التحديثات.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
         <!-- BOTTOM ACTION BAR -->
@@ -1413,6 +1529,17 @@
                 </p>
 
                 <div class="preview-box">
+                    <div id="previewQuranBtn" style="display: none; align-items: center; justify-content: space-between; padding: 12px 16px; border-radius: 12px; background: linear-gradient(135deg, rgba(223, 171, 82, 0.15) 0%, rgba(16, 185, 129, 0.15) 100%); border: 1px solid rgba(223, 171, 82, 0.35); color: #dfab52; font-weight: 700;">
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <i class="fas fa-quran" style="font-size: 1.25rem;"></i>
+                            <div>
+                                <div style="font-size: 0.95rem; color: #fff;">القرآن الكريم <span style="font-size: 0.72rem; background: #dfab52; color: #000; padding: 1px 6px; border-radius: 10px; margin-right: 4px; font-weight: 800;">مجاني</span></div>
+                                <div style="font-size: 0.75rem; color: #94a3b8; font-weight: normal;">المصحف الشريف كاملاً بدون رصيد</div>
+                            </div>
+                        </div>
+                        <span style="font-size: 0.8rem; background: #dfab52; color: #0f172a; padding: 4px 10px; border-radius: 8px; font-weight: 700;">قراءة</span>
+                    </div>
+
                     <div id="previewMobaBtn" class="preview-stream-btn" style="display: none;">
                         <i class="fas fa-tv"></i>
                         <span>البث المباشر والقنوات الرياضية</span>
@@ -1425,7 +1552,7 @@
 
                     <div id="previewEmptyMsg" style="display: none; text-align: center; color: var(--text-dim); padding: 15px;">
                         <i class="fas fa-eye-slash" style="font-size: 2rem; margin-bottom: 8px; display: block;"></i>
-                        كلا الزرين معطلان حالياً ولن يظهر هذا القسم للمستخدم
+                        كافة أزرار الترفيه معطلة حالياً ولن تظهر للمستخدم
                     </div>
                 </div>
 
@@ -1512,7 +1639,14 @@
             estr: "",
             estrV: false,
             moba: "https://kor.fntvs.net/channel.php",
-            mobaV: true
+            mobaV: true,
+            quranUrl: "",
+            quranV: true,
+            enableHotCookie: true,
+            "try-count": 5,
+            "warn-when": 3,
+            "block-time": 5,
+            "warn-message": "تبقى لك {{restTryCount}} محاولات قبل أن يتم حظرك لمدة {{blockTime}} دقائق"
         };
 
         // INITIALIZE ON LOAD
@@ -1543,10 +1677,17 @@
             // Ensure defaults
             if (appConfig.estrV === undefined) appConfig.estrV = Boolean(appConfig.estr && appConfig.estr.trim().length > 0);
             if (appConfig.mobaV === undefined) appConfig.mobaV = true;
+            if (appConfig.quranV === undefined) appConfig.quranV = true;
+            if (appConfig.quranUrl === undefined) appConfig.quranUrl = "";
             if (appConfig.welcomeMessageV === undefined) appConfig.welcomeMessageV = true;
             if (appConfig.erbV === undefined) appConfig.erbV = true;
             if (appConfig.imageV === undefined) appConfig.imageV = true;
             if (appConfig.offersBtnV === undefined) appConfig.offersBtnV = true;
+            if (appConfig.enableHotCookie === undefined) appConfig.enableHotCookie = true;
+            if (appConfig["try-count"] === undefined) appConfig["try-count"] = 5;
+            if (appConfig["warn-when"] === undefined) appConfig["warn-when"] = 3;
+            if (appConfig["block-time"] === undefined) appConfig["block-time"] = 5;
+            if (appConfig["warn-message"] === undefined) appConfig["warn-message"] = "تبقى لك {{restTryCount}} محاولات قبل أن يتم حظرك لمدة {{blockTime}} دقائق";
             if (!appConfig.supportPhone) appConfig.supportPhone = "738348945";
             if (!appConfig.whatsappPhone) appConfig.whatsappPhone = "967738348945";
             if (!appConfig.whatsappMsg) appConfig.whatsappMsg = "مرحبا خدمة عملاء شبكة {network-name} اللاسلكية";
@@ -1570,6 +1711,7 @@
             document.getElementById('whatsappMsgInput').value = appConfig.whatsappMsg || '';
             document.getElementById('welcomeMessageInput').value = appConfig.welcomeMessage || '';
             document.getElementById('textSlider1Input').value = appConfig.textSlider1 || '';
+            document.getElementById('quranUrlInput').value = appConfig.quranUrl || '';
             document.getElementById('mobaInput').value = appConfig.moba || '';
             document.getElementById('estrInput').value = appConfig.estr || '';
             document.getElementById('imageCountInput').value = appConfig.imageCount || '0';
@@ -1580,13 +1722,29 @@
             document.getElementById('offersBtnTextInput').value = appConfig.offersBtnText || '';
             document.getElementById('offersBtnUrlInput').value = appConfig.offersBtnUrl || '';
 
+            // Security & Blocker Fields
+            if (document.getElementById('tryCountInput')) {
+                document.getElementById('tryCountInput').value = appConfig["try-count"] || 5;
+            }
+            if (document.getElementById('warnWhenInput')) {
+                document.getElementById('warnWhenInput').value = appConfig["warn-when"] || 3;
+            }
+            if (document.getElementById('blockTimeInput')) {
+                document.getElementById('blockTimeInput').value = appConfig["block-time"] || 5;
+            }
+            if (document.getElementById('warnMsgInput')) {
+                document.getElementById('warnMsgInput').value = appConfig["warn-message"] || "تبقى لك {{restTryCount}} محاولات قبل أن يتم حظرك لمدة {{blockTime}} دقائق";
+            }
+
             // Toggles
+            setToggle('quranVToggle', 'badgeQuran', Boolean(appConfig.quranV !== false));
             setToggle('welcomeMessageVToggle', 'badgeWelcome', Boolean(appConfig.welcomeMessageV));
-            setToggle('erbVToggle', 'badgeErb', Boolean(appConfig.erbV));
             setToggle('mobaVToggle', 'badgeMoba', Boolean(appConfig.mobaV));
             setToggle('estrVToggle', 'badgeEstr', Boolean(appConfig.estrV));
             setToggle('imageVToggle', 'badgeImage', Boolean(appConfig.imageV));
             setToggle('offersBtnVToggle', 'badgeOffersBtn', Boolean(appConfig.offersBtnV));
+            setToggle('cookieVToggle', 'badgeCookie', Boolean(appConfig.enableHotCookie !== false));
+            setToggle('blockerVToggle', 'badgeBlocker', Boolean(appConfig["enable-hot-blocker"] === undefined || appConfig["enable-hot-blocker"] === 1 || appConfig["enable-hot-blocker"] === true));
 
             // Dynamic tables & grids
             renderSpeedTable();
@@ -1615,6 +1773,17 @@
             }
             saveToCache();
             showToast(`تم ${value ? 'تفعيل' : 'تعطيل'} الإعداد بنجاح`, 'info');
+        }
+
+        function updateBlockerToggle(isChecked) {
+            appConfig["enable-hot-blocker"] = isChecked ? 1 : 0;
+            const badge = document.getElementById('badgeBlocker');
+            if (badge) {
+                badge.textContent = isChecked ? 'مفعل' : 'معطل';
+                badge.className = `status-badge ${isChecked ? 'active' : 'inactive'}`;
+            }
+            saveToCache();
+            showToast(`تم ${isChecked ? 'تفعيل' : 'تعطيل'} نظام الحظر بنجاح`, 'info');
         }
 
         function updateConfigField(key, value) {
@@ -1895,16 +2064,19 @@
         }
 
         function openLivePreviewModal() {
+            const quranBtn = document.getElementById('previewQuranBtn');
             const mobaBtn = document.getElementById('previewMobaBtn');
             const estrBtn = document.getElementById('previewEstrBtn');
             const emptyMsg = document.getElementById('previewEmptyMsg');
 
+            const isQuran = appConfig.quranV !== false;
             const isMoba = Boolean(appConfig.mobaV) && appConfig.moba && appConfig.moba.trim().length > 0;
             const isEstr = Boolean(appConfig.estrV) && appConfig.estr && appConfig.estr.trim().length > 0;
 
+            if (quranBtn) quranBtn.style.display = isQuran ? 'flex' : 'none';
             mobaBtn.style.display = isMoba ? 'flex' : 'none';
             estrBtn.style.display = isEstr ? 'flex' : 'none';
-            emptyMsg.style.display = (!isMoba && !isEstr) ? 'block' : 'none';
+            emptyMsg.style.display = (!isQuran && !isMoba && !isEstr) ? 'block' : 'none';
 
             openModal('livePreviewModal');
         }

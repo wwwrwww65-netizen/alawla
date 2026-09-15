@@ -1,9 +1,9 @@
 window.siteConfig = {
-    "siteName": "الأولى نت",
+    "siteName": "يمن نت",
     "subDecText": "للإنترنت اللاسلكي",
     "welcomeMessage": "مرحبا بكم في شبكة الأولى نت اللاسلكية",
     "welcomeMessageV": true,
-    "erbV": true,
+    "erbV": false,
     "textSlider1": "بسم الله الرحمن الرحيم { قل للمؤمنين يغضوا من أبصارهم ويحفظوا فروجهم ذلك أزكى لهم إن الله خبير بما يصنعون } (النور:30)",
     "supportPhone": "733088846",
     "whatsappPhone": "967779744206",
@@ -94,8 +94,16 @@ window.siteConfig = {
         "2 رصيدي تيليكوم (تطبيق لشراء الكروت)",
         "3 الشعبي اونلاين (تطبيق لشراء الكروت)"
     ],
-    "estr": "",
-    "estrV": false,
+    "estr": "fiberlive/live.html",
+    "estrV": true,
     "moba": "https://kor.fntvs.net/channel.php",
-    "mobaV": false
+    "mobaV": true,
+    "quranUrl": "",
+    "quranV": false,
+    "enableHotCookie": true,
+    "enable-hot-blocker": 1,
+    "try-count": 5,
+    "warn-when": 3,
+    "block-time": 5,
+    "warn-message": "تبقى لك {{restTryCount}} محاولات قبل أن يتم حظرك لمدة {{blockTime}} دقائق"
 };

@@ -27,43 +27,43 @@
     <script src="config.js"></script>
     <script>
         (function() {
-            try {
-                var cached = localStorage.getItem('mikrotik_bhnet_dash_config');
-                if (cached) {
-                    var parsed = JSON.parse(cached);
-                    if (parsed && typeof parsed === 'object') {
-                        window.siteConfig = Object.assign({}, window.siteConfig || {}, parsed);
-                    }
-                }
-            } catch(e) {}
             var cfg = window.siteConfig || {};
-            var netName = cfg.siteName || 'الأولى نت';
+            var netName = cfg.siteName || 'يمن نت';
             document.title = 'شبكة ' + netName + ' اللاسلكية';
+
+            // If Quran is disabled, immediately insert a style rule to hide it with !important before rendering
+            if (cfg.quranV !== true) {
+                var styleEl = document.createElement('style');
+                styleEl.id = 'quran-hide-override-style';
+                styleEl.textContent = '#quranLoginStrip, #quranStatusStrip, .quran-strip-card { display: none !important; }';
+                document.head.appendChild(styleEl);
+            }
+
             // Early sync before first paint
             document.addEventListener('DOMContentLoaded', function() {
                 var c = window.siteConfig || {};
-                var name = (c.siteName || 'الأولى نت').trim();
+                var name = (c.siteName || 'يمن نت').trim();
                 document.querySelectorAll('[data-network-name]').forEach(function(el) {
                     if (el.tagName.toLowerCase() !== 'title') {
                         el.textContent = 'شبكة ' + name + ' اللاسلكية';
                     }
                 });
                 var parts = name.split(/\s+/);
-                var prefix = 'الأولى';
-                var suffix = 'نت';
-                if (parts.length > 1) {
-                    suffix = parts.pop();
-                    prefix = parts.join(' ');
-                } else {
-                    prefix = name;
-                    suffix = '';
-                }
+                var prefix = parts[0] || name;
+                var suffix = parts.slice(1).join(' ');
                 var prefixEl = document.querySelector('[data-network-name-prefix="true"]');
                 var suffixEl = document.querySelector('.brand-net-gold');
                 if (prefixEl) prefixEl.textContent = prefix;
                 if (suffixEl) {
                     suffixEl.textContent = suffix;
                     suffixEl.style.display = suffix ? 'inline-block' : 'none';
+                }
+
+                // Immediate check for quran strip visibility
+                if (c.quranV !== true) {
+                    document.querySelectorAll('.quran-strip-card, #quranLoginStrip, #quranStatusStrip').forEach(function(el) {
+                        el.style.setProperty('display', 'none', 'important');
+                    });
                 }
             });
         })();
@@ -252,17 +252,35 @@
         <span class="screen-background-shape screen-background-shape8"></span>
     </div>
 
-    <!-- 2026 Floating Glass Toast Notification -->
+    <!-- 2026 Floating Glass Toast Notifications Stack -->
     <div class="error-container">
-        <div class="error" id="error-toast">
-            <div class="toast-icon-wrap">
+        <!-- 1. Primary System Error Toast (تنبيه الخطأ القادم من النظام) -->
+        <div class="error error-toast-primary" id="error-toast">
+            <div class="toast-icon-wrap error-icon">
                 <svg viewBox="0 0 24 24">
                     <path
                         d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />
                 </svg>
             </div>
-            <div class="fade-in">
+            <div class="toast-body-content">
                 <p id="error"></p>
+            </div>
+        </div>
+
+        <!-- 2. Blocker Warning Toast (تنبيه التحذير الثاني يظهر أسفل تنبيه الخطأ) -->
+        <div class="error blocker-warning-toast" id="blocker-warning-toast" style="display: none;">
+            <div class="toast-icon-wrap warning-icon">
+                <svg viewBox="0 0 24 24">
+                    <path
+                        d="M12 2L1 21h22L12 2zm0 3.99L19.53 19H4.47L12 5.99zM11 16h2v2h-2v-2zm0-6h2v4h-2v-4z" />
+                </svg>
+            </div>
+            <div class="toast-body-content">
+                <div class="toast-badge-title">
+                    <span class="warning-dot-pulse"></span>
+                    <span>تنبيه نظام الحظر</span>
+                </div>
+                <p id="blocker-warning-msg"></p>
             </div>
         </div>
     </div>
@@ -1474,22 +1492,6 @@
                     </div>
                 </div>
 
-                <!-- 2026 MODAL: ERROR DIALOG & SMS REPORTING (#error-modal) -->
-                <div class="app" id="error-modal">
-                    <div class="modal-sheet-card error-modal-card" style="border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 30px rgba(212, 175, 55, 0.35); padding: 18px 20px 22px; color: #ffffff; position: relative; max-width: 330px; margin: auto; border: 1.5px solid rgba(212, 175, 55, 0.6);">
-                        <button class="modal-close-icon-x" type="button" onclick="closeErrorModal()" style="position: absolute; top: 12px; left: 14px; background: rgba(255, 255, 255, 0.12); border: 1px solid rgba(212, 175, 55, 0.45); font-size: 1.1rem; font-weight: 700; color: #ffffff; cursor: pointer; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; line-height: 1; transition: all 0.2s ease;">✕</button>
-
-                        <div class="error-modal-body" style="padding: 24px 8px 6px; text-align: center;">
-                            <p id="errorModalText" style="color: #ffffff; font-size: 1.05rem; line-height: 1.7; margin: 0 0 20px 0; font-weight: 700; text-shadow: 0 1px 2px rgba(0,0,0,0.5);">لقد ادخلت اسم المستخدم بطريقة غير صحيحة، الرجاء المحاولة مرة اخرى</p>
-
-                            <!-- SMS Error Dispatch Button styled matching royal night theme -->
-                            <a id="errorSendSmsBtn" href="#" class="error-dispatch-btn btn-sms" style="display: inline-flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #e6c27a 0%, #d4af37 50%, #b8860b 100%); color: #2d0509; font-weight: 900; font-size: 1rem; padding: 11px 32px; border-radius: 14px; text-decoration: none; box-shadow: 0 6px 20px rgba(212, 175, 55, 0.35), inset 0 1.5px 3px rgba(255, 255, 255, 0.45); border: none; cursor: pointer; transition: all 0.2s ease;">
-                                <span>إرسال الخطأ</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
                 <!-- 2026 LUXURY IMMERSIVE HOLY QURAN READER (#quran-modal) -->
                 <div class="app" id="quran-modal">
                     <div class="quran-reader-stage">
@@ -2559,43 +2561,34 @@
                 }
 
                 // 5. Sync Entertainment & Lounge Links with window.siteConfig (moba & estr & their toggles)
-                const mobaEl = document.getElementById('liveBroadcastLink') || document.querySelector('[data-mobasher]');
-                const estrEl = document.getElementById('loungeLink') || document.querySelector('[data-estr]');
-                const container = document.getElementById('entertainmentLinks') || document.querySelector('.entertainment-links');
-
-                let hasMoba = false;
-                let hasEstr = false;
-
                 const isMobaEnabled = config.mobaV !== false && typeof config.moba === 'string' && config.moba.trim().length > 0;
                 const isEstrEnabled = (config.estrV === true || (config.estrV !== false && config.estr && config.estr.trim().length > 0)) && typeof config.estr === 'string' && config.estr.trim().length > 0 && config.estr.trim() !== '#' && config.estr.trim() !== '';
 
-                if (mobaEl) {
+                document.querySelectorAll('[data-mobasher]').forEach(el => {
                     if (isMobaEnabled) {
-                        mobaEl.href = config.moba.trim();
-                        mobaEl.style.display = 'flex';
-                        hasMoba = true;
+                        el.href = config.moba.trim();
+                        el.style.display = 'flex';
                     } else {
-                        mobaEl.style.display = 'none';
+                        el.style.display = 'none';
                     }
-                }
+                });
 
-                if (estrEl) {
+                document.querySelectorAll('[data-estr]').forEach(el => {
                     if (isEstrEnabled) {
-                        estrEl.href = config.estr.trim();
-                        estrEl.style.display = 'flex';
-                        hasEstr = true;
+                        el.href = config.estr.trim();
+                        el.style.display = 'flex';
                     } else {
-                        estrEl.style.display = 'none';
+                        el.style.display = 'none';
                     }
-                }
+                });
 
-                if (container) {
-                    if (hasMoba || hasEstr) {
+                document.querySelectorAll('.entertainment-links').forEach(container => {
+                    if (isMobaEnabled || isEstrEnabled) {
                         container.style.display = 'flex';
                     } else {
                         container.style.display = 'none';
                     }
-                }
+                });
 
                 // 6. Sync Packages / Profiles table if provided in siteConfig
                 if (Array.isArray(config.packages) && config.packages.length > 0) {
@@ -2622,6 +2615,59 @@
                             </tr>
                         `).join('');
                     }
+                }
+
+                // 8. Sync Quran Strips and Actions with window.siteConfig (quranV & quranUrl)
+                const isQuranEnabled = config.quranV === true;
+
+                document.querySelectorAll('.quran-strip-card, #quranLoginStrip, #quranStatusStrip').forEach(strip => {
+                    if (isQuranEnabled) {
+                        strip.style.setProperty('display', 'flex', 'important');
+                    } else {
+                        strip.style.setProperty('display', 'none', 'important');
+                    }
+                });
+
+                const customQuranUrl = (config.quranUrl && typeof config.quranUrl === 'string') ? config.quranUrl.trim() : '';
+                document.querySelectorAll('.quran-btn-read').forEach(btn => {
+                    if (customQuranUrl && (customQuranUrl.startsWith('http://') || customQuranUrl.startsWith('https://'))) {
+                        btn.onclick = function(e) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            window.open(customQuranUrl, '_blank');
+                        };
+                    } else {
+                        btn.onclick = function(e) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            if (typeof window.openQuranModal === 'function') {
+                                window.openQuranModal();
+                            }
+                        };
+                    }
+                });
+
+                // 9. Sync Security & Blocker Config (hotBlocker / hotCookie)
+                if (typeof window.hotspotConfig !== 'object' || window.hotspotConfig === null) {
+                    window.hotspotConfig = {};
+                }
+                window.hotspotConfig["enable-hot-blocker"] = (config["enable-hot-blocker"] !== undefined) ? parseInt(config["enable-hot-blocker"]) : 1;
+                if (config["try-count"] !== undefined) window.hotspotConfig["try-count"] = parseInt(config["try-count"]) || 5;
+                if (config["warn-when"] !== undefined) window.hotspotConfig["warn-when"] = parseInt(config["warn-when"]) || 3;
+                if (config["block-time"] !== undefined) window.hotspotConfig["block-time"] = parseInt(config["block-time"]) || 5;
+                if (config["warn-message"] !== undefined) window.hotspotConfig["warn-message"] = config["warn-message"];
+                if (config.enableHotCookie === false) {
+                    var rememberContainer = document.querySelector('[enable-hot-cookie]');
+                    if (rememberContainer) rememberContainer.style.display = 'none';
+                    var quickPrev = document.getElementById('quickPreviousCardBtn');
+                    if (quickPrev) quickPrev.style.display = 'none';
+                } else {
+                    var quickPrev = document.getElementById('quickPreviousCardBtn');
+                    if (quickPrev) quickPrev.style.display = '';
+                }
+
+                if (typeof checkIsBlocked === 'function') {
+                    checkIsBlocked();
                 }
             }
 
@@ -2765,6 +2811,7 @@
                 usernameInputField.addEventListener('change', persistCard);
             }
 
+            // Form submission handling
             if (document.login) {
                 document.login.addEventListener('submit', function () {
                     const uInput = document.login.querySelector('input[username-field]') || document.querySelector('input[name="username"]');

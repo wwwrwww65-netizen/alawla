@@ -1350,22 +1350,21 @@ input[name="username"] {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 5px;
-  padding: 6px 11px;
-  height: 34px;
+  padding: 4px 8px;
+  height: 28px;
   background: linear-gradient(135deg,
       rgba(136, 19, 55, 0.09) 0%,
       rgba(212, 175, 55, 0.14) 100%);
-  border: 1.2px solid rgba(136, 19, 55, 0.25);
-  border-radius: 9px;
+  border: 1px solid rgba(136, 19, 55, 0.22);
+  border-radius: 7px;
   color: #881337;
   font-family: var(--font-main);
-  font-size: 0.76rem;
+  font-size: 0.70rem;
   font-weight: 800;
   white-space: nowrap;
   cursor: pointer;
   transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
   user-select: none;
 }
 
@@ -3272,35 +3271,38 @@ select.tcs option {
 }
 
 /* ==========================================================================
-   TOAST NOTIFICATIONS (.error-container, #error)
+   TOAST NOTIFICATIONS (.error-container, #error-toast, #blocker-warning-toast)
    ========================================================================== */
 
 .error-container {
   position: fixed;
-  top: -120px;
+  top: -260px;
   right: 50%;
   transform: translateX(50%);
   z-index: 1000;
-  width: calc(100% - 32px);
-  max-width: 460px;
+  width: calc(100% - 24px);
+  max-width: 440px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
   transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   pointer-events: none;
 }
 
 .error-container.active {
-  top: 16px;
+  top: 14px;
   pointer-events: auto;
 }
 
 .error-container.zoom {
-  transform: translateX(50%) scale(1.02);
+  transform: translateX(50%) scale(1.01);
 }
 
 .error {
   background: #FFFFFF;
   border: 1px solid #E2E8F0;
-  border-radius: 16px;
-  padding: 12px 16px;
+  border-radius: 14px;
+  padding: 12px 14px;
   box-shadow:
     0 10px 30px rgba(15, 23, 42, 0.12),
     0 2px 6px rgba(15, 23, 42, 0.04);
@@ -3314,11 +3316,19 @@ select.tcs option {
   overflow: hidden;
   direction: rtl;
   font-family: 'Almarai', 'Tajawal', sans-serif;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.toast-body-content {
+  flex: 1;
+  min-width: 0;
+  text-align: right;
 }
 
 .toast-icon-wrap {
-  width: 32px;
-  height: 32px;
+  width: 34px;
+  height: 34px;
   border-radius: 10px;
   background: #EFF6FF;
   border: 1px solid #DBEAFE;
@@ -3334,30 +3344,117 @@ select.tcs option {
   fill: #1E88E5;
 }
 
+.toast-icon-wrap.error-icon {
+  background: #FEF2F2;
+  border-color: #FEE2E2;
+}
+
+.toast-icon-wrap.error-icon svg {
+  fill: #EF4444;
+}
+
 .error p#error {
   color: #0F172A;
-  font-size: 0.92rem;
+  font-size: 0.90rem;
   font-weight: 700;
-  line-height: 1.4;
+  line-height: 1.45;
   margin: 0;
 }
 
-.error::after {
+.error-toast-primary::after {
   content: "";
   position: absolute;
   bottom: 0;
   right: 0;
   left: 0;
   height: 3px;
-  background: linear-gradient(90deg, #1E88E5 0%, #1565C0 100%);
-  animation: toastTimer 4s linear forwards;
+  background: linear-gradient(90deg, #EF4444 0%, #DC2626 100%);
+  animation: toastTimer 5s linear forwards;
+}
+
+/* Secondary Blocker Warning Toast (تنبيه التحذير أسفل تنبيه الخطأ) */
+.blocker-warning-toast {
+  background: #FFFBEB !important;
+  border: 1.5px solid #FCD34D !important;
+  box-shadow: 0 8px 24px rgba(217, 119, 6, 0.14) !important;
+  animation: slideDownWarning 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slideDownWarning {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.blocker-warning-toast .toast-icon-wrap.warning-icon {
+  background: #FEF3C7;
+  border-color: #FDE68A;
+}
+
+.blocker-warning-toast .toast-icon-wrap.warning-icon svg {
+  fill: #D97706;
+}
+
+.toast-badge-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.76rem;
+  font-weight: 800;
+  color: #B45309;
+  margin-bottom: 2px;
+}
+
+.warning-dot-pulse {
+  width: 7px;
+  height: 7px;
+  background: #F59E0B;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 0 rgba(245, 158, 11, 0.6);
+  animation: warningDotPulse 1.4s infinite;
+}
+
+@keyframes warningDotPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 6px rgba(245, 158, 11, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(245, 158, 11, 0);
+  }
+}
+
+.blocker-warning-toast p#blocker-warning-msg {
+  color: #92400E !important;
+  font-size: 0.88rem;
+  font-weight: 800;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.blocker-warning-toast::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #F59E0B 0%, #D97706 100%);
+  animation: toastTimer 5s linear forwards;
 }
 
 @keyframes toastTimer {
   from {
     width: 100%;
   }
-
   to {
     width: 0%;
   }
@@ -5276,4 +5373,34 @@ button.login-submit:hover,
   fill: #FFFFFF !important;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.25) !important;
   filter: none !important;
+}
+
+/* ==========================================================================
+   BLOCKED USER STATE - TOTAL UI ISOLATION (إخفاء الشريط السفلي وكل شيء عدا شاشة الحظر)
+   ========================================================================== */
+body.user-is-blocked #bottomNav,
+body.user-is-blocked .bottom-nav-bar,
+body.user-is-blocked #quickPreviousCardBtn,
+body.user-is-blocked #login,
+body.user-is-blocked .main-login-section,
+body.user-is-blocked #status,
+body.user-is-blocked #info,
+body.user-is-blocked #contact,
+body.user-is-blocked .custom-modal,
+body.user-is-blocked .modal-overlay,
+body.user-is-blocked .error-container,
+body.user-is-blocked .announcement-banner-wrapper {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+body.user-is-blocked #block {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  z-index: 99999 !important;
+  margin-bottom: 30px !important;
 }

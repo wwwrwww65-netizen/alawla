@@ -390,7 +390,8 @@
         // 1. Try API (when running with backend)
         try {
             const resp = await fetch('/api/quran/info');
-            if (resp.ok) {
+            const cType = resp.headers.get('content-type') || '';
+            if (resp.ok && cType.includes('application/json')) {
                 const json = await resp.json();
                 if (json.totalPages) totalPages = json.totalPages;
                 if (json.surahs && json.surahs.length) {
@@ -406,12 +407,18 @@
         try {
             const jsonResp = await fetch('js/quran-surahs.json').catch(() => fetch('/js/quran-surahs.json'));
             if (jsonResp && jsonResp.ok) {
-                const json = await jsonResp.json();
-                if (Array.isArray(json) && json.length > 0) {
-                    surahList = json;
-                    populateSurahsDropdown(surahList);
-                    syncSurahSelect(pageNum);
-                    return;
+                const cType = jsonResp.headers.get('content-type') || '';
+                if (cType.includes('application/json') || cType === '') {
+                    const text = await jsonResp.text();
+                    try {
+                        const json = JSON.parse(text);
+                        if (Array.isArray(json) && json.length > 0) {
+                            surahList = json;
+                            populateSurahsDropdown(surahList);
+                            syncSurahSelect(pageNum);
+                            return;
+                        }
+                    } catch (err) {}
                 }
             }
         } catch (e) {}

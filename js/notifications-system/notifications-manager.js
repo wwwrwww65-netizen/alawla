@@ -188,7 +188,7 @@ window.NotificationsManager = {
         if (!container) {
             console.log('[Announcements] Container not found, creating one...');
             container = document.createElement('div');
-            container.id = CONTAINER_ID;
+            container.id = 'announcements-container';
             container.className = 'announcements-wrapper';
 
             if (document.body) {
