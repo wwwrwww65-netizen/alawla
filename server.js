@@ -160,13 +160,17 @@ app.all('/status', (req, res) => {
       username: username,
       ip: simulatedSession.ip,
       mac: simulatedSession.mac,
+      bytes_in: "194412544",
+      bytes_out: "936017920",
       bytes_in_nice: "185.4 MB",
       bytes_out_nice: "892.6 MB",
       uptime: "3h 45m",
-      remain_bytes_total: "3.2 GB",
+      remain_bytes_total: "3435973836",
       session_time_left: "6d 12h",
       spes: currentSpeed,
       sspeed: currentSpeed,
+      sps: currentSpeed + "_",
+      update: currentSpeed + "_",
       action: "onStatusQuery"
     });
   }

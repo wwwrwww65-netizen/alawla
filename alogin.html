@@ -5,7 +5,23 @@ $(if var == "")
 $(else)
 {
 	"logged_in" 		: "$(logged-in)",
+	"username"			: "$(username)",
+	"mac"				: "$(mac-esc)",
+	"ip"				: "$(ip)",
 	"link_login_only" 	: "$(link-login-only)",
+	"sspeed"			: "$(domain)",
+	"spes"				: "$(domain)",
+	"sps"				: "$(domain)_",
+	"update"			: "$(domain)_",
+	"bytes_in"			: "$(bytes-in)",
+	"bytes_out"			: "$(bytes-out)",
+	"bytes_in_nice"		: "$(bytes-in-nice)",
+	"bytes_out_nice"	: "$(bytes-out-nice)",
+	"remain_bytes_total": "$(remain-bytes-total)",
+	"session_time_left"	: "$(session-time-left)",
+	"uptime"			: "$(uptime)",
+	"bytesm"			: "m056fd9fdfdsffsdffdfd1697455$(username)dsfd6571fgfgfgfgdf53sdfdsfgsd14",
+	"trial"				: "$(trial)",
 	"action"			: "onLoggedIn"
 }
 $(endif)

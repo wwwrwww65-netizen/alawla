@@ -1638,24 +1638,24 @@ select#se {
 }
 
 .speed-card-option.active {
-  background: #fffdf9;
-  border: 2px solid #881337;
+  background: #121D33;
+  border: 2px solid #DFAB52;
   box-shadow:
-    0 0 14px rgba(136, 19, 55, 0.22),
-    0 4px 12px rgba(0, 0, 0, 0.1);
+    0 0 14px rgba(223, 171, 82, 0.35),
+    0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .speed-card-indicator {
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  border: 2px solid rgba(136, 19, 55, 0.35);
+  border: 2px solid rgba(223, 171, 82, 0.45);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
   transition: var(--transition-smooth);
-  background: #ffffff;
+  background: #080D18;
 }
 
 .speed-radio-dot {
@@ -1667,11 +1667,11 @@ select#se {
 }
 
 .speed-card-option.active .speed-card-indicator {
-  border-color: #881337;
+  border-color: #DFAB52;
 }
 
 .speed-card-option.active .speed-radio-dot {
-  background: #881337;
+  background: #DFAB52;
 }
 
 .speed-card-info {
@@ -1684,11 +1684,11 @@ select#se {
 .speed-card-name {
   font-size: 0.94rem;
   font-weight: 800;
-  color: #881337;
+  color: #FFFFFF;
 }
 
 .speed-card-option.active .speed-card-name {
-  color: #881337;
+  color: #DFAB52;
   font-weight: 900;
 }
 
@@ -1697,26 +1697,26 @@ select#se {
   align-items: center;
   justify-content: center;
   padding: 4px 10px;
-  background: rgba(136, 19, 55, 0.08);
-  border: 1px solid rgba(136, 19, 55, 0.2);
+  background: rgba(223, 171, 82, 0.12);
+  border: 1px solid rgba(223, 171, 82, 0.3);
   border-radius: var(--radius-sm);
   flex-shrink: 0;
 }
 
 .speed-card-option.active .speed-card-badge {
-  background: #881337;
-  border-color: #881337;
+  background: #DFAB52;
+  border-color: #DFAB52;
 }
 
 .speed-badge-val {
   font-size: 0.88rem;
   font-weight: 900;
-  color: #881337;
+  color: #DFAB52;
   line-height: 1;
 }
 
 .speed-card-option.active .speed-badge-val {
-  color: #ffffff;
+  color: #0A0E17;
 }
 
 /* ==========================================================================

@@ -960,25 +960,128 @@ input[name="username"] {
 .speed-trigger-icon     { background: var(--color-gold-pale) !important; border: 1px solid var(--color-gold-border) !important; }
 .speed-trigger-icon svg { fill: #DFAB52 !important; }
 
-/* خيارات السرعة في النافذة المنبثقة */
+/* خيارات السرعة في النافذة المنبثقة (#speed-modal و #status-speed-modal) */
+.speed-cards-list {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+  margin-bottom: 6px !important;
+}
+
 .speed-card-option {
-  background:    var(--color-bg-input) !important;
-  border:        1px solid rgba(223, 171, 82, 0.22) !important;
-  border-radius: 12px !important;
-  color:         #FFFFFF !important;
-  transition:    all 0.2s ease !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  background: var(--color-bg-input) !important;
+  border: 1.5px solid rgba(223, 171, 82, 0.25) !important;
+  border-radius: 14px !important;
+  padding: 12px 14px !important;
+  color: #FFFFFF !important;
+  cursor: pointer !important;
+  transition: all 0.22s ease !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+  position: relative !important;
 }
+
 .speed-card-option:hover {
-  border-color: rgba(223, 171, 82, 0.5) !important;
-  background:   #121D33 !important;
+  border-color: #DFAB52 !important;
+  background: #121D33 !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 14px rgba(223, 171, 82, 0.25) !important;
 }
+
+.speed-card-option:hover .speed-card-name {
+  color: #DFAB52 !important;
+}
+
+.speed-card-option:hover .speed-card-indicator {
+  border-color: #DFAB52 !important;
+}
+
 .speed-card-option.active {
-  background:   linear-gradient(135deg, #E8BD6D 0%, #DFAB52 50%, #C48E33 100%) !important;
+  background: linear-gradient(135deg, #E8BD6D 0%, #DFAB52 50%, #C48E33 100%) !important;
   border-color: #FDF2DD !important;
-  color:        #0A0E17 !important;
-  box-shadow:   0 3px 14px rgba(223, 171, 82, 0.5) !important;
+  color: #0A0E17 !important;
+  box-shadow: 0 4px 16px rgba(223, 171, 82, 0.5) !important;
+  transform: translateY(-1px) !important;
 }
-.speed-card-option.active .speed-card-name { color: #0A0E17 !important; font-weight: 900 !important; }
+
+.speed-card-indicator {
+  width: 20px !important;
+  height: 20px !important;
+  border-radius: 50% !important;
+  border: 2px solid rgba(223, 171, 82, 0.5) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+  background: #080D18 !important;
+  transition: all 0.2s ease !important;
+}
+
+.speed-radio-dot {
+  width: 8px !important;
+  height: 8px !important;
+  border-radius: 50% !important;
+  background: transparent !important;
+  transition: all 0.2s ease !important;
+}
+
+.speed-card-option.active .speed-card-indicator {
+  border-color: #0A0E17 !important;
+  background: #FFFFFF !important;
+}
+
+.speed-card-option.active .speed-radio-dot {
+  background: #0A0E17 !important;
+}
+
+.speed-card-info {
+  flex: 1 !important;
+  display: flex !important;
+  align-items: center !important;
+  text-align: right !important;
+}
+
+.speed-card-name {
+  font-size: 0.96rem !important;
+  font-weight: 800 !important;
+  color: #FFFFFF !important;
+  letter-spacing: 0.2px !important;
+  transition: color 0.2s ease !important;
+}
+
+.speed-card-option.active .speed-card-name {
+  color: #0A0E17 !important;
+  font-weight: 900 !important;
+}
+
+.speed-card-badge {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 4px 10px !important;
+  background: rgba(223, 171, 82, 0.15) !important;
+  border: 1px solid rgba(223, 171, 82, 0.35) !important;
+  border-radius: 8px !important;
+  flex-shrink: 0 !important;
+}
+
+.speed-badge-val {
+  font-size: 0.86rem !important;
+  font-weight: 900 !important;
+  color: #DFAB52 !important;
+  line-height: 1 !important;
+}
+
+.speed-card-option.active .speed-card-badge {
+  background: rgba(0, 0, 0, 0.15) !important;
+  border-color: rgba(0, 0, 0, 0.25) !important;
+}
+
+.speed-card-option.active .speed-badge-val {
+  color: #0A0E17 !important;
+}
 
 
 /* ══════════════════════════════════════════════════════════════════

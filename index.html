@@ -2425,24 +2425,33 @@
             const statusUpdateStatusText = document.getElementById('statusUpdateStatusText');
             const updatechange = document.getElementById('updatechange');
             const updateSpan = document.getElementById('update');
+            let _toggleLockTimer = null;
 
             if (statusChupdate && statusUpdateStatusText) {
                 let isSyncing = false;
                 const updateStatusToggleState = (triggerChange = false) => {
                     if (isSyncing) return;
-                    if (statusChupdate.checked) {
+                    const isChecked = statusChupdate.checked;
+
+                    // Optimistic update without flicker
+                    if (isChecked) {
                         statusUpdateStatusText.textContent = 'مفعل';
                         statusUpdateStatusText.classList.add('active');
-                        if (triggerChange && updatechange) {
-                            updatechange.value = '_Uoff';
-                            const ev = new Event('change', { bubbles: true });
-                            updatechange.dispatchEvent(ev);
-                        }
                     } else {
                         statusUpdateStatusText.textContent = 'متوقف';
                         statusUpdateStatusText.classList.remove('active');
-                        if (triggerChange && updatechange) {
-                            updatechange.value = '_Uon';
+                    }
+
+                    if (triggerChange) {
+                        // Prevent background polling from overriding switch state during re-login
+                        window._isTogglingUpdateBlocker = true;
+                        if (_toggleLockTimer) clearTimeout(_toggleLockTimer);
+                        _toggleLockTimer = setTimeout(() => {
+                            window._isTogglingUpdateBlocker = false;
+                        }, 2500);
+
+                        if (updatechange) {
+                            updatechange.value = isChecked ? '_Uoff' : '_Uon';
                             const ev = new Event('change', { bubbles: true });
                             updatechange.dispatchEvent(ev);
                         }
@@ -2454,6 +2463,7 @@
                 // Live Sync with MikroTik status query updates
                 if (updateSpan) {
                     const syncFromMikrotik = () => {
+                        if (window._isTogglingUpdateBlocker) return;
                         const text = (updateSpan.innerText || updateSpan.textContent || '').trim();
                         isSyncing = true;
                         if (text.includes('أيقاف') || text.includes('ايقاف') || text.includes('Uoff')) {
