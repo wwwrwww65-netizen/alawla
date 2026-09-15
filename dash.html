@@ -1273,6 +1273,27 @@
                                 </tbody>
                             </table>
                         </div>
+
+                        <!-- Fixed Speed Card Prefixes Control -->
+                        <div style="margin-top: 24px; padding: 18px 20px; background: rgba(59, 130, 246, 0.06); border: 1px dashed rgba(59, 130, 246, 0.35); border-radius: var(--radius-md);">
+                            <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 10px;">
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <div style="width: 36px; height: 36px; border-radius: 8px; background: rgba(59, 130, 246, 0.2); color: #60a5fa; display: flex; align-items: center; justify-content: center; font-size: 1.1rem;">
+                                        <i class="fas fa-lock"></i>
+                                    </div>
+                                    <div>
+                                        <div style="font-weight: 700; color: #fff; font-size: 0.98rem;">بادئات الكروت ذات السرعة الثابتة والمفتوحة (Fixed Speed Cards)</div>
+                                        <div style="color: var(--text-muted); font-size: 0.83rem;">الكروت التي تبدأ بهذه الأرقام يتم قفل اختيار السرعة لها تلقائياً واستخدام سرعة المايكروتك الأصلية</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group" style="margin-bottom: 0;">
+                                <label class="form-label" for="fixedSpeedPrefixesInput"><i class="fas fa-hashtag"></i> أرقام بداية الكروت (مفصولة بفاصلة)</label>
+                                <input type="text" class="form-control" id="fixedSpeedPrefixesInput" placeholder="مثال: 2, 3" oninput="updateFixedSpeedPrefixes(this.value)">
+                                <div class="form-hint" style="color: #93c5fd;"><i class="fas fa-info-circle"></i> عند إدخال المستخدم كرت يبدأ بـ <strong>2</strong> أو <strong>3</strong> يتم تعطيل شريط السرعات وتطبيق سرعة البروفايل المعينة في سيرفر المايكروتك.</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1688,6 +1709,9 @@
             if (appConfig["warn-when"] === undefined) appConfig["warn-when"] = 3;
             if (appConfig["block-time"] === undefined) appConfig["block-time"] = 5;
             if (appConfig["warn-message"] === undefined) appConfig["warn-message"] = "تبقى لك {{restTryCount}} محاولات قبل أن يتم حظرك لمدة {{blockTime}} دقائق";
+            if (!appConfig.fixedSpeedCardPrefixes || !Array.isArray(appConfig.fixedSpeedCardPrefixes)) {
+                appConfig.fixedSpeedCardPrefixes = ["2", "3"];
+            }
             if (!appConfig.supportPhone) appConfig.supportPhone = "738348945";
             if (!appConfig.whatsappPhone) appConfig.whatsappPhone = "967738348945";
             if (!appConfig.whatsappMsg) appConfig.whatsappMsg = "مرحبا خدمة عملاء شبكة {network-name} اللاسلكية";
@@ -1715,6 +1739,9 @@
             document.getElementById('mobaInput').value = appConfig.moba || '';
             document.getElementById('estrInput').value = appConfig.estr || '';
             document.getElementById('imageCountInput').value = appConfig.imageCount || '0';
+            if (document.getElementById('fixedSpeedPrefixesInput')) {
+                document.getElementById('fixedSpeedPrefixesInput').value = (appConfig.fixedSpeedCardPrefixes || ["2", "3"]).join(', ');
+            }
             
             // Offers Modal Fields
             document.getElementById('offersTitleInput').value = appConfig.offersTitle || '';
@@ -1881,6 +1908,13 @@
                 updateStats();
                 showToast('تم حذف السرعة', 'warning');
             }
+        }
+
+        function updateFixedSpeedPrefixes(val) {
+            const raw = (val || '').split(',');
+            const cleaned = raw.map(s => s.trim()).filter(s => s.length > 0);
+            appConfig.fixedSpeedCardPrefixes = cleaned.length > 0 ? cleaned : ["2", "3"];
+            saveToCache();
         }
 
         // PACKAGES

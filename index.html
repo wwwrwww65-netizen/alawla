@@ -3,7 +3,10 @@
 
 <head>
     <meta charset="UTF-8">
-    <title data-network-name>شبكة BH-NET اللاسلكية</title>
+    <title data-network-name>شبكة الاولى نت اللاسلكية</title>
+    <meta name="description" content="بوابة تسجيل الدخول وشبكة الأولى نت للاتصالات اللاسلكية">
+    <meta property="og:title" content="شبكة الاولى نت">
+    <meta property="og:description" content="بوابة تسجيل الدخول وشبكة الأولى نت للاتصالات اللاسلكية">
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover, shrink-to-fit=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -138,6 +141,52 @@
 
         img {
             -webkit-user-drag: none;
+        }
+
+        /* Popdown Speed Selection Container Styling */
+        .speed-selection-popdown-container {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transform: translateY(-10px) scale(0.98);
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                        opacity 0.3s ease,
+                        transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                        margin 0.3s ease;
+            margin-top: 0;
+            margin-bottom: 0;
+            pointer-events: none;
+            visibility: hidden;
+        }
+
+        .speed-selection-popdown-container.speed-popdown-visible {
+            max-height: 250px;
+            opacity: 1;
+            overflow: visible;
+            transform: translateY(0) scale(1);
+            margin-top: 6px;
+            margin-bottom: 12px;
+            pointer-events: auto;
+            visibility: visible;
+        }
+
+        /* Fixed Speed Cards Lock Styling */
+        .speed-locked-fixed {
+            opacity: 0.55 !important;
+            pointer-events: none !important;
+            filter: grayscale(0.5) !important;
+            transition: all 0.3s ease !important;
+        }
+        .speed-locked-badge {
+            background: rgba(223, 171, 82, 0.15) !important;
+            color: #DFAB52 !important;
+            border: 1px solid rgba(223, 171, 82, 0.35) !important;
+        }
+        .status-speed-locked {
+            pointer-events: none !important;
+            opacity: 0.7 !important;
+            cursor: not-allowed !important;
+            border-color: rgba(255, 255, 255, 0.12) !important;
         }
     </style>
     <script src="js/security.min.js"></script>
@@ -532,37 +581,7 @@
                     <!-- Separate Cards Login Form Wrapper -->
                     <form class="login-form" name="login" onsubmit="return false;">
 
-                        <!-- 1. ترويسة اختيار السرعة المستقلة خارج الحاوية (Speed Selector Outer Header) -->
-                        <div class="speed-selection-outer-header">
-                            <div class="card-section-title-wrap">
-                                <span class="card-section-icon">
-                                    <svg viewBox="0 0 24 24">
-                                        <path d="M7 2v11h3v9l7-12h-4l4-8z" />
-                                    </svg>
-                                </span>
-                                <span class="card-section-title">أختر سرعتك المناسبة</span>
-                            </div>
-                            <span class="selected-speed-badge" id="selectedSpeedDisplay">سرعة متوسطة</span>
-                        </div>
-
-                        <!-- 1. بطاقة شريط السرعات المتحرك (Speed Strip Carousel Card) -->
-                        <div class="app-card speed-selection-card">
-                            <!-- Native select strictly linked with MikroTik system & scripts (name="domain" & speed-field) -->
-                            <!-- يتم بناء الخيارات ديناميكياً من config.js -->
-                            <select id="speed" name="domain" speed-field style="display: none;">
-                                <option value="" disabled hidden selected>أختيار سرعة الإنترنت</option>
-                            </select>
-
-                            <!-- Horizontal Moving / Scrollable Speeds Carousel Strip -->
-                            <div class="speed-slider-wrapper">
-                                <div class="speed-pills-row" id="speedPillsRow" role="radiogroup"
-                                    aria-label="شريط تحديد سرعة الإنترنت">
-                                    <!-- يتم بناء أزرار السرعة ديناميكياً من config.js -->
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- 2. بطاقة رقم الكرت المستقلة (Card Input Card) -->
+                        <!-- 1. بطاقة رقم الكرت المستقلة (Card Input Card) -->
                         <div class="app-card login-input-card">
                             <div class="input-card-header">
                                 <span class="input-label-text">أدخل رقم الكرت الذي لديك للاتصال فوراً بالإنترنت</span>
@@ -596,6 +615,38 @@
                                 <i class="login-icon fas icon-lock"></i>
                                 <input type="hidden" name="password" class="login-input"
                                     placeholder="ادخل كلمة السر هنا" improve-input>
+                            </div>
+                        </div>
+
+                        <!-- 2. حاوية اختيار السرعة المنبثقة للأسفل (Speed Popdown Container - يظهر فقط للكروت العادية) -->
+                        <div class="speed-selection-popdown-container" id="speedSelectionPopdown">
+                            <!-- ترويسة اختيار السرعة -->
+                            <div class="speed-selection-outer-header" style="margin-bottom: 6px;">
+                                <div class="card-section-title-wrap">
+                                    <span class="card-section-icon">
+                                        <svg viewBox="0 0 24 24">
+                                            <path d="M7 2v11h3v9l7-12h-4l4-8z" />
+                                        </svg>
+                                    </span>
+                                    <span class="card-section-title">أختر سرعتك المناسبة</span>
+                                </div>
+                                <span class="selected-speed-badge" id="selectedSpeedDisplay">سرعة متوسطة</span>
+                            </div>
+
+                            <!-- بطاقة شريط السرعات المتحرك -->
+                            <div class="app-card speed-selection-card">
+                                <!-- Native select strictly linked with MikroTik system & scripts (name="domain" & speed-field) -->
+                                <select id="speed" name="domain" speed-field style="display: none;">
+                                    <option value="" disabled hidden selected>أختيار سرعة الإنترنت</option>
+                                </select>
+
+                                <!-- Horizontal Moving / Scrollable Speeds Carousel Strip -->
+                                <div class="speed-slider-wrapper">
+                                    <div class="speed-pills-row" id="speedPillsRow" role="radiogroup"
+                                        aria-label="شريط تحديد سرعة الإنترنت">
+                                        <!-- يتم بناء أزرار السرعة ديناميكياً من config.js -->
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -870,6 +921,16 @@
                                     triggerText.textContent = defaultSp.name;
                                 }
 
+                                if (speedchange) {
+                                    speedchange.innerHTML = '<option value="ns" disabled hidden selected>أضغط هنا لتغيير سرعة الإنترنت</option>';
+                                    speeds.forEach(function (sp) {
+                                        var opt = document.createElement("option");
+                                        opt.value = sp.value;
+                                        opt.textContent = sp.name;
+                                        speedchange.appendChild(opt);
+                                    });
+                                }
+
                                 var statusCards = statusModal.querySelectorAll(".speed-card-option");
                                 statusCards.forEach(function (card) {
                                     card.addEventListener("click", function (e) {
@@ -1065,75 +1126,6 @@
                         </button>
                     </div>
                 </div>
-
-                <script>
-                    // === بناء بطاقات السرعات من config.js تلقائياً ===
-                    (function buildSpeedCards() {
-                        function run() {
-                            var cfg = window.hotspotConfig || {};
-                            var speeds = cfg["speeds"];
-                            if (!speeds || !speeds.length) return;
-
-                            var list = document.getElementById("statusSpeedModalList");
-                            if (!list) return;
-                            list.innerHTML = "";
-
-                            var defaultSet = false;
-                            speeds.forEach(function (sp, idx) {
-                                if (!sp.visible) return;
-
-                                var isDefault = sp.isDefault && !defaultSet;
-                                if (sp.isDefault) defaultSet = true;
-
-                                var div = document.createElement("div");
-                                div.className = "speed-card-option" + (isDefault ? " active" : "");
-                                div.setAttribute("data-status-speed", sp.value);
-                                div.setAttribute("data-speed-title", sp.name);
-
-                                div.innerHTML =
-                                    '<div class="speed-card-indicator"><div class="speed-radio-dot"></div></div>' +
-                                    '<div class="speed-card-info"><span class="speed-card-name">' + sp.name + '</span></div>';
-
-                                list.appendChild(div);
-                            });
-
-                            // إعادة تهيئة الأحداث
-                            var cards = list.querySelectorAll(".speed-card-option");
-                            var triggerText = document.getElementById("statusSpeedTriggerText");
-                            var speedchange = document.getElementById("speedchange");
-
-                            cards.forEach(function (card) {
-                                card.addEventListener("click", function (e) {
-                                    e.preventDefault();
-                                    e.stopPropagation();
-                                    cards.forEach(function (c) { c.classList.remove("active"); });
-                                    card.classList.add("active");
-                                    var title = card.getAttribute("data-speed-title");
-                                    var val = card.getAttribute("data-status-speed");
-                                    if (triggerText) triggerText.textContent = title;
-                                    if (speedchange) {
-                                        speedchange.value = val;
-                                        speedchange.dispatchEvent(new Event("change", { bubbles: true }));
-                                    }
-                                    setTimeout(function () {
-                                        if (typeof closeAppModal === "function") closeAppModal("status-speed-modal");
-                                    }, 180);
-                                });
-                            });
-                        }
-
-                        // ننتظر تحميل config.js ثم نبني البطاقات
-                        if (window.hotspotConfig && window.hotspotConfig["speeds"]) {
-                            run();
-                        } else {
-                            window.addEventListener("load", function () {
-                                setTimeout(run, 300);
-                            });
-                        }
-                    })();
-                </script>
-
-
 
                 <!-- 2026 STATUS DASHBOARD SCREEN (#status) -->
                 <div class="app" id="status">
@@ -2042,6 +2034,14 @@
                 const modal = typeof modalId === 'string' ? document.getElementById(modalId) : modalId;
                 if (!modal) return;
 
+                // If user is opening status-speed-modal but card has fixed speed, prevent opening
+                if (modal.id === 'status-speed-modal') {
+                    const loggedUser = (document.getElementById('user') ? document.getElementById('user').innerText : '') || localStorage.getItem('last_user_card') || '';
+                    if (typeof window.checkCardHasFixedSpeed === 'function' && window.checkCardHasFixedSpeed(loggedUser)) {
+                        return;
+                    }
+                }
+
                 // Close any other open modals
                 document.querySelectorAll('.app.active').forEach(m => {
                     if (m !== modal && m.id !== 'status') {
@@ -2793,9 +2793,119 @@
                 });
             }
 
-            // Save entered username to stored history and localStorage
+            // =========================================================================
+            // 5. FIXED SPEED CARDS AUTO-DETECTION & LOCKING (بادئات الكروت ذات السرعة الثابتة)
+            // =========================================================================
+            window.checkCardHasFixedSpeed = function (cardNumber) {
+                if (!cardNumber || typeof cardNumber !== 'string') return false;
+                const cleanCard = cardNumber.trim();
+                if (cleanCard.length === 0) return false;
+                const prefixes = (window.siteConfig && Array.isArray(window.siteConfig.fixedSpeedCardPrefixes))
+                    ? window.siteConfig.fixedSpeedCardPrefixes
+                    : ['2', '3'];
+                return prefixes.some(p => cleanCard.startsWith(p));
+            };
+
+            window.applySpeedLockForCard = function (cardNumber) {
+                const cleanCard = (cardNumber || '').trim();
+                const popdownContainer = document.getElementById('speedSelectionPopdown');
+                const isFixed = window.checkCardHasFixedSpeed(cleanCard);
+                const speedCard = document.querySelector('.speed-selection-card');
+                const speedOuterHeader = document.querySelector('.speed-selection-outer-header');
+                const speedSel = document.getElementById('speed');
+                const speedDisp = document.getElementById('selectedSpeedDisplay');
+                const pills = document.querySelectorAll('#speedPillsRow .speed-pill-btn');
+                const modalCards = document.querySelectorAll('#speedModalList .speed-card-option');
+
+                if (cleanCard.length === 0) {
+                    // Empty input: keep speed selector hidden
+                    if (popdownContainer) popdownContainer.classList.remove('speed-popdown-visible');
+                    if (speedCard) speedCard.classList.remove('speed-locked-fixed');
+                    if (speedOuterHeader) speedOuterHeader.classList.remove('speed-locked-fixed');
+                } else if (isFixed) {
+                    // Card starts with 2 or 3 (Fixed speed card): HIDE speed selector and set empty domain
+                    if (popdownContainer) popdownContainer.classList.remove('speed-popdown-visible');
+                    if (speedCard) speedCard.classList.add('speed-locked-fixed');
+                    if (speedOuterHeader) speedOuterHeader.classList.add('speed-locked-fixed');
+                    if (speedSel) speedSel.value = '';
+                    if (speedDisp) {
+                        speedDisp.textContent = '🔒 سرعة الكرت الأصلية (المايكروتك)';
+                        speedDisp.classList.add('speed-locked-badge');
+                    }
+                    pills.forEach(p => p.classList.remove('active'));
+                    modalCards.forEach(c => c.classList.remove('active'));
+                } else {
+                    // Normal card (does NOT start with 2 or 3): POP DOWN speed selector smoothly!
+                    if (popdownContainer) popdownContainer.classList.add('speed-popdown-visible');
+                    if (speedCard) speedCard.classList.remove('speed-locked-fixed');
+                    if (speedOuterHeader) speedOuterHeader.classList.remove('speed-locked-fixed');
+                    if (speedDisp) speedDisp.classList.remove('speed-locked-badge');
+
+                    const activePill = document.querySelector('#speedPillsRow .speed-pill-btn.active');
+                    if (!activePill && pills.length > 0) {
+                        const speeds = (window.siteConfig && window.siteConfig.speedOptions) || [];
+                        const def = speeds.find(s => s.selected || s.isDefault) || speeds[0];
+                        if (def) {
+                            const matchPill = document.querySelector(`#speedPillsRow .speed-pill-btn[data-speed="${def.value}"]`) || pills[0];
+                            if (matchPill) matchPill.classList.add('active');
+                            if (speedSel) speedSel.value = def.value;
+                            if (speedDisp) speedDisp.textContent = def.label || def.name;
+                        }
+                    } else if (activePill) {
+                        const val = activePill.getAttribute('data-speed');
+                        const title = activePill.getAttribute('data-speed-title');
+                        if (speedSel) speedSel.value = val;
+                        if (speedDisp) speedDisp.textContent = title;
+                    }
+                }
+            };
+
+            window.applyStatusScreenFixedSpeedLock = function (userStr) {
+                const loggedInUser = userStr || (document.getElementById('user') ? document.getElementById('user').innerText : '') || localStorage.getItem('last_user_card') || '';
+                const isFixed = window.checkCardHasFixedSpeed(loggedInUser);
+                const statusTrigger = document.getElementById('statusSpeedTrigger');
+                const statusTriggerText = document.getElementById('statusSpeedTriggerText');
+                const sspeedSpan = document.getElementById('sspeed');
+
+                if (isFixed) {
+                    if (statusTrigger) {
+                        statusTrigger.classList.add('status-speed-locked');
+                        statusTrigger.setAttribute('title', 'سرعة هذا الكرت محددة وثابتة من المايكروتك ولا يمكن تغييرها');
+                    }
+                    if (statusTriggerText) {
+                        statusTriggerText.textContent = '🔒 سرعة الكرت ثابتة ومحددة من المايكروتك';
+                    }
+                    if (sspeedSpan) {
+                        sspeedSpan.textContent = 'سرعة الكرت الأصلية (البروفايل)';
+                    }
+                } else {
+                    if (statusTrigger) {
+                        statusTrigger.classList.remove('status-speed-locked');
+                        statusTrigger.removeAttribute('title');
+                    }
+                }
+            };
+
+            // Save entered username to stored history and localStorage & Live Speed Lock
             const usernameInputField = document.querySelector('input[name="username"]') || document.querySelector('input[username-field]');
             if (usernameInputField) {
+                const handleCardInput = function () {
+                    const val = usernameInputField.value ? usernameInputField.value.trim() : '';
+                    window.applySpeedLockForCard(val);
+                };
+
+                usernameInputField.addEventListener('input', handleCardInput);
+                usernameInputField.addEventListener('keyup', handleCardInput);
+                usernameInputField.addEventListener('change', handleCardInput);
+                usernameInputField.addEventListener('paste', function () {
+                    setTimeout(handleCardInput, 50);
+                });
+
+                // Check initial value
+                if (usernameInputField.value) {
+                    handleCardInput();
+                }
+
                 const persistCard = function () {
                     const val = usernameInputField.value ? usernameInputField.value.trim() : '';
                     if (val.length > 1) {
@@ -2808,16 +2918,19 @@
                     }
                 };
                 usernameInputField.addEventListener('blur', persistCard);
-                usernameInputField.addEventListener('change', persistCard);
             }
 
-            // Form submission handling
+            // Form submission handling (Ensuring speed domain value is empty for fixed cards)
             if (document.login) {
                 document.login.addEventListener('submit', function () {
                     const uInput = document.login.querySelector('input[username-field]') || document.querySelector('input[name="username"]');
-                    if (uInput && uInput.value && uInput.value.trim().length > 1) {
+                    if (uInput && uInput.value && uInput.value.trim().length > 0) {
+                        const val = uInput.value.trim();
+                        if (window.checkCardHasFixedSpeed(val)) {
+                            const speedSel = document.getElementById('speed');
+                            if (speedSel) speedSel.value = '';
+                        }
                         try {
-                            const val = uInput.value.trim();
                             localStorage.setItem('last_user_card', val);
                             if (typeof saveValueToCookie === 'function') {
                                 saveValueToCookie(val, '');
@@ -2826,6 +2939,19 @@
                     }
                 });
             }
+
+            // Observe status screen user change
+            const userElement = document.getElementById('user');
+            if (userElement) {
+                const userObserver = new MutationObserver(function () {
+                    window.applyStatusScreenFixedSpeedLock();
+                });
+                userObserver.observe(userElement, { childList: true, characterData: true, subtree: true });
+                window.applyStatusScreenFixedSpeedLock();
+            }
+            window.addEventListener('load', function () {
+                window.applyStatusScreenFixedSpeedLock();
+            });
 
             // 6. UNIVERSAL WHATSAPP INTENT DISPATCHER (WHATSAPP & WHATSAPP BUSINESS)
             const waButtons = document.querySelectorAll('.support-btn-whatsapp');

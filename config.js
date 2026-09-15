@@ -8,40 +8,36 @@ window.siteConfig = {
     "supportPhone": "733088846",
     "whatsappPhone": "967779744206",
     "whatsappMsg": "مرحبا خدمة عملاء شبكة {network-name} اللاسلكية",
+    "fixedSpeedCardPrefixes": ["2", "3"],
     "speedOptions": [
         {
-            "value": "",
-            "label": "كرت هوتسبوت",
+            "value": "512K/1M",
+            "label": "سرعة أفتراضية",
+            "selected": true
+        },
+        {
+            "value": "256K/512K***",
+            "label": "سرعة أقتصادية",
             "selected": false
         },
         {
-            "value": "3M/4M",
-            "label": "سرعة اقتصادية",
+            "value": "512K/1532K***",
+            "label": "سرعة متوسطة",
             "selected": false
         },
         {
-            "value": "3M/5M",
+            "value": "512K/1024k|0|pm|all|*no**|non***",
             "label": "سرعة عادية",
             "selected": false
         },
         {
-            "value": "3M/7M",
-            "label": "سرعة متوسطة",
-            "selected": true
-        },
-        {
-            "value": "3M/8M",
+            "value": "1M/4M",
             "label": "سرعة عالية",
             "selected": false
         },
         {
-            "value": "3M/16M",
-            "label": "سرعة عالية جدا",
-            "selected": false
-        },
-        {
-            "value": "4M/30M",
-            "label": "سرعة خارقة",
+            "value": "1M/8M",
+            "label": "سرعة فائقة",
             "selected": false
         }
     ],

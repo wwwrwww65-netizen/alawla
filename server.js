@@ -116,9 +116,11 @@ app.all('/login', (req, res) => {
   }
 
   // Any other card succeeds in simulation!
+  const domain = (req.query.domain || req.body?.domain || '3M/7M_Uon').trim();
   simulatedSession = {
     logged_in: true,
     username: username,
+    domain: domain,
     loginTime: Date.now(),
     ip: req.ip || "192.168.88.100",
     mac: "70:85:C2:A1:3B:9E"
@@ -133,6 +135,7 @@ app.all('/login', (req, res) => {
   return res.json({
     logged_in: "yes",
     username: username,
+    domain: domain,
     link_only: "http://1.1.1.1/status",
     link_login_only: "http://1.1.1.1/login",
     link_logout: "http://1.1.1.1/logout",
@@ -148,6 +151,7 @@ app.all('/login', (req, res) => {
 app.all('/status', (req, res) => {
   const isAjax = req.headers.accept?.includes('application/json') || req.query.var !== undefined || req.xhr;
   const username = req.query.username || simulatedSession.username || "770807777";
+  const currentSpeed = req.query.domain || simulatedSession.domain || "3M/7M_Uon";
 
   if (isAjax) {
     res.setHeader('Content-Type', 'application/json');
@@ -161,7 +165,8 @@ app.all('/status', (req, res) => {
       uptime: "3h 45m",
       remain_bytes_total: "3.2 GB",
       session_time_left: "6d 12h",
-      sspeed: "10M_Uon",
+      spes: currentSpeed,
+      sspeed: currentSpeed,
       action: "onStatusQuery"
     });
   }
