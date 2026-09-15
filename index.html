@@ -1246,7 +1246,7 @@
                         </div>
 
                         <!-- Speed Change Card with White Background & Maroon Text -->
-                        <div class="statusdiv">
+                        <div class="statusdiv" id="statusSpeedChangeContainer">
                             <div
                                 style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
                                 <span class="status-metric-label">
@@ -3100,11 +3100,32 @@
             };
 
             window.applyStatusScreenFixedSpeedLock = function (userStr) {
-                const loggedInUser = userStr || (document.getElementById('user') ? document.getElementById('user').innerText : '') || localStorage.getItem('last_user_card') || '';
-                const isFixed = window.checkCardHasFixedSpeed(loggedInUser);
-                const statusTrigger = document.getElementById('statusSpeedTrigger');
-                const statusTriggerText = document.getElementById('statusSpeedTriggerText');
-                const sspeedSpan = document.getElementById('sspeed');
+                var loggedInUser = (userStr && typeof userStr === 'string' ? userStr : '') ||
+                    (typeof un !== 'undefined' && un && un.username ? un.username : '') ||
+                    localStorage.getItem('last_user_card') ||
+                    localStorage.getItem('hotspot_username') ||
+                    localStorage.getItem('username') ||
+                    (typeof getLoginCardCookie === 'function' && getLoginCardCookie() ? getLoginCardCookie().username : '') ||
+                    (document.login && document.login.querySelector('input[username-field]') ? document.login.querySelector('input[username-field]').value : '') ||
+                    (document.getElementById('user') ? document.getElementById('user').innerText : '') ||
+                    (document.getElementById('username') ? document.getElementById('username').innerText : '') || '';
+
+                loggedInUser = (loggedInUser || '').trim();
+                var isFixed = window.checkCardHasFixedSpeed(loggedInUser);
+                var statusSpeedContainer = document.getElementById('statusSpeedChangeContainer') || document.querySelector('#status .statusdiv');
+                var statusTrigger = document.getElementById('statusSpeedTrigger');
+                var statusTriggerText = document.getElementById('statusSpeedTriggerText');
+                var sspeedSpan = document.getElementById('sspeed');
+
+                if (statusSpeedContainer) {
+                    if (isFixed) {
+                        statusSpeedContainer.style.setProperty('display', 'none', 'important');
+                        statusSpeedContainer.classList.add('speed-locked-fixed');
+                    } else {
+                        statusSpeedContainer.style.removeProperty('display');
+                        statusSpeedContainer.classList.remove('speed-locked-fixed');
+                    }
+                }
 
                 if (isFixed) {
                     if (statusTrigger) {
@@ -3131,6 +3152,7 @@
                 const handleCardInput = function () {
                     const val = usernameInputField.value ? usernameInputField.value.trim() : '';
                     window.applySpeedLockForCard(val);
+                    window.applyStatusScreenFixedSpeedLock(val);
                 };
 
                 usernameInputField.addEventListener('input', handleCardInput);
@@ -3155,6 +3177,7 @@
                             }
                         } catch (err) { }
                     }
+                    window.applyStatusScreenFixedSpeedLock(val);
                 };
                 usernameInputField.addEventListener('blur', persistCard);
             }
