@@ -113,7 +113,7 @@ body {
   background:    linear-gradient(155deg, #070C16 0%, #0A1222 50%, #050810 100%) !important;
   border:        1.5px solid rgba(223, 171, 82, 0.42) !important;
   border-radius: 22px !important;
-  padding:       12px 14px 10px 14px !important;
+  padding:       16px 16px 10px 16px !important;
   margin-bottom: 14px !important;
   box-shadow:    0 10px 32px rgba(0, 0, 0, 0.65), 0 0 24px rgba(223, 171, 82, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
   width:         100% !important;
@@ -150,7 +150,7 @@ body {
   direction:       rtl !important;
   position:        relative !important;
   z-index:         3 !important;
-  margin-bottom:   4px !important;
+  margin-bottom:   6px !important;
 }
 
 /* شارة متصل الفاخرة */
@@ -596,7 +596,7 @@ button.login-submit:hover,
   display: flex !important;
   align-items: center !important;
   justify-content: space-between !important;
-  margin-bottom: 8px !important;
+  margin-bottom: 5px !important;
   padding: 0 4px !important;
   gap: 8px !important;
   width: 100% !important;
@@ -604,7 +604,8 @@ button.login-submit:hover,
 }
 
 .speed-selection-card {
-  padding: 10px 12px !important;
+  padding: 6px 10px !important;
+  margin-bottom: 10px !important;
 }
 
 .login-input-card {
@@ -733,7 +734,7 @@ button.login-submit:hover,
   scroll-behavior: smooth !important;
   gap: 8px !important;
   width: 100% !important;
-  padding: 4px 2px 6px 2px !important;
+  padding: 2px 2px 2px 2px !important;
   scrollbar-width: none !important;
   -ms-overflow-style: none !important;
   -webkit-overflow-scrolling: touch !important;
@@ -744,19 +745,23 @@ button.login-submit:hover,
   display: none !important;
 }
 
-/* زر السرعة غير المحددة (داكن مع خط نحيف ونصوص بيضاء كما في الصورة) */
+/* زر السرعة غير المحددة (يظهر زرين ونصف بالضبط في الشاشة ليحفز المستخدم على التمرير الأفقي) */
 .speed-pill-btn {
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
-  gap: 6px !important;
-  flex: 0 0 auto !important;
-  padding: 7px 15px !important;
+  gap: 5px !important;
+  flex: 0 0 calc((100% - 16px) / 2.5) !important;
+  width: calc((100% - 16px) / 2.5) !important;
+  min-width: calc((100% - 16px) / 2.5) !important;
+  max-width: calc((100% - 16px) / 2.5) !important;
+  padding: 5px 6px !important;
+  min-height: 32px !important;
   border-radius: 9999px !important;
   background: #080D18 !important;
   border: 1px solid rgba(223, 171, 82, 0.28) !important;
   color: #F1F5F9 !important; /* أبيض ثلجي واضح */
-  font-size: 13.5px !important;
+  font-size: 12.5px !important;
   font-weight: 700 !important;
   cursor: pointer !important;
   transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1) !important;
@@ -782,11 +787,14 @@ button.login-submit:hover,
 }
 
 .speed-pill-btn .pill-text {
-  font-size: 13px !important;
+  font-size: 12px !important;
   font-weight: 700 !important;
   line-height: 1 !important;
   color: #F1F5F9 !important;
   white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  text-align: center !important;
 }
 
 /* زر السرعة المحددة والمفعلة — ذهبي عسلي دافئ غني (50 Mbps في الشيباني نت) */
@@ -2065,6 +2073,85 @@ tbody td:first-child {
 
 .metric-val.cyan {
   color: #DFAB52 !important;
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   أزرار البث المباشر والاستراحة في صفحة الحالة (#status)
+   مرتبة جنباً إلى جنب مع التمدد التلقائي الديناميكي عند إخفاء أحدهما
+   ══════════════════════════════════════════════════════════════════ */
+.entertainment-links {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: stretch !important;
+  justify-content: center !important;
+  gap: 10px !important;
+  width: 100% !important;
+  margin: 12px 0 !important;
+  box-sizing: border-box !important;
+}
+
+.entertainment-links[style*="display: none"] {
+  display: none !important;
+}
+
+.stream-card-link {
+  flex: 1 1 0 !important;
+  min-width: 0 !important;
+  width: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  padding: 10px 12px !important;
+  min-height: 44px !important;
+  border-radius: 12px !important;
+  background: linear-gradient(135deg, rgba(10, 16, 29, 0.95) 0%, rgba(16, 25, 46, 0.95) 100%) !important;
+  border: 1px solid rgba(223, 171, 82, 0.38) !important;
+  color: #FFFFFF !important;
+  text-decoration: none !important;
+  font-weight: 800 !important;
+  font-size: 0.9rem !important;
+  white-space: nowrap !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  box-sizing: border-box !important;
+  direction: rtl !important;
+}
+
+.stream-card-link svg {
+  width: 19px !important;
+  height: 19px !important;
+  fill: #DFAB52 !important;
+  flex-shrink: 0 !important;
+  filter: drop-shadow(0 0 4px rgba(223, 171, 82, 0.45)) !important;
+  transition: transform 0.2s ease !important;
+}
+
+.stream-card-link span {
+  color: #FFFFFF !important;
+  font-weight: 800 !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+.stream-card-link:hover {
+  background: linear-gradient(135deg, rgba(16, 26, 48, 0.98) 0%, rgba(24, 38, 70, 0.98) 100%) !important;
+  border-color: rgba(223, 171, 82, 0.75) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.55), 0 0 14px rgba(223, 171, 82, 0.3) !important;
+}
+
+.stream-card-link:hover svg {
+  transform: scale(1.1) !important;
+}
+
+.stream-card-link:active {
+  transform: scale(0.97) !important;
+}
+
+.stream-card-link.estr-card-link {
+  border-color: rgba(223, 171, 82, 0.38) !important;
 }
 
 /* أزرار العمليات في صفحة الحالة (تسجيل الخروج وقطع الاتصال) — تدرج ذهبي عسلي ملكي */

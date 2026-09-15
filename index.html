@@ -831,16 +831,12 @@
                                     if (speedDisp) speedDisp.textContent = defaultSp.name;
                                 }
 
-                                // Scroll to active pill automatically so the selected speed is visible and centered
+                                // Scroll to active pill automatically so the selected speed is visible and centered (without scrolling the window)
                                 function scrollToActivePill() {
                                     var activePill = pillsRow.querySelector(".speed-pill-btn.active");
-                                    if (activePill) {
-                                        try {
-                                            activePill.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
-                                        } catch (e) {
-                                            var scrollTarget = activePill.offsetLeft - (pillsRow.clientWidth / 2) + (activePill.clientWidth / 2);
-                                            pillsRow.scrollTo({ left: scrollTarget, behavior: 'smooth' });
-                                        }
+                                    if (activePill && pillsRow) {
+                                        var scrollTarget = activePill.offsetLeft - (pillsRow.clientWidth / 2) + (activePill.clientWidth / 2);
+                                        pillsRow.scrollTo({ left: scrollTarget, behavior: 'smooth' });
                                     }
                                 }
                                 setTimeout(scrollToActivePill, 100);
@@ -898,10 +894,9 @@
                                         pills.forEach(function (p) {
                                             var isActive = p.getAttribute("data-speed") === val;
                                             p.classList.toggle("active", isActive);
-                                            if (isActive) {
-                                                try {
-                                                    p.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
-                                                } catch(e) {}
+                                            if (isActive && pillsRow) {
+                                                var scrollTarget = p.offsetLeft - (pillsRow.clientWidth / 2) + (p.clientWidth / 2);
+                                                pillsRow.scrollTo({ left: scrollTarget, behavior: 'smooth' });
                                             }
                                         });
                                         setTimeout(function () {
@@ -1219,19 +1214,19 @@
 
 
                         <!-- Entertainment Direct Links (Live Broadcast & Lounge/Break) -->
-                        <div class="entertainment-links" id="entertainmentLinks" style="display: flex; flex-direction: column; gap: 8px; margin: 12px 0;">
+                        <div class="entertainment-links" id="entertainmentLinks" style="display: flex; flex-direction: row; gap: 10px; width: 100%; margin: 12px 0;">
                             <a class="stream-card-link" href="https://kor.fntvs.net/channel.php" target="_blank" rel="noopener noreferrer" id="liveBroadcastLink" data-mobasher>
-                                <svg viewBox="0 0 24 24" style="width: 20px; height: 20px; fill: currentColor;">
+                                <svg viewBox="0 0 24 24" style="width: 19px; height: 19px; fill: currentColor; flex-shrink: 0;">
                                     <path
                                         d="M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 14H3V5h18v12zm-11-2l6-4-6-4v8z" />
                                 </svg>
-                                <span>البث المباشر والقنوات الرياضية</span>
+                                <span>البث المباشر</span>
                             </a>
                             <a class="stream-card-link estr-card-link" href="#" target="_blank" rel="noopener noreferrer" id="loungeLink" data-estr style="display: none;">
-                                <svg viewBox="0 0 24 24" style="width: 20px; height: 20px; fill: currentColor;">
+                                <svg viewBox="0 0 24 24" style="width: 19px; height: 19px; fill: currentColor; flex-shrink: 0;">
                                     <path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4z" />
                                 </svg>
-                                <span>استراحة الشبكة</span>
+                                <span>الإستراحة</span>
                             </a>
                         </div>
 
@@ -2362,10 +2357,9 @@
                     const pillTitle = pill.getAttribute('data-speed-title');
                     const isActive = pillSpeed === val || pillTitle === label;
                     pill.classList.toggle('active', isActive);
-                    if (isActive) {
-                        try {
-                            pill.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-                        } catch (e) {}
+                    if (isActive && speedPillsRow) {
+                        const scrollTarget = pill.offsetLeft - (speedPillsRow.clientWidth / 2) + (pill.clientWidth / 2);
+                        speedPillsRow.scrollTo({ left: scrollTarget, behavior: 'smooth' });
                     }
                 });
             }
@@ -2674,6 +2668,24 @@
                     loanContent.innerHTML = config.offers.replace(/\n/g, '<br>');
                 }
 
+                // Sync Free Offer Badge (عرض مجاني)
+                const loanCode = document.getElementById('loan-news-code') || document.querySelector('[data-news-code]');
+                const loanBr1 = document.getElementById('loan-news-break');
+                const loanBr2 = document.getElementById('loan-news-break-2');
+                if (loanCode) {
+                    const isBadgeEnabled = config.offersBadgeV !== false && (config.offersBadge === undefined || (typeof config.offersBadge === 'string' && config.offersBadge.trim().length > 0));
+                    if (isBadgeEnabled) {
+                        loanCode.textContent = (config.offersBadge && config.offersBadge.trim()) || 'عرض مجاني';
+                        loanCode.style.display = 'inline-block';
+                        if (loanBr1) loanBr1.style.display = '';
+                        if (loanBr2) loanBr2.style.display = '';
+                    } else {
+                        loanCode.style.display = 'none';
+                        if (loanBr1) loanBr1.style.display = 'none';
+                        if (loanBr2) loanBr2.style.display = 'none';
+                    }
+                }
+
                 const loanBtn = document.getElementById('loan-news-extra-badge') || document.querySelector('[data-news-extra-badge]');
                 const loanExtraHeader = document.getElementById('loan-news-extra-header');
                 const loanExtraTitle = document.getElementById('loan-news-extra-title');
@@ -2702,6 +2714,8 @@
                 document.querySelectorAll('[data-mobasher]').forEach(el => {
                     if (isMobaEnabled) {
                         el.href = config.moba.trim();
+                        const span = el.querySelector('span');
+                        if (span) span.textContent = 'البث المباشر';
                         el.style.display = 'flex';
                     } else {
                         el.style.display = 'none';
@@ -2711,6 +2725,8 @@
                 document.querySelectorAll('[data-estr]').forEach(el => {
                     if (isEstrEnabled) {
                         el.href = config.estr.trim();
+                        const span = el.querySelector('span');
+                        if (span) span.textContent = 'الإستراحة';
                         el.style.display = 'flex';
                     } else {
                         el.style.display = 'none';
@@ -3222,6 +3238,15 @@
                 });
             }
             window.resetWindowScrollToTop = resetWindowScrollToTop;
+
+            // Ensure window starts at the very top on load and prevent unwanted browser scroll restoration
+            if ('scrollRestoration' in history) {
+                try { history.scrollRestoration = 'manual'; } catch (e) {}
+            }
+            resetWindowScrollToTop();
+            setTimeout(resetWindowScrollToTop, 50);
+            setTimeout(resetWindowScrollToTop, 200);
+            setTimeout(resetWindowScrollToTop, 450);
 
             // Watch status section for activation
             const statusSection = document.getElementById('status');

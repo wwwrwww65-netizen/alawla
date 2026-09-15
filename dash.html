@@ -880,14 +880,27 @@
             gap: 14px;
         }
 
+        .preview-entertainment-row {
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            width: 100%;
+        }
+
         .preview-stream-btn {
+            flex: 1 1 0;
+            min-width: 0;
+            width: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            padding: 12px 18px;
+            gap: 8px;
+            padding: 10px 12px;
+            min-height: 44px;
             border-radius: 12px;
             font-weight: 700;
+            font-size: 0.9rem;
+            white-space: nowrap;
             color: #fff;
             text-decoration: none;
             background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
@@ -895,13 +908,19 @@
         }
 
         .preview-lounge-btn {
+            flex: 1 1 0;
+            min-width: 0;
+            width: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            padding: 12px 18px;
+            gap: 8px;
+            padding: 10px 12px;
+            min-height: 44px;
             border-radius: 12px;
             font-weight: 700;
+            font-size: 0.9rem;
+            white-space: nowrap;
             color: #fff;
             text-decoration: none;
             background: linear-gradient(135deg, #4c1d95 0%, #8b5cf6 100%);
@@ -1358,6 +1377,29 @@
                                     </div>
                                     <div class="form-hint"><i class="fas fa-lightbulb" style="color: #38bdf8;"></i> يمكنك وضع رابط البث المباشر، أو قناة تليجرام، أو صفحة فيسبوك للشبكة</div>
                                 </div>
+
+                                <!-- Free Offer Badge Customization -->
+                                <div class="feature-toggle-card" style="margin-top: 14px; background: rgba(255,255,255,0.03);">
+                                    <div class="feature-toggle-info">
+                                        <div class="feature-toggle-icon" style="color: #eab308; background: rgba(234, 179, 8, 0.15);"><i class="fas fa-certificate"></i></div>
+                                        <div>
+                                            <div class="feature-toggle-title">شارة ووسم (عرض مجاني)</div>
+                                            <div class="feature-toggle-desc">إظهار أو إخفاء وسم "عرض مجاني" في نافذة العروض</div>
+                                        </div>
+                                    </div>
+                                    <div class="switch-container">
+                                        <span class="status-badge" id="badgeOffersBadge">مفعل</span>
+                                        <label class="switch">
+                                            <input type="checkbox" id="offersBadgeVToggle" onchange="updateToggleField('offersBadgeV', this.checked, 'badgeOffersBadge')">
+                                            <span class="slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" style="margin-top: 10px;">
+                                    <label class="form-label" for="offersBadgeInput"><i class="fas fa-tag"></i> نص الشارة / الوسم</label>
+                                    <input type="text" class="form-control" id="offersBadgeInput" placeholder="مثال: عرض مجاني" oninput="updateConfigField('offersBadge', this.value)">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1561,14 +1603,16 @@
                         <span style="font-size: 0.8rem; background: #dfab52; color: #0f172a; padding: 4px 10px; border-radius: 8px; font-weight: 700;">قراءة</span>
                     </div>
 
-                    <div id="previewMobaBtn" class="preview-stream-btn" style="display: none;">
-                        <i class="fas fa-tv"></i>
-                        <span>البث المباشر والقنوات الرياضية</span>
-                    </div>
+                    <div class="preview-entertainment-row" id="previewEntertainmentRow">
+                        <div id="previewMobaBtn" class="preview-stream-btn" style="display: none;">
+                            <i class="fas fa-tv"></i>
+                            <span>البث المباشر</span>
+                        </div>
 
-                    <div id="previewEstrBtn" class="preview-lounge-btn" style="display: none;">
-                        <i class="fas fa-coffee"></i>
-                        <span>استراحة الشبكة والترفيه</span>
+                        <div id="previewEstrBtn" class="preview-lounge-btn" style="display: none;">
+                            <i class="fas fa-coffee"></i>
+                            <span>الإستراحة</span>
+                        </div>
                     </div>
 
                     <div id="previewEmptyMsg" style="display: none; text-align: center; color: var(--text-dim); padding: 15px;">
@@ -1703,6 +1747,8 @@
             if (appConfig.welcomeMessageV === undefined) appConfig.welcomeMessageV = true;
             if (appConfig.erbV === undefined) appConfig.erbV = true;
             if (appConfig.imageV === undefined) appConfig.imageV = true;
+            if (appConfig.offersBadgeV === undefined) appConfig.offersBadgeV = true;
+            if (appConfig.offersBadge === undefined) appConfig.offersBadge = "عرض مجاني";
             if (appConfig.offersBtnV === undefined) appConfig.offersBtnV = true;
             if (appConfig.enableHotCookie === undefined) appConfig.enableHotCookie = true;
             if (appConfig["try-count"] === undefined) appConfig["try-count"] = 5;
@@ -1748,6 +1794,9 @@
             document.getElementById('offersInput').value = appConfig.offers || '';
             document.getElementById('offersBtnTextInput').value = appConfig.offersBtnText || '';
             document.getElementById('offersBtnUrlInput').value = appConfig.offersBtnUrl || '';
+            if (document.getElementById('offersBadgeInput')) {
+                document.getElementById('offersBadgeInput').value = appConfig.offersBadge !== undefined ? appConfig.offersBadge : 'عرض مجاني';
+            }
 
             // Security & Blocker Fields
             if (document.getElementById('tryCountInput')) {
@@ -1770,6 +1819,7 @@
             setToggle('estrVToggle', 'badgeEstr', Boolean(appConfig.estrV));
             setToggle('imageVToggle', 'badgeImage', Boolean(appConfig.imageV));
             setToggle('offersBtnVToggle', 'badgeOffersBtn', Boolean(appConfig.offersBtnV));
+            setToggle('offersBadgeVToggle', 'badgeOffersBadge', Boolean(appConfig.offersBadgeV !== false));
             setToggle('cookieVToggle', 'badgeCookie', Boolean(appConfig.enableHotCookie !== false));
             setToggle('blockerVToggle', 'badgeBlocker', Boolean(appConfig["enable-hot-blocker"] === undefined || appConfig["enable-hot-blocker"] === 1 || appConfig["enable-hot-blocker"] === true));
 
@@ -2110,6 +2160,8 @@
             if (quranBtn) quranBtn.style.display = isQuran ? 'flex' : 'none';
             mobaBtn.style.display = isMoba ? 'flex' : 'none';
             estrBtn.style.display = isEstr ? 'flex' : 'none';
+            const entertainmentRow = document.getElementById('previewEntertainmentRow');
+            if (entertainmentRow) entertainmentRow.style.display = (isMoba || isEstr) ? 'flex' : 'none';
             emptyMsg.style.display = (!isQuran && !isMoba && !isEstr) ? 'block' : 'none';
 
             openModal('livePreviewModal');
