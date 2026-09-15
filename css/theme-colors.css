@@ -2077,6 +2077,7 @@ tbody td:first-child {
 
 /* ══════════════════════════════════════════════════════════════════
    أزرار البث المباشر والاستراحة في صفحة الحالة (#status)
+   ألوان متميزة تعكس هوية كل زر (أحمر رياضي للبث المباشر وبنفسجي ترفيهي للاستراحة)
    مرتبة جنباً إلى جنب مع التمدد التلقائي الديناميكي عند إخفاء أحدهما
    ══════════════════════════════════════════════════════════════════ */
 .entertainment-links {
@@ -2086,7 +2087,7 @@ tbody td:first-child {
   justify-content: center !important;
   gap: 10px !important;
   width: 100% !important;
-  margin: 12px 0 !important;
+  margin: 14px 0 !important;
   box-sizing: border-box !important;
 }
 
@@ -2102,56 +2103,505 @@ tbody td:first-child {
   align-items: center !important;
   justify-content: center !important;
   gap: 8px !important;
-  padding: 10px 12px !important;
-  min-height: 44px !important;
+  padding: 11px 14px !important;
+  min-height: 46px !important;
   border-radius: 12px !important;
-  background: linear-gradient(135deg, rgba(10, 16, 29, 0.95) 0%, rgba(16, 25, 46, 0.95) 100%) !important;
-  border: 1px solid rgba(223, 171, 82, 0.38) !important;
   color: #FFFFFF !important;
   text-decoration: none !important;
   font-weight: 800 !important;
-  font-size: 0.9rem !important;
+  font-size: 0.92rem !important;
   white-space: nowrap !important;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
-  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  transition: all 0.24s cubic-bezier(0.16, 1, 0.3, 1) !important;
   box-sizing: border-box !important;
   direction: rtl !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+/* زر البث المباشر: أحمر رياضي مشتعل يعكس الأجواء الحماسية للمباريات والبث */
+.stream-card-link.live-stream-btn,
+.stream-card-link[data-mobasher] {
+  background: linear-gradient(135deg, #DC2626 0%, #B91C1C 48%, #881337 100%) !important;
+  border: 1px solid rgba(254, 205, 211, 0.45) !important;
+  box-shadow: 0 4px 18px rgba(220, 38, 38, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.25) !important;
+}
+
+.stream-card-link.live-stream-btn:hover,
+.stream-card-link[data-mobasher]:hover {
+  background: linear-gradient(135deg, #EF4444 0%, #DC2626 50%, #9F1239 100%) !important;
+  border-color: rgba(254, 205, 211, 0.8) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 24px rgba(239, 68, 68, 0.55), 0 0 16px rgba(244, 63, 94, 0.4) !important;
+}
+
+/* زر الاستراحة: بنفسجي نيلي ملكي راقٍ يعكس الترفيه والاسترخاء والمحتوى الشيق */
+.stream-card-link.estr-card-link,
+.stream-card-link.lounge-btn,
+.stream-card-link[data-estr] {
+  background: linear-gradient(135deg, #6366F1 0%, #4F46E5 48%, #312E81 100%) !important;
+  border: 1px solid rgba(199, 210, 254, 0.45) !important;
+  box-shadow: 0 4px 18px rgba(99, 102, 241, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.25) !important;
+}
+
+.stream-card-link.estr-card-link:hover,
+.stream-card-link.lounge-btn:hover,
+.stream-card-link[data-estr]:hover {
+  background: linear-gradient(135deg, #818CF8 0%, #6366F1 50%, #3730A3 100%) !important;
+  border-color: rgba(199, 210, 254, 0.8) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 24px rgba(99, 102, 241, 0.55), 0 0 16px rgba(129, 140, 248, 0.4) !important;
 }
 
 .stream-card-link svg {
   width: 19px !important;
   height: 19px !important;
-  fill: #DFAB52 !important;
+  fill: #FFFFFF !important;
   flex-shrink: 0 !important;
-  filter: drop-shadow(0 0 4px rgba(223, 171, 82, 0.45)) !important;
-  transition: transform 0.2s ease !important;
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.4)) !important;
+  transition: transform 0.22s ease !important;
 }
 
 .stream-card-link span {
   color: #FFFFFF !important;
   font-weight: 800 !important;
+  letter-spacing: 0.2px !important;
   overflow: hidden !important;
   text-overflow: ellipsis !important;
   white-space: nowrap !important;
-}
-
-.stream-card-link:hover {
-  background: linear-gradient(135deg, rgba(16, 26, 48, 0.98) 0%, rgba(24, 38, 70, 0.98) 100%) !important;
-  border-color: rgba(223, 171, 82, 0.75) !important;
-  transform: translateY(-2px) !important;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.55), 0 0 14px rgba(223, 171, 82, 0.3) !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.35) !important;
 }
 
 .stream-card-link:hover svg {
-  transform: scale(1.1) !important;
+  transform: scale(1.12) !important;
 }
 
 .stream-card-link:active {
   transform: scale(0.97) !important;
 }
 
-.stream-card-link.estr-card-link {
-  border-color: rgba(223, 171, 82, 0.38) !important;
+/* مؤشر نبض حي للبث المباشر */
+.live-dot-pulse {
+  width: 8px;
+  height: 8px;
+  background-color: #FFFFFF;
+  border-radius: 50%;
+  box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+  animation: livePulseAnim 1.6s infinite cubic-bezier(0.66, 0, 0, 1);
+  flex-shrink: 0;
+  margin-left: 2px;
+}
+
+@keyframes livePulseAnim {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.8);
+    opacity: 1;
+  }
+  70% {
+    box-shadow: 0 0 0 7px rgba(255, 255, 255, 0);
+    opacity: 0.7;
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+    opacity: 1;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   لوحة قياس الاستهلاك الرقمية الحديثة لعام 2026 (العداد والمخطط الذكي)
+   ══════════════════════════════════════════════════════════════════ */
+.status-telemetry-dashboard {
+  width: 100%;
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-sizing: border-box;
+}
+
+.telemetry-header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 4px;
+}
+
+.telemetry-header-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #DFAB52;
+  font-weight: 800;
+  font-size: 0.98rem;
+}
+
+.telemetry-header-icon {
+  width: 18px;
+  height: 18px;
+  fill: #DFAB52;
+  filter: drop-shadow(0 0 4px rgba(223, 171, 82, 0.4));
+}
+
+.telemetry-live-sync {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(52, 211, 153, 0.12);
+  border: 1px solid rgba(52, 211, 153, 0.3);
+  padding: 3px 9px;
+  border-radius: 20px;
+}
+
+.sync-dot-pulse {
+  width: 6px;
+  height: 6px;
+  background: #34D399;
+  border-radius: 50%;
+  box-shadow: 0 0 6px #34D399;
+  animation: syncPulse 2s infinite ease-in-out;
+}
+
+@keyframes syncPulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.3); opacity: 0.5; }
+}
+
+.sync-text {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #34D399;
+}
+
+/* بطاقة العداد الدائري الرئيسي (Hero Speedometer Gauge Pod) */
+.status-gauge-pod {
+  position: relative;
+  background: linear-gradient(180deg, rgba(16, 25, 46, 0.95) 0%, rgba(10, 16, 29, 0.98) 100%);
+  border: 1px solid rgba(223, 171, 82, 0.28);
+  border-radius: 18px;
+  padding: 16px 14px 14px 14px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  overflow: hidden;
+  transition: all 0.25s ease;
+}
+
+.status-gauge-pod:hover {
+  border-color: rgba(223, 171, 82, 0.5);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.6), 0 0 16px rgba(223, 171, 82, 0.2);
+}
+
+.gauge-meter-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 280px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.gauge-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4));
+}
+
+.gauge-progress-arc {
+  transition: stroke-dashoffset 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.gauge-center-content {
+  position: absolute;
+  top: 48%;
+  left: 50%;
+  transform: translate(-50%, -20%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 90%;
+  pointer-events: none;
+}
+
+.gauge-subtitle {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #94A3B8;
+  margin-bottom: 2px;
+}
+
+.gauge-sub-icon {
+  width: 14px;
+  height: 14px;
+  fill: #DFAB52;
+}
+
+.gauge-main-display {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #DFAB52;
+  text-shadow: 0 0 12px rgba(223, 171, 82, 0.4);
+  line-height: 1.2;
+  margin: 2px 0;
+  white-space: nowrap;
+}
+
+.gauge-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(223, 171, 82, 0.12);
+  border: 1px solid rgba(223, 171, 82, 0.3);
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #F8FAFC;
+  margin-top: 4px;
+}
+
+.gauge-status-dot {
+  width: 6px;
+  height: 6px;
+  background: #DFAB52;
+  border-radius: 50%;
+  box-shadow: 0 0 6px #DFAB52;
+}
+
+/* شبكة حركة البيانات: التنزيل والرفع جنباً إلى جنب */
+.traffic-flow-grid {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.traffic-pod {
+  flex: 1 1 0;
+  min-width: 0;
+  background: linear-gradient(135deg, rgba(16, 25, 46, 0.85) 0%, rgba(10, 16, 29, 0.95) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 12px 10px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all 0.22s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.traffic-pod.download-pod {
+  border-color: rgba(56, 189, 248, 0.25);
+}
+
+.traffic-pod.download-pod:hover {
+  border-color: rgba(56, 189, 248, 0.6);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5), 0 0 12px rgba(56, 189, 248, 0.25);
+}
+
+.traffic-pod.upload-pod {
+  border-color: rgba(52, 211, 153, 0.25);
+}
+
+.traffic-pod.upload-pod:hover {
+  border-color: rgba(52, 211, 153, 0.6);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5), 0 0 12px rgba(52, 211, 153, 0.25);
+}
+
+.traffic-pod-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.traffic-icon-bubble {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.traffic-icon-bubble.cyan {
+  background: rgba(56, 189, 248, 0.15);
+  color: #38BDF8;
+}
+
+.traffic-icon-bubble.cyan svg {
+  width: 17px;
+  height: 17px;
+  fill: #38BDF8;
+}
+
+.traffic-icon-bubble.emerald {
+  background: rgba(52, 211, 153, 0.15);
+  color: #34D399;
+}
+
+.traffic-icon-bubble.emerald svg {
+  width: 17px;
+  height: 17px;
+  fill: #34D399;
+}
+
+.traffic-label-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.traffic-type-title {
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: #F8FAFC;
+}
+
+.traffic-type-en {
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: #64748B;
+}
+
+.traffic-val-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-start;
+  margin-top: 2px;
+}
+
+.traffic-metric-val {
+  font-size: 1.05rem;
+  font-weight: 900;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.traffic-metric-val.cyan-glow {
+  color: #38BDF8;
+  text-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
+}
+
+.traffic-metric-val.emerald-glow {
+  color: #34D399;
+  text-shadow: 0 0 10px rgba(52, 211, 153, 0.3);
+}
+
+/* شريط التدفق والنشاط الشبكي المصغر */
+.traffic-wave-track {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+
+.traffic-wave-bar {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.6s ease;
+}
+
+.traffic-wave-bar.cyan-bar {
+  width: 65%;
+  background: linear-gradient(90deg, #0284C7 0%, #38BDF8 100%);
+  box-shadow: 0 0 8px rgba(56, 189, 248, 0.6);
+}
+
+.traffic-wave-bar.emerald-bar {
+  width: 45%;
+  background: linear-gradient(90deg, #059669 0%, #34D399 100%);
+  box-shadow: 0 0 8px rgba(52, 211, 153, 0.6);
+}
+
+/* بطاقة مركز الوقت والجلسة (Session Timeline Hub) */
+.status-session-hub {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(135deg, rgba(16, 25, 46, 0.85) 0%, rgba(10, 16, 29, 0.95) 100%);
+  border: 1px solid rgba(223, 171, 82, 0.22);
+  border-radius: 14px;
+  padding: 12px 14px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+}
+
+.session-hub-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.session-hub-icon-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.session-hub-svg {
+  width: 15px;
+  height: 15px;
+}
+
+.session-hub-svg.gold {
+  fill: #DFAB52;
+}
+
+.session-hub-svg.cyan {
+  fill: #38BDF8;
+}
+
+.session-hub-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #94A3B8;
+}
+
+.session-hub-val {
+  font-size: 1.05rem;
+  font-weight: 900;
+  color: #FFFFFF;
+}
+
+.session-hub-val.gold-glow {
+  color: #DFAB52;
+  text-shadow: 0 0 8px rgba(223, 171, 82, 0.35);
+}
+
+.session-hub-divider {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 10px;
+}
+
+.session-divider-line {
+  width: 1px;
+  height: 12px;
+  background: rgba(223, 171, 82, 0.25);
+}
+
+.session-divider-dot {
+  width: 5px;
+  height: 5px;
+  background: #DFAB52;
+  border-radius: 50%;
+  margin: 3px 0;
+  box-shadow: 0 0 6px #DFAB52;
 }
 
 /* أزرار العمليات في صفحة الحالة (تسجيل الخروج وقطع الاتصال) — تدرج ذهبي عسلي ملكي */

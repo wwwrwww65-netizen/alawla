@@ -1214,16 +1214,17 @@
 
 
                         <!-- Entertainment Direct Links (Live Broadcast & Lounge/Break) -->
-                        <div class="entertainment-links" id="entertainmentLinks" style="display: flex; flex-direction: row; gap: 10px; width: 100%; margin: 12px 0;">
-                            <a class="stream-card-link" href="https://kor.fntvs.net/channel.php" target="_blank" rel="noopener noreferrer" id="liveBroadcastLink" data-mobasher>
-                                <svg viewBox="0 0 24 24" style="width: 19px; height: 19px; fill: currentColor; flex-shrink: 0;">
+                        <div class="entertainment-links" id="entertainmentLinks" style="display: flex; flex-direction: row; gap: 10px; width: 100%; margin: 14px 0;">
+                            <a class="stream-card-link live-stream-btn" href="https://kor.fntvs.net/channel.php" target="_blank" rel="noopener noreferrer" id="liveBroadcastLink" data-mobasher>
+                                <span class="live-dot-pulse"></span>
+                                <svg viewBox="0 0 24 24">
                                     <path
                                         d="M21 3H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h5v2h8v-2h5c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 14H3V5h18v12zm-11-2l6-4-6-4v8z" />
                                 </svg>
                                 <span>البث المباشر</span>
                             </a>
-                            <a class="stream-card-link estr-card-link" href="#" target="_blank" rel="noopener noreferrer" id="loungeLink" data-estr style="display: none;">
-                                <svg viewBox="0 0 24 24" style="width: 19px; height: 19px; fill: currentColor; flex-shrink: 0;">
+                            <a class="stream-card-link estr-card-link lounge-btn" href="#" target="_blank" rel="noopener noreferrer" id="loungeLink" data-estr style="display: none;">
+                                <svg viewBox="0 0 24 24">
                                     <path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4z" />
                                 </svg>
                                 <span>الإستراحة</span>
@@ -1295,66 +1296,139 @@
                         </select>
                         <span id="update" style="display: none;"></span>
 
-                        <!-- Live Metrics Dashboard -->
-                        <div style="margin-top: 14px;">
-                            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
-                                <svg viewBox="0 0 24 24" style="width: 18px; height: 18px; fill: #DFAB52;">
-                                    <path
-                                        d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z" />
-                                </svg>
-                                <span class="status-metrics-section-title" style="font-size: 0.95rem; font-weight: 800;">معلومات واستهلاك
-                                    الكرت</span>
+                        <!-- 2026 NEXT-GEN TELEMETRY & CONSUMPTION DASHBOARD -->
+                        <div class="status-telemetry-dashboard" id="statusTelemetryDashboard">
+                            <!-- Telemetry Header with Live Status -->
+                            <div class="telemetry-header-bar">
+                                <div class="telemetry-header-title">
+                                    <svg viewBox="0 0 24 24" class="telemetry-header-icon">
+                                        <path d="M12 3C7.03 3 3 7.03 3 12c0 3.58 2.12 6.67 5.2 8.09l1.1-1.9A6.98 6.98 0 015 12c0-3.86 3.14-7 7-7s7 3.14 7 7c0 2.57-1.39 4.81-3.46 6.02l1.1 1.9A8.99 8.99 0 0021 12c0-4.97-4.03-9-9-9zm-1 5v5l4.25 2.52.77-1.28-3.52-2.09V8H11z"/>
+                                    </svg>
+                                    <span class="status-metrics-section-title">بيانات واستهلاك الكرت</span>
+                                </div>
+                                <div class="telemetry-live-sync">
+                                    <span class="sync-dot-pulse"></span>
+                                    <span class="sync-text">مباشر ومحدث</span>
+                                </div>
                             </div>
-                            <div class="status-grid-metrics">
-                                <div class="metric-card-glass">
-                                    <span class="metric-title">
-                                        <svg viewBox="0 0 24 24" class="metric-icon">
-                                            <path
-                                                d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z" />
-                                        </svg>
-                                        <span>التنزيل</span>
-                                    </span>
-                                    <span class="metric-val cyan" id="bytes_out">-</span>
+
+                            <!-- 1. Central Hero Speedometer / Radial Gauge (العداد الدائري للرصيد المتبقي) -->
+                            <div class="status-gauge-pod" id="statusGaugePod" remain_bytes_total>
+                                <div class="gauge-meter-wrapper">
+                                    <svg class="gauge-svg" viewBox="0 0 200 120" preserveAspectRatio="xMidYMid meet">
+                                        <defs>
+                                            <linearGradient id="gaugeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                                <stop offset="0%" stop-color="#38BDF8" />
+                                                <stop offset="50%" stop-color="#DFAB52" />
+                                                <stop offset="100%" stop-color="#34D399" />
+                                            </linearGradient>
+                                            <filter id="gaugeGlow" x="-20%" y="-20%" width="140%" height="140%">
+                                                <feGaussianBlur stdDeviation="3" result="blur" />
+                                                <feMerge>
+                                                    <feMergeNode in="blur"/>
+                                                    <feMergeNode in="SourceGraphic"/>
+                                                </feMerge>
+                                            </filter>
+                                        </defs>
+                                        <!-- Outer Track Arc -->
+                                        <path class="gauge-track-bg" d="M 25 105 A 75 75 0 0 1 175 105" fill="none" stroke="rgba(255, 255, 255, 0.08)" stroke-width="12" stroke-linecap="round" />
+                                        <!-- Decorative Ticks -->
+                                        <path class="gauge-ticks" d="M 25 105 A 75 75 0 0 1 175 105" fill="none" stroke="rgba(255, 255, 255, 0.15)" stroke-width="2" stroke-dasharray="2, 10" stroke-linecap="round" />
+                                        <!-- Animated Active Progress Arc -->
+                                        <path class="gauge-progress-arc" id="gaugeProgressArc" d="M 25 105 A 75 75 0 0 1 175 105" fill="none" stroke="url(#gaugeGradient)" stroke-width="12" stroke-linecap="round" filter="url(#gaugeGlow)" stroke-dasharray="235.6" stroke-dashoffset="0" />
+                                    </svg>
+                                    
+                                    <!-- Gauge Center Display -->
+                                    <div class="gauge-center-content">
+                                        <span class="gauge-subtitle">
+                                            <svg viewBox="0 0 24 24" class="gauge-sub-icon">
+                                                <path d="M12 2L4 7v10l8 5 8-5V7l-8-5zm0 2.24l6 3.75v7.52l-6 3.75-6-3.75V7.99l6-3.75z"/>
+                                            </svg>
+                                            <span>الرصيد المتبقي</span>
+                                        </span>
+                                        <div class="gauge-main-display" id="remain_bytes_total">مفتوح</div>
+                                        <div class="gauge-status-badge" id="gaugeStatusBadge">
+                                            <span class="gauge-status-dot"></span>
+                                            <span id="gaugeStatusText">رصيد غير محدود ∞</span>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="metric-card-glass">
-                                    <span class="metric-title">
-                                        <svg viewBox="0 0 24 24" class="metric-icon">
-                                            <path
-                                                d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z" />
-                                        </svg>
-                                        <span>الرفع</span>
-                                    </span>
-                                    <span class="metric-val emerald" id="bytes_in">-</span>
+                            </div>
+
+                            <!-- 2. Dual Bandwidth Flow Pods: Download & Upload (مؤشرات التدفق للتنزيل والرفع) -->
+                            <div class="traffic-flow-grid">
+                                <!-- Download Pod (التنزيل) -->
+                                <div class="traffic-pod download-pod">
+                                    <div class="traffic-pod-header">
+                                        <div class="traffic-icon-bubble cyan">
+                                            <svg viewBox="0 0 24 24">
+                                                <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z" />
+                                            </svg>
+                                        </div>
+                                        <div class="traffic-label-group">
+                                            <span class="traffic-type-title">التنزيل</span>
+                                            <span class="traffic-type-en">Download</span>
+                                        </div>
+                                    </div>
+                                    <div class="traffic-val-row">
+                                        <span class="traffic-metric-val cyan-glow" id="bytes_out">-</span>
+                                    </div>
+                                    <div class="traffic-wave-track">
+                                        <div class="traffic-wave-bar cyan-bar" id="trafficBarOut"></div>
+                                    </div>
                                 </div>
-                                <div class="metric-card-glass full-width" remain_bytes_total>
-                                    <span class="metric-title">
-                                        <svg viewBox="0 0 24 24" class="metric-icon">
-                                            <path
-                                                d="M12 2L4 7v10l8 5 8-5V7l-8-5zm0 2.24l6 3.75v7.52l-6 3.75-6-3.75V7.99l6-3.75z" />
-                                        </svg>
-                                        <span>التحميل المتبقي</span>
-                                    </span>
-                                    <span class="metric-val gold" id="remain_bytes_total">مفتوح</span>
+
+                                <!-- Upload Pod (الرفع) -->
+                                <div class="traffic-pod upload-pod">
+                                    <div class="traffic-pod-header">
+                                        <div class="traffic-icon-bubble emerald">
+                                            <svg viewBox="0 0 24 24">
+                                                <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z" />
+                                            </svg>
+                                        </div>
+                                        <div class="traffic-label-group">
+                                            <span class="traffic-type-title">الرفع</span>
+                                            <span class="traffic-type-en">Upload</span>
+                                        </div>
+                                    </div>
+                                    <div class="traffic-val-row">
+                                        <span class="traffic-metric-val emerald-glow" id="bytes_in">-</span>
+                                    </div>
+                                    <div class="traffic-wave-track">
+                                        <div class="traffic-wave-bar emerald-bar" id="trafficBarIn"></div>
+                                    </div>
                                 </div>
-                                <div class="metric-card-glass">
-                                    <span class="metric-title">
-                                        <svg viewBox="0 0 24 24" class="metric-icon">
-                                            <path
-                                                d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z" />
+                            </div>
+
+                            <!-- 3. Smart Unified Session Timeline Hub (عداد الوقت المستهلك والمتبقي) -->
+                            <div class="status-session-hub" session_time_left>
+                                <!-- Time Elapsed (الوقت المستهلك) -->
+                                <div class="session-hub-item">
+                                    <div class="session-hub-icon-row">
+                                        <svg viewBox="0 0 24 24" class="session-hub-svg gold">
+                                            <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z" />
                                         </svg>
-                                        <span>الوقت المستهلك</span>
-                                    </span>
-                                    <span class="metric-val" id="uptime">-</span>
+                                        <span class="session-hub-label">الوقت المستهلك</span>
+                                    </div>
+                                    <div class="session-hub-val" id="uptime">-</div>
                                 </div>
-                                <div class="metric-card-glass" session_time_left>
-                                    <span class="metric-title">
-                                        <svg viewBox="0 0 24 24" class="metric-icon">
-                                            <path
-                                                d="M6 2v6h.01L6 8.01 10 12l-4 4 .01.01H6V22h12v-5.99h-.01L18 16l-4-4 4-3.99-.01-.01H18V2H6zm10 14.5V20H8v-3.5l4-4 4 4zM12 11.5l-4-4V4h8v3.5l-4 4z" />
+
+                                <!-- Center Divider with Connector Dot -->
+                                <div class="session-hub-divider">
+                                    <span class="session-divider-line"></span>
+                                    <span class="session-divider-dot"></span>
+                                    <span class="session-divider-line"></span>
+                                </div>
+
+                                <!-- Time Remaining (الوقت المتبقي) -->
+                                <div class="session-hub-item">
+                                    <div class="session-hub-icon-row">
+                                        <svg viewBox="0 0 24 24" class="session-hub-svg cyan">
+                                            <path d="M6 2v6h.01L6 8.01 10 12l-4 4 .01.01H6V22h12v-5.99h-.01L18 16l-4-4 4-3.99-.01-.01H18V2H6zm10 14.5V20H8v-3.5l4-4 4 4zM12 11.5l-4-4V4h8v3.5l-4 4z" />
                                         </svg>
-                                        <span>الوقت المتبقي</span>
-                                    </span>
-                                    <span class="metric-val gold" id="session_time_left">مفتوح</span>
+                                        <span class="session-hub-label">الوقت المتبقي</span>
+                                    </div>
+                                    <div class="session-hub-val gold-glow" id="session_time_left">مفتوح</div>
                                 </div>
                             </div>
                         </div>
@@ -3401,6 +3475,89 @@
                 });
                 observer.observe(marqueeEl, { childList: true, characterData: true, subtree: true });
             }
+        })();
+    </script>
+    <!-- 2026 Interactive Telemetry Gauge & Traffic Flow Dynamic Engine -->
+    <script>
+        (function() {
+            function parseBytesToNumber(str) {
+                if (!str || typeof str !== 'string') return 0;
+                var s = str.trim();
+                var match = s.match(/([0-9.]+)\s*(جيجابايت|ميجابايت|كيلوبايت|بايت|gb|mb|kb|b)/i);
+                if (!match) {
+                    var raw = parseFloat(s);
+                    return isNaN(raw) ? 0 : raw;
+                }
+                var val = parseFloat(match[1]);
+                var unit = match[2].toLowerCase();
+                if (unit.indexOf('جيجا') !== -1 || unit === 'gb') return val * 1024 * 1024 * 1024;
+                if (unit.indexOf('ميجا') !== -1 || unit === 'mb') return val * 1024 * 1024;
+                if (unit.indexOf('كيلو') !== -1 || unit === 'kb') return val * 1024;
+                return val;
+            }
+
+            function updateGaugeAndMeters() {
+                var remainEl = document.getElementById('remain_bytes_total');
+                var bytesOutEl = document.getElementById('bytes_out');
+                var bytesInEl = document.getElementById('bytes_in');
+                var arc = document.getElementById('gaugeProgressArc');
+                var statusText = document.getElementById('gaugeStatusText');
+                var barOut = document.getElementById('trafficBarOut');
+                var barIn = document.getElementById('trafficBarIn');
+
+                if (!remainEl || !arc) return;
+
+                var remainText = (remainEl.textContent || remainEl.innerText || '').trim();
+                var isUnlimited = !remainText || remainText === 'مفتوح' || remainText === '-' || remainText.indexOf('غير محدود') !== -1;
+
+                var maxDash = 235.6;
+
+                if (isUnlimited) {
+                    arc.style.strokeDasharray = maxDash;
+                    arc.style.strokeDashoffset = '0';
+                    if (statusText) statusText.textContent = 'رصيد غير محدود ∞';
+                } else {
+                    var remainNum = parseBytesToNumber(remainText);
+                    var outNum = bytesOutEl ? parseBytesToNumber(bytesOutEl.textContent || bytesOutEl.innerText) : 0;
+                    var totalEst = remainNum + outNum;
+                    var ratio = totalEst > 0 ? (remainNum / totalEst) : 0.85;
+                    ratio = Math.max(0.05, Math.min(1, ratio));
+                    var offset = maxDash * (1 - ratio);
+                    arc.style.strokeDasharray = maxDash;
+                    arc.style.strokeDashoffset = String(offset.toFixed(1));
+                    if (statusText) {
+                        var percent = Math.round(ratio * 100);
+                        statusText.textContent = 'المتبقي ' + percent + '% من الرصيد';
+                    }
+                }
+
+                if (barOut && bytesOutEl) {
+                    var outText = (bytesOutEl.textContent || bytesOutEl.innerText || '').trim();
+                    if (outText && outText !== '-') {
+                        barOut.style.width = '75%';
+                    }
+                }
+                if (barIn && bytesInEl) {
+                    var inText = (bytesInEl.textContent || bytesInEl.innerText || '').trim();
+                    if (inText && inText !== '-') {
+                        barIn.style.width = '55%';
+                    }
+                }
+            }
+
+            window.addEventListener('load', function() {
+                updateGaugeAndMeters();
+                var targetIds = ['remain_bytes_total', 'bytes_out', 'bytes_in'];
+                targetIds.forEach(function(id) {
+                    var el = document.getElementById(id);
+                    if (el && window.MutationObserver) {
+                        var obs = new MutationObserver(function() {
+                            updateGaugeAndMeters();
+                        });
+                        obs.observe(el, { childList: true, characterData: true, subtree: true });
+                    }
+                });
+            });
         })();
     </script>
     <script src="js/notifications-system/notifications-integration.js"></script>
