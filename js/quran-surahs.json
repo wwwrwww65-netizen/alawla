@@ -1,0 +1,914 @@
+[
+  {
+    "title": "الفاتحة -001",
+    "page": 1
+  },
+  {
+    "title": "البقرة -002",
+    "page": 2
+  },
+  {
+    "title": "آل عمران -003",
+    "page": 45
+  },
+  {
+    "title": "النساء -004",
+    "page": 69
+  },
+  {
+    "title": "المائدة -005",
+    "page": 95
+  },
+  {
+    "title": "الأنعام -006",
+    "page": 115
+  },
+  {
+    "title": "الأعراف -007",
+    "page": 136
+  },
+  {
+    "title": "الأنفال -008",
+    "page": 160
+  },
+  {
+    "title": "التوبة -009",
+    "page": 169
+  },
+  {
+    "title": "يونس -010",
+    "page": 187
+  },
+  {
+    "title": "هود -011",
+    "page": 199
+  },
+  {
+    "title": "يوسف -012",
+    "page": 212
+  },
+  {
+    "title": "الرعد -013",
+    "page": 225
+  },
+  {
+    "title": "إبراهيم -014",
+    "page": 231
+  },
+  {
+    "title": "الحجر -015",
+    "page": 237
+  },
+  {
+    "title": "النحل -016",
+    "page": 242
+  },
+  {
+    "title": "الإسراء -017",
+    "page": 255
+  },
+  {
+    "title": "الكهف -018",
+    "page": 266
+  },
+  {
+    "title": "مريم -019",
+    "page": 277
+  },
+  {
+    "title": "طه -020",
+    "page": 284
+  },
+  {
+    "title": "الأنبياء -021",
+    "page": 294
+  },
+  {
+    "title": "الحج -022",
+    "page": 302
+  },
+  {
+    "title": "المؤمنون -023",
+    "page": 311
+  },
+  {
+    "title": "النور -024",
+    "page": 319
+  },
+  {
+    "title": "الفرقان -025",
+    "page": 329
+  },
+  {
+    "title": "الشعراء -026",
+    "page": 335
+  },
+  {
+    "title": "النمل -027",
+    "page": 345
+  },
+  {
+    "title": "القصص -028",
+    "page": 354
+  },
+  {
+    "title": "العنكبوت -029",
+    "page": 364
+  },
+  {
+    "title": "الروم -030",
+    "page": 371
+  },
+  {
+    "title": "لقمان -031",
+    "page": 377
+  },
+  {
+    "title": "السجدة -032",
+    "page": 381
+  },
+  {
+    "title": "الأحزاب -033",
+    "page": 383
+  },
+  {
+    "title": "سبأ -034",
+    "page": 393
+  },
+  {
+    "title": "فاطر -035",
+    "page": 399
+  },
+  {
+    "title": "ياسين -036",
+    "page": 404
+  },
+  {
+    "title": "الصافات -037",
+    "page": 410
+  },
+  {
+    "title": "ًًص -038",
+    "page": 417
+  },
+  {
+    "title": "الزمر -039",
+    "page": 422
+  },
+  {
+    "title": "غافر -040",
+    "page": 431
+  },
+  {
+    "title": "فصلت -041",
+    "page": 439
+  },
+  {
+    "title": "الشورى -042",
+    "page": 445
+  },
+  {
+    "title": "الزخرف -043",
+    "page": 451
+  },
+  {
+    "title": "الدخان -044",
+    "page": 457
+  },
+  {
+    "title": "الجاثية -045",
+    "page": 460
+  },
+  {
+    "title": "الأحقاف -046",
+    "page": 464
+  },
+  {
+    "title": "محمد -047",
+    "page": 468
+  },
+  {
+    "title": "الفتح -048",
+    "page": 472
+  },
+  {
+    "title": "الحجرات -049",
+    "page": 477
+  },
+  {
+    "title": "ق -050",
+    "page": 479
+  },
+  {
+    "title": "الذاريات -051",
+    "page": 482
+  },
+  {
+    "title": "الطور -052",
+    "page": 485
+  },
+  {
+    "title": "النجم -053",
+    "page": 487
+  },
+  {
+    "title": "القمر -054",
+    "page": 490
+  },
+  {
+    "title": "الرحمن -055",
+    "page": 493
+  },
+  {
+    "title": "الواقعة -056",
+    "page": 496
+  },
+  {
+    "title": "الحديد -057",
+    "page": 499
+  },
+  {
+    "title": "المجادلة -058",
+    "page": 504
+  },
+  {
+    "title": "الحشر -059",
+    "page": 507
+  },
+  {
+    "title": "الممتحنة -060",
+    "page": 510
+  },
+  {
+    "title": "الصف -061",
+    "page": 513
+  },
+  {
+    "title": "الجمعة -062",
+    "page": 515
+  },
+  {
+    "title": "المنافقون -063",
+    "page": 516
+  },
+  {
+    "title": "التغابن -064",
+    "page": 518
+  },
+  {
+    "title": "الطلاق -065",
+    "page": 520
+  },
+  {
+    "title": "التحريم -066",
+    "page": 522
+  },
+  {
+    "title": "الملك -067",
+    "page": 524
+  },
+  {
+    "title": "القلم -068",
+    "page": 526
+  },
+  {
+    "title": "الحاقة -069",
+    "page": 529
+  },
+  {
+    "title": "المعراج -070",
+    "page": 531
+  },
+  {
+    "title": "نوح -071",
+    "page": 533
+  },
+  {
+    "title": "الجن -072",
+    "page": 534
+  },
+  {
+    "title": "المزمل -073",
+    "page": 537
+  },
+  {
+    "title": "المدثر -074",
+    "page": 538
+  },
+  {
+    "title": "القيامة -075",
+    "page": 540
+  },
+  {
+    "title": "الإنسان -076",
+    "page": 542
+  },
+  {
+    "title": "المرسلات -077",
+    "page": 544
+  },
+  {
+    "title": "النبأ -078",
+    "page": 545
+  },
+  {
+    "title": "النازعات -079",
+    "page": 547
+  },
+  {
+    "title": "عبس -080",
+    "page": 548
+  },
+  {
+    "title": "التكوير -081",
+    "page": 550
+  },
+  {
+    "title": "الإنفطار -082",
+    "page": 551
+  },
+  {
+    "title": "المطففين -083",
+    "page": 552
+  },
+  {
+    "title": "الإنشقاق -084",
+    "page": 553
+  },
+  {
+    "title": "البروج -085",
+    "page": 554
+  },
+  {
+    "title": "الطارق -086",
+    "page": 555
+  },
+  {
+    "title": "الأعلى -087",
+    "page": 556
+  },
+  {
+    "title": "الغاشية -088",
+    "page": 556
+  },
+  {
+    "title": "الفجر -089",
+    "page": 557
+  },
+  {
+    "title": "البلد -090",
+    "page": 559
+  },
+  {
+    "title": "الشمس -091",
+    "page": 559
+  },
+  {
+    "title": "الليل -092",
+    "page": 560
+  },
+  {
+    "title": "الضحى -093",
+    "page": 561
+  },
+  {
+    "title": "الإنشراح -094",
+    "page": 561
+  },
+  {
+    "title": "التين -095",
+    "page": 562
+  },
+  {
+    "title": "العلق -096",
+    "page": 562
+  },
+  {
+    "title": "القدر -097",
+    "page": 563
+  },
+  {
+    "title": "البينة -098",
+    "page": 563
+  },
+  {
+    "title": "الزلزلة -099",
+    "page": 564
+  },
+  {
+    "title": "العاديات -100",
+    "page": 564
+  },
+  {
+    "title": "القارعة -101",
+    "page": 565
+  },
+  {
+    "title": "التكاثر -102",
+    "page": 565
+  },
+  {
+    "title": "العصر -103",
+    "page": 566
+  },
+  {
+    "title": "الهمزة -104",
+    "page": 566
+  },
+  {
+    "title": "الفيل -105",
+    "page": 566
+  },
+  {
+    "title": "قريش -106",
+    "page": 567
+  },
+  {
+    "title": "الماعون -107",
+    "page": 567
+  },
+  {
+    "title": "الكوثر -108",
+    "page": 567
+  },
+  {
+    "title": "الكافرون -109",
+    "page": 568
+  },
+  {
+    "title": "النصر -110",
+    "page": 568
+  },
+  {
+    "title": "المسد -111",
+    "page": 568
+  },
+  {
+    "title": "الإخلاص -112",
+    "page": 569
+  },
+  {
+    "title": "الفلق -113",
+    "page": 569
+  },
+  {
+    "title": "الناس -114",
+    "page": 569
+  },
+  {
+    "title": "001- Al Fatiha",
+    "page": 1
+  },
+  {
+    "title": "002- AlBaqara",
+    "page": 2
+  },
+  {
+    "title": "033- Aal Imran",
+    "page": 45
+  },
+  {
+    "title": "004- AlNisa'",
+    "page": 69
+  },
+  {
+    "title": "005- AlMa'ida",
+    "page": 95
+  },
+  {
+    "title": "006- AlAn'am",
+    "page": 115
+  },
+  {
+    "title": "007- AlA'raf",
+    "page": 136
+  },
+  {
+    "title": "008- AlAnfal",
+    "page": 160
+  },
+  {
+    "title": "009- AlTauba",
+    "page": 169
+  },
+  {
+    "title": "010- Yunus",
+    "page": 187
+  },
+  {
+    "title": "011- Hud",
+    "page": 199
+  },
+  {
+    "title": "012- Yusuf",
+    "page": 212
+  },
+  {
+    "title": "013- ArRa'd",
+    "page": 225
+  },
+  {
+    "title": "014- Ibrahim",
+    "page": 231
+  },
+  {
+    "title": "015- Al-Hijr",
+    "page": 237
+  },
+  {
+    "title": "016- An-Nahl",
+    "page": 242
+  },
+  {
+    "title": "017- Al-Isra",
+    "page": 255
+  },
+  {
+    "title": "018- Al-Kahf",
+    "page": 266
+  },
+  {
+    "title": "019- Maryam",
+    "page": 277
+  },
+  {
+    "title": "020- Ta-Ha",
+    "page": 284
+  },
+  {
+    "title": "021- Al-Anbiya",
+    "page": 294
+  },
+  {
+    "title": "022- Al-Hajj",
+    "page": 302
+  },
+  {
+    "title": "023- Al-Muminun",
+    "page": 311
+  },
+  {
+    "title": "024- An-Nur",
+    "page": 319
+  },
+  {
+    "title": "025- Al-Furqan",
+    "page": 329
+  },
+  {
+    "title": "026- Ash-Shuara",
+    "page": 335
+  },
+  {
+    "title": "027- An-Naml",
+    "page": 345
+  },
+  {
+    "title": "028- Al-Qasas",
+    "page": 354
+  },
+  {
+    "title": "029- Al-Ankabut",
+    "page": 364
+  },
+  {
+    "title": "030- Ar-Rum",
+    "page": 371
+  },
+  {
+    "title": "031- Luqman",
+    "page": 377
+  },
+  {
+    "title": "032- As-Sajdah",
+    "page": 381
+  },
+  {
+    "title": "033- Al-Ahzab",
+    "page": 383
+  },
+  {
+    "title": "034- Saba",
+    "page": 393
+  },
+  {
+    "title": "035- Fatir",
+    "page": 399
+  },
+  {
+    "title": "036- Yasin",
+    "page": 404
+  },
+  {
+    "title": "037- As-Saffat",
+    "page": 410
+  },
+  {
+    "title": "038- Sad",
+    "page": 417
+  },
+  {
+    "title": "039- Az-Zumar",
+    "page": 422
+  },
+  {
+    "title": "040- Ghafir",
+    "page": 431
+  },
+  {
+    "title": "041- Fussilat",
+    "page": 439
+  },
+  {
+    "title": "042- Ash-Shura",
+    "page": 445
+  },
+  {
+    "title": "043- Az-Zukhruf",
+    "page": 451
+  },
+  {
+    "title": "044- Ad-Dukhan",
+    "page": 457
+  },
+  {
+    "title": "045- Al-Jathiya",
+    "page": 460
+  },
+  {
+    "title": "046- Al-Ahqaf",
+    "page": 464
+  },
+  {
+    "title": "047- Muhammad",
+    "page": 468
+  },
+  {
+    "title": "048- Al-Fath",
+    "page": 472
+  },
+  {
+    "title": "049- Al-Hujurat",
+    "page": 477
+  },
+  {
+    "title": "050- Qaf",
+    "page": 479
+  },
+  {
+    "title": "051- Az-Zariyat",
+    "page": 482
+  },
+  {
+    "title": "052- At-Tur",
+    "page": 485
+  },
+  {
+    "title": "053- An-Najm",
+    "page": 487
+  },
+  {
+    "title": "054- Al-Qamar",
+    "page": 490
+  },
+  {
+    "title": "055- Ar-Rahman",
+    "page": 493
+  },
+  {
+    "title": "056- Al-Waqia",
+    "page": 496
+  },
+  {
+    "title": "057- Al Hadid",
+    "page": 499
+  },
+  {
+    "title": "058- Al-Mujadilah",
+    "page": 504
+  },
+  {
+    "title": "059- Al-Hashr",
+    "page": 507
+  },
+  {
+    "title": "060- Al-Mumtahinah",
+    "page": 510
+  },
+  {
+    "title": "061- As-Saff",
+    "page": 513
+  },
+  {
+    "title": "062- Al-Jumu'ah",
+    "page": 515
+  },
+  {
+    "title": "063- Al-Munafiqun",
+    "page": 516
+  },
+  {
+    "title": "064- At-Taghabun",
+    "page": 518
+  },
+  {
+    "title": "065- At-Talaq",
+    "page": 520
+  },
+  {
+    "title": "066- At-Tahrim",
+    "page": 522
+  },
+  {
+    "title": "067- Al-Mulk",
+    "page": 524
+  },
+  {
+    "title": "068- Al-Qalam",
+    "page": 526
+  },
+  {
+    "title": "069- Al-Haqqah",
+    "page": 529
+  },
+  {
+    "title": "070- Al-Ma'arij",
+    "page": 531
+  },
+  {
+    "title": "071- Nuh",
+    "page": 533
+  },
+  {
+    "title": "072- Al-Jinn",
+    "page": 534
+  },
+  {
+    "title": "073- Al-Muzzammil",
+    "page": 537
+  },
+  {
+    "title": "074- Al-Muddathhir",
+    "page": 538
+  },
+  {
+    "title": "075- Al-Qiyamah",
+    "page": 540
+  },
+  {
+    "title": "076- Al-Insan",
+    "page": 542
+  },
+  {
+    "title": "077- Al-Mursalat",
+    "page": 544
+  },
+  {
+    "title": "078- An-Naba",
+    "page": 545
+  },
+  {
+    "title": "079- An-Naziat",
+    "page": 547
+  },
+  {
+    "title": "080- Abasa",
+    "page": 548
+  },
+  {
+    "title": "081- At-Takwir",
+    "page": 550
+  },
+  {
+    "title": "082- Al-Infitar",
+    "page": 551
+  },
+  {
+    "title": "083- Al-Mutaffifin",
+    "page": 552
+  },
+  {
+    "title": "084- Al-Inshiqaq",
+    "page": 553
+  },
+  {
+    "title": "085- Al-Buruj",
+    "page": 554
+  },
+  {
+    "title": "086- At-Tariq",
+    "page": 555
+  },
+  {
+    "title": "087- Al-Ala",
+    "page": 556
+  },
+  {
+    "title": "088- Al-Ghashiyah",
+    "page": 556
+  },
+  {
+    "title": "089- Al-Fajr",
+    "page": 557
+  },
+  {
+    "title": "090- Al-Balad",
+    "page": 559
+  },
+  {
+    "title": "091- Ash-Shams",
+    "page": 559
+  },
+  {
+    "title": "092- Al-Lail",
+    "page": 560
+  },
+  {
+    "title": "093- Ad-Duha",
+    "page": 561
+  },
+  {
+    "title": "094- Ash-Sharh",
+    "page": 561
+  },
+  {
+    "title": "095- At-Tin",
+    "page": 562
+  },
+  {
+    "title": "096- Al-Alaq",
+    "page": 562
+  },
+  {
+    "title": "097- Al-Qadr",
+    "page": 563
+  },
+  {
+    "title": "098- Al-Bayinah",
+    "page": 563
+  },
+  {
+    "title": "099- Az-Zalzalaha",
+    "page": 564
+  },
+  {
+    "title": "100- Al-Adiyat",
+    "page": 564
+  },
+  {
+    "title": "101- Al-Qariah",
+    "page": 565
+  },
+  {
+    "title": "102- Al-Takathur",
+    "page": 565
+  },
+  {
+    "title": "103- Al-Asr",
+    "page": 566
+  },
+  {
+    "title": "104- Al-Humazah",
+    "page": 566
+  },
+  {
+    "title": "105- Al-Fil",
+    "page": 566
+  },
+  {
+    "title": "106- Quraish",
+    "page": 567
+  },
+  {
+    "title": "107- Al-Ma'un",
+    "page": 567
+  },
+  {
+    "title": "108- Al-Kauthar",
+    "page": 567
+  },
+  {
+    "title": "109- Al-Kafirun",
+    "page": 568
+  },
+  {
+    "title": "110- An-Nasr",
+    "page": 568
+  },
+  {
+    "title": "111- Al-Masad",
+    "page": 568
+  },
+  {
+    "title": "112- Al-Ikhlas",
+    "page": 569
+  },
+  {
+    "title": "113- Al-Falaq",
+    "page": 569
+  },
+  {
+    "title": "114- An-Nas",
+    "page": 569
+  }
+]
