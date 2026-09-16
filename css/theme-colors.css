@@ -1837,11 +1837,7 @@ tbody td:first-child {
 }
 
 .action-notice-toast span#action-notice-sub {
-  color:       #DFAB52 !important;
-  font-size:   12px !important;
-  font-weight: 700 !important;
-  display:     block !important;
-  margin-top:  2px !important;
+  display: none !important;
 }
 
 .action-notice-toast.notice-logout {

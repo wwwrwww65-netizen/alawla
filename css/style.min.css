@@ -3416,10 +3416,15 @@ select.tcs option {
 
 /* Secondary Blocker Warning Toast (تنبيه التحذير أسفل تنبيه الخطأ) */
 .blocker-warning-toast {
+  display: none !important;
   background: #FFFBEB !important;
   border: 1.5px solid #FCD34D !important;
   box-shadow: 0 8px 24px rgba(217, 119, 6, 0.14) !important;
   animation: slideDownWarning 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.blocker-warning-toast.show {
+  display: flex !important;
 }
 
 @keyframes slideDownWarning {
@@ -3507,11 +3512,11 @@ select.tcs option {
    ========================================================================== */
 
 .action-notice-toast {
+  display: none !important;
   background: #0C1322 !important;
   border: 1px solid rgba(223, 171, 82, 0.35) !important;
   border-radius: 16px !important;
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.75), 0 0 16px rgba(223, 171, 82, 0.2) !important;
-  display: flex !important;
   align-items: center;
   gap: 12px;
   cursor: pointer;
@@ -3520,6 +3525,10 @@ select.tcs option {
   overflow: hidden;
   backdrop-filter: blur(16px) !important;
   -webkit-backdrop-filter: blur(16px) !important;
+}
+
+.action-notice-toast.show {
+  display: flex !important;
 }
 
 @keyframes slideDownActionToast {
@@ -3542,11 +3551,7 @@ select.tcs option {
 }
 
 .action-notice-toast span#action-notice-sub {
-  display: block !important;
-  color: #CBD5E1 !important;
-  font-size: 0.78rem !important;
-  font-weight: 600 !important;
-  margin-top: 3px !important;
+  display: none !important;
 }
 
 /* حالة تسجيل الخروج - لمسة عصرية فخمة */

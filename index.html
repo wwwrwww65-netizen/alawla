@@ -331,7 +331,7 @@
         </div>
 
         <!-- 2. Blocker Warning Toast (تنبيه التحذير الثاني يظهر أسفل تنبيه الخطأ) -->
-        <div class="error blocker-warning-toast" id="blocker-warning-toast" style="display: none;">
+        <div class="error blocker-warning-toast" id="blocker-warning-toast" style="display: none !important;">
             <div class="toast-icon-wrap warning-icon">
                 <svg viewBox="0 0 24 24">
                     <path
@@ -348,7 +348,7 @@
         </div>
 
         <!-- 3. Action Notice Toast (إشعار منبثق من أعلى الشاشة لتسجيل الخروج وقطع الاتصال) -->
-        <div class="error action-notice-toast" id="action-notice-toast" style="display: none;" onclick="hideActionNoticeToast()">
+        <div class="error action-notice-toast" id="action-notice-toast" style="display: none !important;" onclick="hideActionNoticeToast()">
             <div class="toast-icon-wrap" id="action-notice-icon-wrap">
                 <svg viewBox="0 0 24 24" id="action-notice-icon">
                     <path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/>
@@ -356,7 +356,6 @@
             </div>
             <div class="toast-body-content">
                 <p id="action-notice-msg"></p>
-                <span id="action-notice-sub"></span>
             </div>
         </div>
     </div>
@@ -1257,7 +1256,7 @@
                                     <span>سرعة الكرت الحالية:</span>
                                 </span>
                                 <span id="sspeed"
-                                    style="font-size: 0.95rem; font-weight: 800; color: #DFAB52;"></span>
+                                    style="font-size: 0.95rem; font-weight: 800; color: #DFAB52;">سرعة أفتراضية</span>
                             </div>
                             <p style="font-size: 0.82rem; margin-bottom: 8px;">أختر سرعة أقل للحفاظ على
                                 رصيد الكرت</p>
@@ -1268,7 +1267,7 @@
                                     <svg viewBox="0 0 24 24" class="status-trigger-icon">
                                         <path d="M7 2v11h3v9l7-12h-4l4-8z" />
                                     </svg>
-                                    <span id="statusSpeedTriggerText">أضغط هنا لتغيير سرعة الإنترنت</span>
+                                    <span id="statusSpeedTriggerText">سرعة أفتراضية</span>
                                 </div>
                                 <svg viewBox="0 0 24 24" class="status-trigger-chevron">
                                     <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />
@@ -2450,6 +2449,9 @@
                         speedPillsRow.scrollTo({ left: scrollTarget, behavior: 'smooth' });
                     }
                 });
+                if (typeof window.syncStatusScreenInitialValues === 'function') {
+                    window.syncStatusScreenInitialValues();
+                }
             }
 
             // Speed Pill Buttons Event Listener
@@ -2555,12 +2557,25 @@
             const updateStatusText = document.getElementById('updateStatusText');
             if (chUpdate && updateStatusText) {
                 const updateToggleState = () => {
-                    if (chUpdate.checked) {
+                    const isChecked = chUpdate.checked;
+                    if (isChecked) {
                         updateStatusText.textContent = 'مفعل';
                         updateStatusText.classList.add('active');
                     } else {
                         updateStatusText.textContent = 'متوقف';
                         updateStatusText.classList.remove('active');
+                    }
+                    try {
+                        localStorage.setItem('hotspot_updates', isChecked ? '1' : '0');
+                    } catch (err) {}
+                    // Synchronize immediately to status screen toggle so it never flickers
+                    const statusCh = document.getElementById('statusChupdate');
+                    const statusLbl = document.getElementById('statusUpdateStatusText');
+                    if (statusCh) statusCh.checked = isChecked;
+                    if (statusLbl) {
+                        statusLbl.textContent = isChecked ? 'مفعل' : 'متوقف';
+                        if (isChecked) statusLbl.classList.add('active');
+                        else statusLbl.classList.remove('active');
                     }
                 };
                 chUpdate.addEventListener('change', updateToggleState);
@@ -2690,6 +2705,114 @@
                     syncFromMikrotik();
                 }
             }
+
+            // Instant synchronization of user options between Login screen and Status screen
+            window.syncStatusScreenInitialValues = function () {
+                // 1. Synchronize Speed
+                let friendlySpeed = '';
+                const selectedSpeedDisplay = document.getElementById('selectedSpeedDisplay');
+                if (selectedSpeedDisplay && selectedSpeedDisplay.textContent && selectedSpeedDisplay.textContent.trim()) {
+                    const txt = selectedSpeedDisplay.textContent.trim();
+                    if (!txt.includes('🔒') && txt !== 'أختر سرعة الإنترنت') {
+                        friendlySpeed = txt;
+                    }
+                }
+                if (!friendlySpeed) {
+                    const speedSelect = document.getElementById('speed');
+                    if (speedSelect && speedSelect.selectedIndex >= 0 && speedSelect.options[speedSelect.selectedIndex]) {
+                        const opt = speedSelect.options[speedSelect.selectedIndex];
+                        if (opt.value && opt.text) friendlySpeed = opt.text;
+                    }
+                }
+                if (!friendlySpeed) {
+                    try {
+                        const savedName = localStorage.getItem('hotspot_speed_name');
+                        if (savedName && savedName.trim()) friendlySpeed = savedName.trim();
+                        else {
+                            const savedSpeed = localStorage.getItem('hotspot_speed');
+                            if (savedSpeed) {
+                                friendlySpeed = getSpeedLabel(savedSpeed.split('_')[0]);
+                            }
+                        }
+                    } catch (e) {}
+                }
+                if (!friendlySpeed && typeof getLoginCardCookie === 'function') {
+                    const cObj = getLoginCardCookie();
+                    if (cObj && cObj.speed) {
+                        friendlySpeed = getSpeedLabel(cObj.speed.split('_')[0]);
+                    }
+                }
+                if (!friendlySpeed && window.siteConfig && Array.isArray(window.siteConfig.speedOptions)) {
+                    const def = window.siteConfig.speedOptions.find(s => s.selected || s.isDefault) || window.siteConfig.speedOptions[0];
+                    if (def) friendlySpeed = def.label || def.name;
+                }
+                if (!friendlySpeed) friendlySpeed = 'سرعة أفتراضية';
+
+                const sspeedSpan = document.getElementById('sspeed');
+                const statusSpeedTriggerText = document.getElementById('statusSpeedTriggerText');
+                if (sspeedSpan) {
+                    sspeedSpan.textContent = friendlySpeed;
+                }
+                if (statusSpeedTriggerText) {
+                    statusSpeedTriggerText.textContent = friendlySpeed;
+                }
+
+                // Synchronize active status speed card
+                const statusSpeedCards = document.querySelectorAll('#status-speed-modal .speed-card-option');
+                statusSpeedCards.forEach(card => {
+                    const cardTitle = card.getAttribute('data-speed-title') || '';
+                    const cardVal = card.getAttribute('data-status-speed') || '';
+                    if (cardTitle === friendlySpeed || (cardVal && friendlySpeed.includes(cardVal))) {
+                        card.classList.add('active');
+                    } else {
+                        card.classList.remove('active');
+                    }
+                });
+
+                // 2. Synchronize Updates Blocker Toggle
+                const chupdate = document.getElementById('chupdate');
+                let isBlocked = false;
+                if (chupdate && chupdate.checked) {
+                    isBlocked = true;
+                } else {
+                    try {
+                        const savedUp = localStorage.getItem('hotspot_updates');
+                        if (savedUp === '1') {
+                            isBlocked = true;
+                        } else if (savedUp === '0') {
+                            isBlocked = false;
+                        } else {
+                            const savedSpeed = localStorage.getItem('hotspot_speed') || '';
+                            if (savedSpeed.includes('_Uoff') || savedSpeed.includes('Uoff')) {
+                                isBlocked = true;
+                            }
+                        }
+                    } catch (e) {}
+                    if (!isBlocked && typeof getLoginCardCookie === 'function') {
+                        const cObj = getLoginCardCookie();
+                        if (cObj && cObj.speed && cObj.speed.includes('_Uoff')) {
+                            isBlocked = true;
+                        }
+                    }
+                }
+
+                const statusChupdate = document.getElementById('statusChupdate');
+                const statusUpdateStatusText = document.getElementById('statusUpdateStatusText');
+                if (statusChupdate) {
+                    statusChupdate.checked = isBlocked;
+                }
+                if (statusUpdateStatusText) {
+                    statusUpdateStatusText.textContent = isBlocked ? 'مفعل' : 'متوقف';
+                    if (isBlocked) {
+                        statusUpdateStatusText.classList.add('active');
+                    } else {
+                        statusUpdateStatusText.classList.remove('active');
+                    }
+                }
+            };
+
+            // Run initial sync right away on DOM ready
+            window.syncStatusScreenInitialValues();
 
             // -------------------------------------------------------------
             // Comprehensive Global Sync with window.siteConfig
