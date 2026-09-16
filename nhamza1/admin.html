@@ -1,0 +1,585 @@
+<!-- admin.html - لوحة التحكم لتوليد ملف config.json مع دعم الأسعار ونقاط البيع -->
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <title>لوحة تحكم شبكة الواي فاي</title>
+    <link href="./css/output.css" rel="stylesheet" />
+    <style>
+      .cardImage,
+      .speedValue {
+        direction: ltr;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-white text-white min-h-screen flex items-center justify-center p-6"
+    onload="loadConfigData()"
+  >
+    <div class="w-full max-w-3xl bg-[#3d475596] rounded-2xl shadow-lg p-6">
+      <h2 class="text-2xl font-bold mb-4 text-center">
+        لوحة التحكم - إعداد صفحة الدخول
+      </h2>
+      <form id="configForm" class="space-y-4">
+        <!-- الحقول السابقة -->
+        <div>
+          <label class="block mb-1">عنوان الشبكة</label>
+          <input
+            type="text"
+            name="title"
+            class="w-full p-2 rounded bg-gray-700 text-white"
+          />
+        </div>
+
+        <div>
+          <label class="block mb-1">روابط الاستراحة</label>
+          <div id="restLinksWrapper" class="space-y-2"></div>
+
+          <button
+            type="button"
+            onclick="addRestLink()"
+            class="mt-2 bg-blue-600 hover:bg-blue-700 transition px-4 py-1 rounded text-sm"
+          >
+            + إضافة رابط
+          </button>
+        </div>
+
+        <div>
+          <label class="block mb-1">نص الشريط المتحرك</label>
+          <input
+            type="text"
+            name="marqueeText"
+            class="w-full p-2 rounded bg-gray-700 text-white"
+          />
+        </div>
+        <div>
+          <label class="block mb-1">نوع إدخال الكرت</label>
+          <select
+            name="cardInputType"
+            class="w-full p-2 rounded bg-gray-700 text-white"
+          >
+            <option value="number">أرقام فقط</option>
+            <option value="text">حروف فقط</option>
+            <option value="alphanumeric">أرقام + حروف</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block mb-1">الخيارات المتاحة للسرعة</label>
+
+          <div id="speedOptionsWrapper" class="space-y-2">
+            <!-- صف افتراضي -->
+            <div class="flex gap-2 items-center group">
+              <!-- تحديد الافتراضي -->
+              <input
+                type="radio"
+                name="defaultSpeedRadio"
+                class="mt-1"
+                checked
+              />
+
+              <input
+                type="text"
+                placeholder="اسم السرعة (مثلاً: عالية)"
+                class="w-1/2 p-2 rounded bg-gray-700 text-white speedLabel"
+              />
+
+              <input
+                type="text"
+                placeholder="@512k/256k|"
+                class="w-1/2 p-2 rounded bg-gray-700 text-white speedValue"
+              />
+            </div>
+          </div>
+
+          <button
+            type="button"
+            onclick="addSpeedOption()"
+            class="mt-2 bg-blue-600 hover:bg-blue-700 transition px-4 py-1 rounded text-sm"
+          >
+            + إضافة سرعة
+          </button>
+        </div>
+
+        <div>
+          <label class="block mb-1">أرقام خدمة العملاء (افصلها بفاصلة)</label>
+          <input
+            type="text"
+            name="supportNumbers"
+            class="w-full p-2 rounded bg-gray-700 text-white ltr"
+          />
+        </div>
+
+        <div>
+          <label class="block mb-1">ملاحظة في الأسفل</label>
+          <input
+            type="text"
+            name="managerNote"
+            class="w-full p-2 rounded bg-gray-700 text-white"
+          />
+        </div>
+
+        <div>
+          <label class="block mb-1">ألوان التصميم</label>
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label>لون خلفية الصفحة</label>
+              <input
+                type="color"
+                name="backgroundColor"
+                id="backgroundColor"
+                class="w-full"
+              />
+            </div>
+            <div>
+              <label>لون النص داخل الفورم</label>
+              <input
+                type="color"
+                name="textColor"
+                id="textColor"
+                class="w-full"
+              />
+            </div>
+            <div>
+              <label>لون خلفية الفورم</label>
+              <input
+                type="color"
+                name="formBgColor"
+                id="formBgColor"
+                class="w-full"
+              />
+            </div>
+            <div>
+              <label>لون الأزرار</label>
+              <input
+                type="color"
+                name="primaryButtonColor"
+                id="primaryButtonColor"
+                class="w-full"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <label class="block mb-1">الخط المستخدم</label>
+          <select
+            name="fontFamily"
+            class="w-full p-2 rounded bg-gray-700 text-white"
+          >
+            <option value="Cairo">Cairo</option>
+            <option value="Tajawal">Tajawal</option>
+            <option value="Changa">Changa</option>
+            <option value="Almarai">Almarai</option>
+            <option value="Amiri">Amiri</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block mb-1">اسم الصور الإعلانية مع الصيغة</label>
+          <div id="cardImageSliderWrapper" class="space-y-2">
+            <input
+              type="text"
+              placeholder="image.png"
+              class="w-full p-2 rounded bg-gray-700 text-white cardImage"
+            />
+          </div>
+          <button
+            type="button"
+            onclick="addCardImage()"
+            class="mt-2 bg-blue-600 hover:bg-blue-700 transition px-4 py-1 rounded text-sm"
+          >
+            + إضافة صورة
+          </button>
+        </div>
+
+        <!-- جديد: الأسعار ونقاط البيع -->
+        <div>
+          <label class="block mb-1">قائمة الأسعار</label>
+          <div id="pricesWrapper" class="space-y-2">
+            <div class="grid grid-cols-4 gap-2">
+              <input
+                type="text"
+                placeholder="الفئة"
+                class="p-2 rounded bg-gray-700 text-white priceCategory"
+              />
+              <input
+                type="text"
+                placeholder="الوقت"
+                class="p-2 rounded bg-gray-700 text-white priceTime"
+              />
+              <input
+                type="text"
+                placeholder="الرصيد"
+                class="p-2 rounded bg-gray-700 text-white priceAmount"
+              />
+              <input
+                type="text"
+                placeholder="الصلاحية"
+                class="p-2 rounded bg-gray-700 text-white priceValidity"
+              />
+            </div>
+          </div>
+          <button
+            type="button"
+            onclick="addPriceRow()"
+            class="mt-2 bg-blue-600 hover:bg-blue-700 transition px-4 py-1 rounded text-sm"
+          >
+            + إضافة صف
+          </button>
+        </div>
+        <div>
+          <label class="block mb-1">نقاط البيع</label>
+          <div id="salesPointsWrapper" class="space-y-2">
+            <input
+              type="text"
+              placeholder="نقطة بيع"
+              class="w-full p-2 rounded bg-gray-700 text-white salesPoint"
+            />
+          </div>
+          <button
+            type="button"
+            onclick="addSalesPoint()"
+            class="mt-2 bg-blue-600 hover:bg-blue-700 transition px-4 py-1 rounded text-sm"
+          >
+            + إضافة صف
+          </button>
+        </div>
+        <div>
+          <label class="block mb-1">رسالة تنبيه للمستخدمين</label>
+          <input
+            type="text"
+            name="statusAlert"
+            placeholder="اكتب رسالة تظهر في صفحة الحالة"
+            class="w-full p-2 rounded bg-gray-700 text-white"
+          />
+        </div>
+
+        <button
+          type="submit"
+          class="w-full bg-[#202020] py-2 rounded font-bold hover:bg-[#252525] transition text-white"
+        >
+          تحميل ملف الإعدادات
+        </button>
+      </form>
+    </div>
+
+    <script>
+      document.body.classList.add(
+        "bg-[url('../img/adminBG.jpg')]",
+        "bg-cover",
+        "bg-center"
+      );
+
+      // دوال الإنشاء العامة
+      function createInput(className, placeholder) {
+        const input = document.createElement("input");
+        input.type = "text";
+        input.placeholder = placeholder;
+        input.className = className;
+        return input;
+      }
+
+      function appendInputs(wrapperId, inputsHtml) {
+        const wrapper = document.getElementById(wrapperId);
+        const row = document.createElement("div");
+        row.innerHTML = inputsHtml;
+        wrapper.appendChild(row);
+      }
+
+      function addSpeedOption(label = "", value = "", isDefault = false) {
+        appendInputs(
+          "speedOptionsWrapper",
+          `<div class="flex gap-2 items-center group">
+      <input type="radio" name="defaultSpeedRadio"
+        ${isDefault ? "checked" : ""}
+        class="mt-1">
+
+      <input type="text"
+        placeholder="اسم السرعة"
+        value="${label}"
+        class="w-1/2 p-2 rounded bg-gray-700 text-white speedLabel">
+
+      <input type="text"
+        placeholder="@512k/256k|"
+        value="${value}"
+        class="w-1/2 p-2 rounded bg-gray-700 text-white speedValue">
+
+      <button type="button"
+        onclick="this.parentElement.remove()"
+        class="text-red-500 text-xl px-2 font-bold">×</button>
+    </div>`
+        );
+      }
+
+      function addPriceRow(data = {}) {
+        appendInputs(
+          "pricesWrapper",
+          `<div class="flex gap-2 items-center">
+      <input type="text" placeholder="الفئة" value="${
+        data.category || ""
+      }" class="p-2 rounded bg-gray-700 text-white priceCategory w-1/4">
+      <input type="text" placeholder="الوقت" value="${
+        data.time || ""
+      }" class="p-2 rounded bg-gray-700 text-white priceTime w-1/4">
+      <input type="text" placeholder="الرصيد" value="${
+        data.amount || ""
+      }" class="p-2 rounded bg-gray-700 text-white priceAmount w-1/4">
+      <input type="text" placeholder="الصلاحية" value="${
+        data.validity || ""
+      }" class="p-2 rounded bg-gray-700 text-white priceValidity w-1/4">
+      <button type="button" onclick="this.parentElement.remove()" class="text-red-500 text-xl px-3 font-bold">×</button>
+    </div>`
+        );
+      }
+
+      function addSalesPoint(value = "") {
+        const wrapper = document.getElementById("salesPointsWrapper");
+        const row = document.createElement("div");
+        row.className = "flex items-center gap-2 group";
+        row.innerHTML = `
+    <input type="text" placeholder="نقطة بيع" value="${value}" class="w-full p-2 rounded bg-gray-700 text-white salesPoint">
+    <button type="button" onclick="this.parentElement.remove()" class=" text-red-500 text-xl px-2 font-bold">×</button>
+  `;
+        wrapper.appendChild(row);
+      }
+
+      function addCardImage(value = "") {
+        const wrapper = document.getElementById("cardImageSliderWrapper");
+        const row = document.createElement("div");
+        row.className = "flex items-center gap-2 group";
+        row.innerHTML = `
+    <input type="text" placeholder="image.png" value="${value}" class="w-full p-2 rounded bg-gray-700 text-white cardImage">
+    <button type="button" onclick="this.parentElement.remove()" class=" text-red-500 text-xl px-2 font-bold">×</button>
+  `;
+        wrapper.appendChild(row);
+      }
+
+      async function loadConfigData() {
+        let config = null;
+
+        try {
+          const res = await fetch("config.json");
+          config = await res.json();
+
+          // تعبئة الحقول النصية البسيطة (يستثني المصفوفات/الأوبجكت)
+          Object.entries(config).forEach(([key, value]) => {
+            const field = document.querySelector(`[name="${key}"]`);
+            if (field && typeof value !== "object") field.value = value;
+          });
+
+          // أرقام خدمة العملاء (مصفوفة => نص مفصول بفواصل)
+          if (Array.isArray(config.supportNumbers)) {
+            const field = document.querySelector('[name="supportNumbers"]');
+            if (field) field.value = config.supportNumbers.join(", ");
+          }
+
+          // نوع إدخال الكرت
+          if (config.cardInputType) {
+            const t = document.querySelector('[name="cardInputType"]');
+            if (t) t.value = config.cardInputType;
+          }
+
+          // رسالة التنبيه
+          if (config.statusAlert) {
+            const a = document.querySelector('[name="statusAlert"]');
+            if (a) a.value = config.statusAlert;
+          }
+
+          // روابط الاستراحة (نفضي ثم نعبّي)
+          const restWrap = document.getElementById("restLinksWrapper");
+          if (restWrap) {
+            restWrap.innerHTML = "";
+            if (Array.isArray(config.restLinks) && config.restLinks.length) {
+              config.restLinks.forEach((r) => {
+                addRestLink(r.name || "", r.url || "");
+              });
+            } else {
+              // صف واحد فارغ لو ما فيه بيانات
+              addRestLink("", "");
+            }
+          }
+
+          // السرعات + الافتراضي بالراديو
+          const wrapper = document.getElementById("speedOptionsWrapper");
+          if (wrapper) {
+            // نفضي كل الصفوف ونبدأ من جديد
+            wrapper.innerHTML = "";
+            const speeds = Array.isArray(config.speedOptions)
+              ? config.speedOptions
+              : [];
+
+            if (speeds.length) {
+              speeds.forEach((s, i) => {
+                // الافتراضي: يا إما defaultSpeed يطابق value أو (isDefault === true) أو أول عنصر
+                const isDef =
+                  (config.defaultSpeed && config.defaultSpeed == s.value) ||
+                  s.isDefault === true ||
+                  (!config.defaultSpeed && i === 0);
+
+                addSpeedOption(s.label || "", s.value || "", isDef);
+              });
+            } else {
+              // صف واحد افتراضي جاهز (بدون ما يحتاج ملف مسبق)
+              addSpeedOption("", "", true);
+            }
+          }
+
+          // الصور
+          if (Array.isArray(config.cardImageSlider)) {
+            config.cardImageSlider.forEach((img, i) => {
+              if (i > 0) addCardImage();
+              document.querySelectorAll(".cardImage")[i].value = img;
+            });
+          }
+
+          // الأسعار
+          if (Array.isArray(config.prices)) {
+            config.prices.forEach(({ category, time, amount, validity }, i) => {
+              if (i > 0) addPriceRow();
+              document.querySelectorAll(".priceCategory")[i].value =
+                category || "";
+              document.querySelectorAll(".priceTime")[i].value = time || "";
+              document.querySelectorAll(".priceAmount")[i].value = amount || "";
+              document.querySelectorAll(".priceValidity")[i].value =
+                validity || "";
+            });
+          }
+
+          // نقاط البيع
+          if (Array.isArray(config.salesPoints)) {
+            config.salesPoints.forEach((point, i) => {
+              if (i > 0) addSalesPoint();
+              document.querySelectorAll(".salesPoint")[i].value = point || "";
+            });
+          }
+        } catch (err) {
+          console.error("فشل تحميل ملف config.json", err);
+
+          // لو ما قدر يقرأ config.json لا تخلي الصفحة تموت
+          // جهّز صفوف افتراضية
+          const restWrap = document.getElementById("restLinksWrapper");
+          if (restWrap && !restWrap.innerHTML.trim()) addRestLink("", "");
+
+          const speedWrap = document.getElementById("speedOptionsWrapper");
+          if (speedWrap && !speedWrap.innerHTML.trim()) {
+            speedWrap.innerHTML = "";
+            addSpeedOption("", "", true);
+          }
+        }
+      }
+
+      // حفظ البيانات عند الإرسال
+
+      document.getElementById("configForm").onsubmit = function (e) {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const data = Object.fromEntries(formData.entries());
+
+        // أرقام خدمة العملاء
+        data.supportNumbers = (data.supportNumbers || "")
+          .split(",")
+          .map((s) => s.trim())
+          .filter(Boolean);
+
+        // السرعات + الافتراضي بالراديو
+        const radios = document.querySelectorAll(
+          'input[name="defaultSpeedRadio"]'
+        );
+
+        data.speedOptions = Array.from(document.querySelectorAll(".speedLabel"))
+          .map((_, i) => ({
+            label: document.querySelectorAll(".speedLabel")[i].value.trim(),
+            value: document.querySelectorAll(".speedValue")[i].value.trim(),
+            isDefault: radios[i] ? radios[i].checked : false,
+          }))
+          // نشيل الصفوف الفاضية
+          .filter((s) => s.label || s.value);
+
+        // تحديد السرعة الافتراضية
+        const def = data.speedOptions.find((s) => s.isDefault);
+        data.defaultSpeed = def
+          ? def.value
+          : data.speedOptions[0]
+          ? data.speedOptions[0].value
+          : "";
+
+        // helper
+        const getValues = (className) =>
+          Array.from(document.querySelectorAll(className)).map((el) =>
+            el.value.trim()
+          );
+
+        // الأسعار
+        const [cats, times, amts, valids] = [
+          ".priceCategory",
+          ".priceTime",
+          ".priceAmount",
+          ".priceValidity",
+        ].map(getValues);
+
+        data.prices = cats
+          .map((_, i) => ({
+            category: cats[i],
+            time: times[i],
+            amount: amts[i],
+            validity: valids[i],
+          }))
+          .filter((p) => p.category || p.time || p.amount || p.validity);
+
+        // روابط الاستراحة
+        data.restLinks = Array.from(document.querySelectorAll(".restName"))
+          .map((_, i) => ({
+            name: document.querySelectorAll(".restName")[i].value.trim(),
+            url: document.querySelectorAll(".restUrl")[i].value.trim(),
+          }))
+          .filter((r) => r.name || r.url);
+
+        // نقاط البيع
+        data.salesPoints = getValues(".salesPoint").filter(Boolean);
+
+        // صور السلايدر
+        data.cardImageSlider = getValues(".cardImage").filter(Boolean);
+
+        const json = JSON.stringify(data, null, 2);
+        const blob = new Blob([json], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "config.json";
+        a.click();
+        URL.revokeObjectURL(url);
+      };
+
+      function addRestLink(name = "", url = "") {
+        const wrapper = document.getElementById("restLinksWrapper");
+        const row = document.createElement("div");
+        row.className = "flex gap-2 items-center";
+
+        row.innerHTML = `
+   <input
+     type="text"
+     placeholder="اسم الزر"
+     value="${name}"
+     class="w-1/2 p-2 rounded bg-gray-700 text-white restName"
+   />
+
+   <input
+     type="text"
+     placeholder="الرابط"
+     value="${url}"
+     class="w-1/2 p-2 rounded bg-gray-700 text-white restUrl"
+   />
+
+   <button
+     type="button"
+     onclick="this.parentElement.remove()"
+     class="text-red-500 text-xl px-2 font-bold"
+   >×</button>
+  `;
+
+        wrapper.appendChild(row);
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,105 @@
+{
+  "title": "شبكه يمن نت اللاسلكية",
+  "marqueeText": "يوجد لدينا خدمة دخول الاجهزه للمنازل ولمحلات التجارية  رقم التواصل .770807056",
+  "cardInputType": "number",
+  "defaultSpeedRadio": "on",
+  "supportNumbers": [
+    "770807056-779213699"
+  ],
+  "managerNote": "برمجة وتركيب نورالدين اللوندي",
+  "backgroundColor": "#ffffff",
+  "textColor": "#000000",
+  "formBgColor": "#b1bdd8",
+  "primaryButtonColor": "#6b6e94",
+  "fontFamily": "Cairo",
+  "statusAlert": "",
+  "speedOptions": [
+    {
+      "label": "عادية",
+      "value": "@512K/1024K|",
+      "isDefault": false
+    },
+    {
+      "label": "سرعة افتراضية",
+      "value": "@512K/1538K|",
+      "isDefault": true
+    },
+    {
+      "label": "سرعة مرتفعة",
+      "value": "@1024K/4M|",
+      "isDefault": false
+    },
+    {
+      "label": "عالية جدأ جدأ",
+      "value": "@1024K/8192K|",
+      "isDefault": false
+    },
+    {
+      "label": "اقتصادية",
+      "value": "@256K/512K|",
+      "isDefault": false
+    }
+  ],
+  "defaultSpeed": "@512K/1538K|",
+  "prices": [
+    {
+      "category": "100 ريال",
+      "time": "3 ساعات",
+      "amount": "400 ميجا",
+      "validity": "شهر"
+    },
+    {
+      "category": "200 ريال",
+      "time": "7 ساعات",
+      "amount": "800 ميجا",
+      "validity": "شهر"
+    },
+    {
+      "category": "250 ريال",
+      "time": "24 ساعه",
+      "amount": "1000 ميجا",
+      "validity": "1 يوم"
+    },
+    {
+      "category": "500 ريال",
+      "time": "20 ساعه",
+      "amount": "2000 ميجا",
+      "validity": "شهر"
+    },
+    {
+      "category": "1000",
+      "time": "100 ساعه",
+      "amount": "4000",
+      "validity": "شهر"
+    },
+    {
+      "category": "100مفتوح",
+      "time": "3 ساعات",
+      "amount": "مفتوح",
+      "validity": "شهر"
+    },
+    {
+      "category": "300مفتوح",
+      "time": "10ساعات",
+      "amount": "مفتوح",
+      "validity": "شهر"
+    }
+  ],
+  "restLinks": [
+    {
+      "name": "الاستراحة",
+      "url": "http://2.2.2.2/"
+    },
+    {
+      "name": "بث مباشر",
+      "url": "http://2.2.2.2:85/"
+    }
+  ],
+  "salesPoints": [
+    "جميع الاماكن في تواجد الشبكة"
+  ],
+  "cardImageSlider": [
+    "111.png",
+    "222.png"
+  ]
+}
