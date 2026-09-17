@@ -3333,5 +3333,57 @@ body.quran-reading-mode nav {
   }
 }
 
+/* ══════════════════════════════════════════════════════════════════
+   20. قسم حقوق التصميم أسفل الصفحة (تصميم م/ هاشم الجائفي)
+   خارج حاوية خدمة العملاء - خط صغير ناعم ومتقارب وظاهر بجلاء
+   ══════════════════════════════════════════════════════════════════ */
+.designer-credits-block {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  width: 100% !important;
+  margin-top: 8px !important;
+  margin-bottom: 4px !important;
+  padding: 0 !important;
+  line-height: 1.3 !important;
+  direction: rtl !important;
+  gap: 4px !important;
+  user-select: text !important;
+  -webkit-user-select: text !important;
+}
+
+.designer-credits-block .designer-name-text {
+  font-size: 0.72rem !important;
+  font-weight: 700 !important;
+  color: #DFAB52 !important;
+  letter-spacing: 0.2px !important;
+  white-space: nowrap !important;
+  display: inline !important;
+}
+
+.designer-credits-block .designer-phone-link {
+  display: inline-block !important;
+  font-size: 0.72rem !important;
+  font-weight: 600 !important;
+  color: #94A3B8 !important;
+  text-decoration: none !important;
+  direction: ltr !important;
+  unicode-bidi: embed !important;
+  font-family: system-ui, -apple-system, 'Almarai', sans-serif !important;
+  letter-spacing: 0.5px !important;
+  padding: 1px 3px !important;
+  border-radius: 4px !important;
+  cursor: pointer !important;
+  transition: color 0.2s ease, background 0.2s ease !important;
+}
+
+.designer-credits-block .designer-phone-link:hover,
+.designer-credits-block .designer-phone-link:focus-visible {
+  color: #E2E8F0 !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  text-decoration: none !important;
+}
+
 
 

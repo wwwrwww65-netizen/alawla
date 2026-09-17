@@ -2320,8 +2320,8 @@ body.keyboard-open .bottom-nav-bar,
    MODALS / POPUP DIALOGS (#speed-modal, #price, #sell-point, #loan, #block, #status)
    ========================================================================== */
 
-/* Keep original page visible and smoothly blurred behind the modal */
-#login.inactive {
+/* Keep original page visible and smoothly blurred behind modal popups only when not logged in */
+body:not(.has-active-session) #login.inactive:not(.hidden-by-status) {
   display: block !important;
   visibility: visible !important;
   filter: blur(3.5px) brightness(0.85);
@@ -2805,8 +2805,22 @@ tbody td:last-child {
 
 /* When #status (Status dashboard screen) is active, ensure #login is hidden */
 .screen-content:has(#status.active) #login,
-body:has(#status.active) #login {
+body:has(#status.active) #login,
+body.has-active-session #login,
+html.initial-status-mode #login,
+#status.active ~ #login,
+#login.hidden-by-status {
   display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+html.initial-status-mode #status,
+body.has-active-session #status {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
 }
 
 .status-header-card {

@@ -55,7 +55,7 @@
                     document.documentElement.classList.add("initial-status-mode");
                     var zeroFlickerStyle = document.createElement('style');
                     zeroFlickerStyle.id = 'zero-flicker-style';
-                    zeroFlickerStyle.textContent = 'html.initial-status-mode #login { display: none !important; visibility: hidden !important; opacity: 0 !important; } html.initial-status-mode #status { display: block !important; visibility: visible !important; opacity: 1 !important; animation: none !important; transform: none !important; }';
+                    zeroFlickerStyle.textContent = 'html.initial-status-mode #login, body.has-active-session #login, #login.hidden-by-status { display: none !important; visibility: hidden !important; opacity: 0 !important; pointer-events: none !important; } html.initial-status-mode #status, body.has-active-session #status { display: block !important; visibility: visible !important; opacity: 1 !important; animation: none !important; transform: none !important; }';
                     document.head.appendChild(zeroFlickerStyle);
                 }
             } catch (err) {}
@@ -382,6 +382,13 @@
 </head>
 
 <body translate="no">
+    <script>
+        try {
+            if (localStorage.getItem("hotspot_active_session") === "1" || /(?:^|;\s*)hotspot_active_session=1/.test(document.cookie)) {
+                document.body.classList.add("has-active-session");
+            }
+        } catch(e) {}
+    </script>
 
     <!-- حاوية الأيقونات المتجهة (SVG) الفاخرة العائمة في الخلفية -->
     <ul class="floating-icons">
@@ -939,6 +946,12 @@
                                 <span>اتصال هاتفي</span>
                             </a>
                         </div>
+                    </div>
+
+                    <!-- حقوق وتصميم م/ هاشم الجائفي -->
+                    <div class="designer-credits-block" id="loginDesignerCredits">
+                        <span class="designer-name-text">تصميم م/ هاشم الجائفي:</span>
+                        <a href="tel:777310606" class="designer-phone-link" aria-label="رقم الهاتف">777310606</a>
                     </div>
 
                     <!-- Hidden legacy social-login wrapper for compatibility -->
@@ -1694,6 +1707,12 @@
                                     <span>اتصال هاتفي</span>
                                 </a>
                             </div>
+                        </div>
+
+                        <!-- حقوق وتصميم م/ هاشم الجائفي -->
+                        <div class="designer-credits-block" id="statusDesignerCredits">
+                            <span class="designer-name-text">تصميم م/ هاشم الجائفي:</span>
+                            <a href="tel:777310606" class="designer-phone-link" aria-label="رقم الهاتف">777310606</a>
                         </div>
                     </div>
                 </div>
