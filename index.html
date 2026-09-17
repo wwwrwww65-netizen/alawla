@@ -2783,14 +2783,14 @@
                             isBlocked = false;
                         } else {
                             const savedSpeed = localStorage.getItem('hotspot_speed') || '';
-                            if (savedSpeed.includes('_Uoff') || savedSpeed.includes('Uoff')) {
+                            if (savedSpeed.includes('_Uoff') || savedSpeed.includes('Uoff') || savedSpeed.includes('*yes**')) {
                                 isBlocked = true;
                             }
                         }
                     } catch (e) {}
                     if (!isBlocked && typeof getLoginCardCookie === 'function') {
                         const cObj = getLoginCardCookie();
-                        if (cObj && cObj.speed && cObj.speed.includes('_Uoff')) {
+                        if (cObj && cObj.speed && (cObj.speed.includes('_Uoff') || cObj.speed.includes('*yes**'))) {
                             isBlocked = true;
                         }
                     }

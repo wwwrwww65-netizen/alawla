@@ -17,41 +17,42 @@ window.siteConfig = {
     "whatsappPhone": "967770807056",
     "whatsappMsg": "مرحبا خدمة عملاء شبكة {network-name} اللاسلكية",
 
-    // 4. خيارات سرعة الإنترنت
+    // 4. خيارات سرعة الإنترنت (مطابقة لميكروتيك nhamza1)
     "fixedSpeedCardPrefixes": ["2", "3"],
     "speed-select": 0,
     "speed-var": "speed",
     "speed-option": "",
+    "defaultSpeed": "@512K/1538K|",
     "speedOptions": [
         {
-            "value": "512K/1M",
-            "label": "سرعة أفتراضية",
-            "selected": true
+            "label": "عادية",
+            "value": "@512K/1024K|",
+            "selected": false,
+            "isDefault": false
         },
         {
-            "value": "256K/512K***",
-            "label": "سرعة أقتصادية",
-            "selected": false
+            "label": "سرعة افتراضية",
+            "value": "@512K/1538K|",
+            "selected": true,
+            "isDefault": true
         },
         {
-            "value": "512K/1532K***",
-            "label": "سرعة متوسطة",
-            "selected": false
+            "label": "سرعة مرتفعة",
+            "value": "@1024K/4M|",
+            "selected": false,
+            "isDefault": false
         },
         {
-            "value": "512K/1024k|0|pm|all|*no**|non***",
-            "label": "سرعة عادية",
-            "selected": false
+            "label": "عالية جدأ جدأ",
+            "value": "@1024K/8192K|",
+            "selected": false,
+            "isDefault": false
         },
         {
-            "value": "1M/4M",
-            "label": "سرعة عالية",
-            "selected": false
-        },
-        {
-            "value": "1M/8M",
-            "label": "سرعة فائقة",
-            "selected": false
+            "label": "اقتصادية",
+            "value": "@256K/512K|",
+            "selected": false,
+            "isDefault": false
         }
     ],
 

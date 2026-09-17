@@ -1690,8 +1690,8 @@
             welcomeMessageV: true,
             erbV: true,
             textSlider1: "",
-            supportPhone: "738348945",
-            whatsappPhone: "967738348945",
+            supportPhone: "770807056",
+            whatsappPhone: "967770807056",
             whatsappMsg: "مرحبا خدمة عملاء شبكة {network-name} اللاسلكية",
             speedOptions: [],
             imageCount: "7",
@@ -1760,8 +1760,8 @@
             if (!appConfig.fixedSpeedCardPrefixes || !Array.isArray(appConfig.fixedSpeedCardPrefixes)) {
                 appConfig.fixedSpeedCardPrefixes = ["2", "3"];
             }
-            if (!appConfig.supportPhone) appConfig.supportPhone = "738348945";
-            if (!appConfig.whatsappPhone) appConfig.whatsappPhone = "967738348945";
+            if (!appConfig.supportPhone) appConfig.supportPhone = "770807056";
+            if (!appConfig.whatsappPhone) appConfig.whatsappPhone = "967770807056";
             if (!appConfig.whatsappMsg) appConfig.whatsappMsg = "مرحبا خدمة عملاء شبكة {network-name} اللاسلكية";
         }
 
@@ -1946,7 +1946,11 @@
             if (appConfig.speedOptions) {
                 appConfig.speedOptions.forEach((spd, i) => {
                     spd.selected = (i === index);
+                    spd.isDefault = (i === index);
                 });
+                if (appConfig.speedOptions[index]) {
+                    appConfig.defaultSpeed = appConfig.speedOptions[index].value || "@512K/1538K|";
+                }
                 saveToCache();
                 showToast(`تم تعيين "${appConfig.speedOptions[index].label}" كسرعة افتراضية`, 'info');
             }
