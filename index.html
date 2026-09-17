@@ -15,6 +15,18 @@
     <meta name="HandheldFriendly" content="true">
     <meta name="MobileOptimized" content="width">
     <meta name="theme-color" content="#070B14">
+    <style id="critical-theme-style">
+        html, body {
+            background-color: #060911 !important;
+            background-image: radial-gradient(circle at 50% 12%, rgba(223, 171, 82, 0.09) 0%, transparent 50%),
+                              radial-gradient(circle at 80% 80%, rgba(12, 19, 34, 0.8) 0%, transparent 60%),
+                              radial-gradient(circle at 20% 50%, rgba(8, 14, 26, 0.9) 0%, transparent 60%) !important;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            min-height: 100%;
+        }
+    </style>
     <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
     <link rel="stylesheet" href="fonts/Almarai.css">
     <link rel="stylesheet" href="css/fontello.min.css">
@@ -43,7 +55,7 @@
                     document.documentElement.classList.add("initial-status-mode");
                     var zeroFlickerStyle = document.createElement('style');
                     zeroFlickerStyle.id = 'zero-flicker-style';
-                    zeroFlickerStyle.textContent = 'html.initial-status-mode #login { display: none !important; visibility: hidden !important; opacity: 0 !important; } html.initial-status-mode #status { display: block !important; visibility: visible !important; opacity: 1 !important; }';
+                    zeroFlickerStyle.textContent = 'html.initial-status-mode #login { display: none !important; visibility: hidden !important; opacity: 0 !important; } html.initial-status-mode #status { display: block !important; visibility: visible !important; opacity: 1 !important; animation: none !important; transform: none !important; }';
                     document.head.appendChild(zeroFlickerStyle);
                 }
             } catch (err) {}
@@ -201,6 +213,169 @@
             opacity: 0.7 !important;
             cursor: not-allowed !important;
             border-color: rgba(255, 255, 255, 0.12) !important;
+        }
+
+        /* حاوية إيداع مبلغ الكرت تحت البنر */
+        .deposit-notice-card {
+            background: linear-gradient(135deg, rgba(14, 23, 41, 0.95), rgba(8, 13, 24, 0.96));
+            border: 1px solid rgba(223, 171, 82, 0.35);
+            border-radius: 14px;
+            padding: 11px 14px;
+            margin: 8px 0 10px 0;
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.45), 0 0 12px rgba(223, 171, 82, 0.12);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            gap: 8px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        .deposit-notice-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 15%;
+            right: 15%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(223, 171, 82, 0.6), transparent);
+        }
+        .deposit-notice-title-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            font-size: 12.5px;
+            font-weight: 700;
+            color: #FFFFFF;
+            letter-spacing: 0.1px;
+            line-height: 1.4;
+        }
+        .deposit-notice-icon {
+            width: 17px;
+            height: 17px;
+            fill: #DFAB52;
+            flex-shrink: 0;
+            filter: drop-shadow(0 1px 4px rgba(223, 171, 82, 0.4));
+        }
+        .deposit-notice-action-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+        .deposit-copy-btn {
+            background: linear-gradient(135deg, rgba(223, 171, 82, 0.18), rgba(196, 142, 51, 0.12));
+            border: 1px solid rgba(223, 171, 82, 0.48);
+            border-radius: 10px;
+            padding: 6px 14px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            color: #DFAB52;
+            font-family: inherit;
+            position: relative;
+            outline: none;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+        .deposit-copy-btn:hover {
+            background: linear-gradient(135deg, rgba(223, 171, 82, 0.28), rgba(196, 142, 51, 0.22));
+            border-color: rgba(223, 171, 82, 0.75);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 14px rgba(223, 171, 82, 0.25);
+        }
+        .deposit-copy-btn:active {
+            transform: scale(0.97);
+        }
+        .deposit-phone-number {
+            font-size: 15.5px;
+            font-weight: 800;
+            color: #FFFFFF;
+            letter-spacing: 1px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            direction: ltr;
+        }
+        .deposit-copy-label {
+            font-size: 12px;
+            font-weight: 700;
+            color: #DFAB52;
+            border-right: 1px solid rgba(223, 171, 82, 0.35);
+            padding-right: 8px;
+            margin-right: 2px;
+            white-space: nowrap;
+        }
+        .deposit-copy-icon {
+            width: 15px;
+            height: 15px;
+            fill: #DFAB52;
+            flex-shrink: 0;
+            transition: transform 0.2s ease;
+        }
+        .deposit-copy-btn.copied {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.25), rgba(5, 150, 105, 0.2));
+            border-color: #10B981;
+            color: #34D399;
+        }
+        .deposit-copy-btn.copied .deposit-copy-label {
+            color: #34D399;
+            border-right-color: rgba(16, 185, 129, 0.4);
+        }
+        .deposit-copy-btn.copied .deposit-copy-icon {
+            fill: #34D399;
+        }
+
+        /* الإشعار المنبثق العلوي المخصص الأنيق */
+        .top-notification-toast {
+            position: fixed;
+            top: 18px;
+            left: 50%;
+            transform: translate(-50%, -40px);
+            opacity: 0;
+            pointer-events: none;
+            background: linear-gradient(135deg, rgba(14, 23, 41, 0.98), rgba(8, 13, 24, 0.99));
+            border: 1px solid rgba(223, 171, 82, 0.65);
+            border-radius: 14px;
+            padding: 10px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            color: #FFFFFF;
+            font-size: 13.5px;
+            font-weight: 700;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.65), 0 0 20px rgba(223, 171, 82, 0.28);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            z-index: 9999999;
+            transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
+            white-space: nowrap;
+            direction: rtl;
+        }
+        .top-notification-toast.show {
+            transform: translate(-50%, 0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .top-notification-toast .toast-icon {
+            width: 20px;
+            height: 20px;
+            fill: #DFAB52;
+            flex-shrink: 0;
+            filter: drop-shadow(0 1px 4px rgba(223, 171, 82, 0.5));
+        }
+        .top-notification-toast.success .toast-icon {
+            fill: #10B981;
+            filter: drop-shadow(0 1px 4px rgba(16, 185, 129, 0.5));
+        }
+        .top-notification-toast.success {
+            border-color: rgba(16, 185, 129, 0.6);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.65), 0 0 20px rgba(16, 185, 129, 0.25);
         }
     </style>
     <script src="js/security.min.js"></script>
@@ -557,6 +732,29 @@
                     </div>
 
                     <!-- ========================================================================= -->
+                    <!-- حاوية إيداع مبلغ الكرت (تحت البنر وفوق الشريط الإخباري) -->
+                    <!-- ========================================================================= -->
+                    <div class="deposit-notice-card" id="depositNoticeBox">
+                        <!-- السطر الأول: نص الإيداع مع أيقونة أنيقة -->
+                        <div class="deposit-notice-title-row">
+                            <svg class="deposit-notice-icon" viewBox="0 0 24 24">
+                                <path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
+                            </svg>
+                            <span>قم بإيداع مبلغ الكرت الى الرقم التالي</span>
+                        </div>
+                        <!-- السطر الثاني: زر رقم الجوال مع أيقونة ونص النسخ -->
+                        <div class="deposit-notice-action-row">
+                            <button type="button" class="deposit-copy-btn" id="depositCopyBtn" onclick="copyDepositNumber()" title="انقر لنسخ الرقم">
+                                <span class="deposit-phone-number" id="depositPhoneText">770770409</span>
+                                <span class="deposit-copy-label" id="depositCopyLabel">نسخ الرقم</span>
+                                <svg class="deposit-copy-icon" id="depositCopyIcon" viewBox="0 0 24 24">
+                                    <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- ========================================================================= -->
                     <!-- الشريط الإخباري المتحرك (تحت البنر) -->
                     <!-- ========================================================================= -->
                     <section class="section">
@@ -723,7 +921,7 @@
                         </div>
                         <div class="support-actions-grid">
                             <!-- WhatsApp Button with Country Code +967 and formatted pre-filled greeting message -->
-                            <a href="whatsapp://send?phone=967738348945&text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%20%D8%AE%D8%AF%D9%85%D8%A9%20%D8%B9%D9%85%D9%84%D8%A7%D8%A1%20%D8%B4%D8%A8%D9%83%D8%A9%20BH-NET%20%D8%A7%D9%84%D9%84%D8%A7%D8%B3%D9%84%D9%83%D9%8A%D8%A9"
+                            <a href="whatsapp://send?phone=967770807056&text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%20%D8%AE%D8%AF%D9%85%D8%A9%20%D8%B9%D9%85%D9%84%D8%A7%D8%A1%20%D8%B4%D8%A8%D9%83%D8%A9%20BH-NET%20%D8%A7%D9%84%D9%84%D8%A7%D8%B3%D9%84%D9%83%D9%8A%D8%A9"
                                 class="support-btn support-btn-whatsapp" aria-label="مراسلة واتساب">
                                 <svg viewBox="0 0 24 24" class="support-btn-icon">
                                     <path
@@ -733,7 +931,7 @@
                             </a>
 
                             <!-- Direct Phone Call Button (Without country code for native phone dialer) -->
-                            <a href="tel:738348945" class="support-btn support-btn-call" aria-label="اتصال مباشر">
+                            <a href="tel:770807056" class="support-btn support-btn-call" aria-label="اتصال مباشر">
                                 <svg viewBox="0 0 24 24" class="support-btn-icon">
                                     <path
                                         d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 00-1.01.24l-2.2 2.2a15.11 15.11 0 01-6.59-6.59l2.2-2.21a.96.96 0 00.25-1A11.36 11.36 0 018.5 3.99c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.61c0-.55-.45-1-1-1z" />
@@ -1010,7 +1208,7 @@
                                             <th scope="col">الصلاحية</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="profiles"></tbody>
+                                     <tbody id="profiles"></tbody>
                                 </table>
                                 <button class="button app-submit modal-cancel-btn" type="button">
                                     <svg viewBox="0 0 24 24" class="btn-icon">
@@ -1018,12 +1216,12 @@
                                     </svg>
                                     <span>رجوع</span>
                                 </button>
-                                <a href="tel:738348945" class="fab-support">
+                                <a href="tel:770807056" class="fab-support">
                                     <svg viewBox="0 0 24 24">
                                         <path
                                             d="M20 15.5c-1.25 0-2.45-.2-3.57-.57a1.02 1.02 0 00-1.02.24l-2.2 2.2a15.045 15.045 0 01-6.59-6.59l2.2-2.21a.96.96 0 00.25-1A11.36 11.36 0 018.5 4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.5c0-.55-.45-1-1-1z" />
                                     </svg>
-                                    <span class="contact" data-service-number>خدمة العملاء: 738348945</span>
+                                    <span class="contact" data-service-number>خدمة العملاء: 770807056</span>
                                 </a>
                             </div>
                         </div>
@@ -1054,12 +1252,12 @@
                                     </svg>
                                     <span>رجوع</span>
                                 </button>
-                                <a href="tel:738348945" class="fab-support">
+                                <a href="tel:770807056" class="fab-support">
                                     <svg viewBox="0 0 24 24">
                                         <path
                                             d="M20 15.5c-1.25 0-2.45-.2-3.57-.57a1.02 1.02 0 00-1.02.24l-2.2 2.2a15.045 15.045 0 01-6.59-6.59l2.2-2.21a.96.96 0 00.25-1A11.36 11.36 0 018.5 4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.5c0-.55-.45-1-1-1z" />
                                     </svg>
-                                    <span class="contact" data-service-number>خدمة العملاء: 738348945</span>
+                                    <span class="contact" data-service-number>خدمة العملاء: 770807056</span>
                                 </a>
                             </div>
                         </div>
@@ -1111,12 +1309,12 @@
                                     </svg>
                                     <span>رجوع</span>
                                 </button>
-                                <a href="tel:738348945" class="fab-support">
+                                <a href="tel:770807056" class="fab-support">
                                     <svg viewBox="0 0 24 24">
                                         <path
                                             d="M20 15.5c-1.25 0-2.45-.2-3.57-.57a1.02 1.02 0 00-1.02.24l-2.2 2.2a15.045 15.045 0 01-6.59-6.59l2.2-2.21a.96.96 0 00.25-1A11.36 11.36 0 018.5 4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.5c0-.55-.45-1-1-1z" />
                                     </svg>
-                                    <span class="contact" data-service-number>خدمة العملاء: 738348945</span>
+                                    <span class="contact" data-service-number>خدمة العملاء: 770807056</span>
                                 </a>
                             </div>
                         </div>
@@ -1478,7 +1676,7 @@
                             </div>
                             <div class="support-actions-grid">
                                 <!-- WhatsApp Button with Country Code +967 and formatted pre-filled greeting message -->
-                                <a href="whatsapp://send?phone=967738348945&text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%20%D8%AE%D8%AF%D9%85%D8%A9%20%D8%B9%D9%85%D9%84%D8%A7%D8%A1%20%D8%B4%D8%A8%D9%83%D8%A9%20BH-NET%20%D8%A7%D9%84%D9%84%D8%A7%D8%B3%D9%84%D9%83%D9%8A%D8%A9"
+                                <a href="whatsapp://send?phone=967770807056&text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%20%D8%AE%D8%AF%D9%85%D8%A9%20%D8%B9%D9%85%D9%84%D8%A7%D8%A1%20%D8%B4%D8%A8%D9%83%D8%A9%20BH-NET%20%D8%A7%D9%84%D9%84%D8%A7%D8%B3%D9%84%D9%83%D9%8A%D8%A9"
                                     class="support-btn support-btn-whatsapp" aria-label="مراسلة واتساب">
                                     <svg viewBox="0 0 24 24" class="support-btn-icon">
                                         <path
@@ -1488,7 +1686,7 @@
                                 </a>
 
                                 <!-- Direct Phone Call Button (Without country code for native phone dialer) -->
-                                <a href="tel:738348945" class="support-btn support-btn-call" aria-label="اتصال مباشر">
+                                <a href="tel:770807056" class="support-btn support-btn-call" aria-label="اتصال مباشر">
                                     <svg viewBox="0 0 24 24" class="support-btn-icon">
                                         <path
                                             d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 00-1.01.24l-2.2 2.2a15.11 15.11 0 01-6.59-6.59l2.2-2.21a.96.96 0 00.25-1A11.36 11.36 0 018.5 3.99c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.61c0-.55-.45-1-1-1z" />
@@ -1532,7 +1730,7 @@
                             </div>
                             <div class="support-actions-grid">
                                 <!-- WhatsApp Button with Country Code +967 and formatted pre-filled greeting message -->
-                                <a href="whatsapp://send?phone=967738348945&text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%20%D8%AE%D8%AF%D9%85%D8%A9%20%D8%B9%D9%85%D9%84%D8%A7%D8%A1%20%D8%B4%D8%A8%D9%83%D8%A9%20BH-NET%20%D8%A7%D9%84%D9%84%D8%A7%D8%B3%D9%84%D9%83%D9%8A%D8%A9"
+                                <a href="whatsapp://send?phone=967770807056&text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%20%D8%AE%D8%AF%D9%85%D8%A9%20%D8%B9%D9%85%D9%84%D8%A7%D8%A1%20%D8%B4%D8%A8%D9%83%D8%A9%20BH-NET%20%D8%A7%D9%84%D9%84%D8%A7%D8%B3%D9%84%D9%83%D9%8A%D8%A9"
                                     class="support-btn support-btn-whatsapp" aria-label="مراسلة واتساب">
                                     <svg viewBox="0 0 24 24" class="support-btn-icon">
                                         <path
@@ -1540,7 +1738,7 @@
                                     </svg>
                                     <span>مراسلة واتساب</span>
                                 </a>
-                                <a href="tel:738348945" class="support-btn support-btn-call" aria-label="اتصال مباشر">
+                                <a href="tel:770807056" class="support-btn support-btn-call" aria-label="اتصال مباشر">
                                     <svg viewBox="0 0 24 24" class="support-btn-icon">
                                         <path
                                             d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 00-1.01.24l-2.2 2.2a15.11 15.11 0 01-6.59-6.59l2.2-2.21a.96.96 0 00.25-1A11.36 11.36 0 018.5 3.99c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.61c0-.55-.45-1-1-1z" />
@@ -1569,12 +1767,12 @@
                             <div class="wrapper" id="grid"></div>
                         </div>
                         <button class="app-logout button app-submit back">الصفحة السابقة</button>
-                        <a href="tel:738348945" class="fab-support">
+                        <a href="tel:770807056" class="fab-support">
                             <svg viewBox="0 0 24 24">
                                 <path
                                     d="M20 15.5c-1.25 0-2.45-.2-3.57-.57a1.02 1.02 0 00-1.02.24l-2.2 2.2a15.045 15.045 0 01-6.59-6.59l2.2-2.21a.96.96 0 00.25-1A11.36 11.36 0 018.5 4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.5c0-.55-.45-1-1-1z" />
                             </svg>
-                            <span class="contact back" data-service-number>خدمة العملاء: 738348945</span>
+                            <span class="contact back" data-service-number>خدمة العملاء: 770807056</span>
                         </a>
                     </div>
                 </div>
@@ -1834,6 +2032,7 @@
     <span style="display: none;" id="winmsg"></span>
 
     <!-- Hotspot System Scripts -->
+    <script src="config.js"></script>
     <script src="js/init.min.js"></script>
     <script src="js/hotInImprover.min.js"></script>
     <script src="js/hotCookie.min.js"></script>
@@ -2198,6 +2397,13 @@
                 // Trigger reflow for CSS entry animation
                 void modal.offsetWidth;
                 modal.classList.add('active');
+
+                // Instant sync for dynamic modal contents (price table, sales points, etc.)
+                if (modal.id === 'price' || modal.id === 'sell-point' || modal.id === 'offers-modal') {
+                    if (typeof syncAllSiteConfigs === 'function') {
+                        syncAllSiteConfigs();
+                    }
+                }
 
                 // Lock background scroll
                 if (window.ModalScrollLock) {
@@ -2821,7 +3027,7 @@
             function syncAllSiteConfigs() {
                 const config = window.siteConfig || {};
                 const netName = config.siteName || 'BH-NET';
-                const suppPhone = config.supportPhone || '738348945';
+                const suppPhone = config.supportPhone || '770807056';
                 const waPhone = config.whatsappPhone || '967' + suppPhone.replace(/^0+/, '');
                 let rawWaMsg = config.whatsappMsg || 'مرحبا خدمة عملاء شبكة {network-name} اللاسلكية';
                 const formattedWaMsg = rawWaMsg.replace(/\{network-name\}/g, netName);
@@ -2838,6 +3044,24 @@
                         el.innerText = `شبكة ${netName} اللاسلكية`;
                     }
                 });
+
+                // Update Header Brand Logo Title (Prefix and Gold Suffix)
+                const parts = netName.trim().split(/\s+/);
+                let brandPrefix = parts[0] || netName;
+                let brandSuffix = parts.slice(1).join(' ');
+                const prefixEl = document.querySelector('[data-network-name-prefix="true"]');
+                const suffixEl = document.querySelector('.brand-net-gold');
+                if (prefixEl) prefixEl.textContent = brandPrefix;
+                if (suffixEl) {
+                    suffixEl.textContent = brandSuffix;
+                    suffixEl.style.display = brandSuffix ? 'inline-block' : 'none';
+                }
+
+                // Update Subtitle line text under brand title
+                const subDecEl = document.querySelector('.sub-dec-text');
+                if (subDecEl && config.subDecText) {
+                    subDecEl.textContent = config.subDecText;
+                }
 
                 document.querySelectorAll('.network-logo-img').forEach(img => {
                     img.alt = `شعار شبكة ${netName}`;
@@ -2953,25 +3177,29 @@
                 });
 
                 // 6. Sync Packages / Profiles table if provided in siteConfig
-                if (Array.isArray(config.packages) && config.packages.length > 0) {
+                const packagesList = (Array.isArray(config.packages) && config.packages.length > 0) ? config.packages :
+                                     (Array.isArray(config.profiles) && config.profiles.length > 0) ? config.profiles : null;
+                if (packagesList) {
                     const profilesTbody = document.getElementById('profiles');
                     if (profilesTbody) {
-                        profilesTbody.innerHTML = config.packages.map(p => `
+                        profilesTbody.innerHTML = packagesList.map(p => `
                             <tr>
                                 <td>${p.price || ''}</td>
                                 <td>${p.time || 'مفتوح'}</td>
-                                <td>${p.size || ''}</td>
-                                <td>${p.vl || ''}</td>
+                                <td>${p.size || p.transfer || ''}</td>
+                                <td>${p.vl || p.validity || ''}</td>
                             </tr>
                         `).join('');
                     }
                 }
 
                 // 7. Sync Sales Points list if provided in siteConfig
-                if (Array.isArray(config.salesPoints) && config.salesPoints.length > 0) {
+                const salesList = (Array.isArray(config.salesPoints) && config.salesPoints.length > 0) ? config.salesPoints :
+                                  (Array.isArray(config['sell-points']) && config['sell-points'].length > 0) ? config['sell-points'] : null;
+                if (salesList) {
                     const salesTbody = document.getElementById('sell-points');
                     if (salesTbody) {
-                        salesTbody.innerHTML = config.salesPoints.map(sp => `
+                        salesTbody.innerHTML = salesList.map(sp => `
                             <tr>
                                 <td>${typeof sp === 'object' ? (sp.name || '') : sp}</td>
                             </tr>
@@ -3347,7 +3575,7 @@
 
                     const config = window.siteConfig || {};
                     const netName = config.siteName || 'BH-NET';
-                    const suppPhone = config.supportPhone || '738348945';
+                    const suppPhone = config.supportPhone || '770807056';
                     const waPhone = config.whatsappPhone || '967' + suppPhone.replace(/^0+/, '');
                     let rawWaMsg = config.whatsappMsg || 'مرحبا خدمة عملاء شبكة {network-name} اللاسلكية';
                     const formattedWaMsg = rawWaMsg.replace(/\{network-name\}/g, netName);
@@ -3718,6 +3946,73 @@
                     }
                 });
             });
+
+            // نظام الإشعار العلوي المنبثق الأنيق
+            window.showTopNotification = function(msg, type) {
+                var toast = document.getElementById('globalTopToast');
+                if (!toast) {
+                    toast = document.createElement('div');
+                    toast.id = 'globalTopToast';
+                    toast.className = 'top-notification-toast';
+                    document.body.appendChild(toast);
+                }
+                var iconSvg = '<svg class="toast-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>';
+                toast.innerHTML = iconSvg + '<span>' + msg + '</span>';
+                toast.className = 'top-notification-toast show ' + (type || 'success');
+
+                if (window._topToastTimer) clearTimeout(window._topToastTimer);
+                window._topToastTimer = setTimeout(function() {
+                    if (toast) toast.classList.remove('show');
+                }, 3000);
+            };
+
+            // دالة نسخ رقم الإيداع مع التغذية الراجعة البصرية
+            window.copyDepositNumber = function() {
+                var phone = '770770409';
+                var btn = document.getElementById('depositCopyBtn');
+                var label = document.getElementById('depositCopyLabel');
+                var icon = document.getElementById('depositCopyIcon');
+
+                function notifyCopied() {
+                    if (btn) btn.classList.add('copied');
+                    if (label) label.textContent = 'تم النسخ بنجاح ✓';
+                    if (icon) {
+                        icon.innerHTML = '<path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>';
+                    }
+                    window.showTopNotification('تم نسخ رقم الإيداع بنجاح: ' + phone, 'success');
+                    setTimeout(function() {
+                        if (btn) btn.classList.remove('copied');
+                        if (label) label.textContent = 'نسخ الرقم';
+                        if (icon) {
+                            icon.innerHTML = '<path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>';
+                        }
+                    }, 2500);
+                }
+
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(phone).then(notifyCopied).catch(function() {
+                        fallbackCopy(phone);
+                    });
+                } else {
+                    fallbackCopy(phone);
+                }
+
+                function fallbackCopy(text) {
+                    var ta = document.createElement('textarea');
+                    ta.value = text;
+                    ta.style.position = 'fixed';
+                    ta.style.left = '-9999px';
+                    ta.style.top = '0';
+                    document.body.appendChild(ta);
+                    ta.focus();
+                    ta.select();
+                    try {
+                        document.execCommand('copy');
+                        notifyCopied();
+                    } catch (e) {}
+                    document.body.removeChild(ta);
+                }
+            };
         })();
     </script>
     <script src="js/notifications-system/notifications-integration.js"></script>
