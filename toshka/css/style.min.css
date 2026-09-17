@@ -1,0 +1,733 @@
+@import url(../fonts/Almarai.css);
+
+@-webkit-keyframes animRipple {
+    to {
+        transform: scale(3.5);
+        opacity: 0
+    }
+}
+
+@keyframes animRipple {
+    to {
+        transform: scale(3.5);
+        opacity: 0
+    }
+}
+
+@-webkit-keyframes rotate {
+    to {
+        transform: rotate(360deg)
+    }
+}
+
+@keyframes rotate {
+    to {
+        transform: rotate(360deg)
+    }
+}
+
+@-webkit-keyframes animatePath {
+    to {
+        stroke-dashoffset: 0
+    }
+}
+
+@keyframes animatePath {
+    to {
+        stroke-dashoffset: 0
+    }
+}
+
+@-webkit-keyframes marquee {
+    to {
+        margin-left: 100%;
+        transform: translateX(0)
+    }
+
+    0% {
+        margin-left: 0;
+        transform: translateX(-100%)
+    }
+}
+
+@keyframes marquee {
+    to {
+        margin-left: 100%;
+        transform: translateX(100%)
+    }
+
+    0% {
+        margin-left: 0;
+        transform: translateX(-100%)
+    }
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    color: #d5a538;
+    font-family: Almarai, sans-serif
+}
+
+body {
+    direction: rtl;
+    background: url(../img/background.svg)
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 60px);
+    overflow: hidden
+}
+
+.screen {
+    margin-top: 15px;
+    position: relative;
+    height: 780px;
+    width: 340px;
+    box-shadow: 0 0 24px #d5a538;
+    border-radius: 20px;
+    background: #fff;
+    overflow: hidden
+}
+
+.screen-content {
+    z-index: 1;
+    position: relative;
+    height: 100%;
+    color: #147b43
+}
+
+.screen-background {
+    position: absolute;
+    top: -80px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 0;
+    -webkit-clip-path: inset(0 0 0 0);
+    clip-path: inset(0 0 0 0)
+}
+
+.screen-background-shape {
+    position: absolute
+}
+
+.screen-background-shape9 {
+    top: 80px;
+    height: 700px;
+    width: 100%;
+    background: url(../img/rm.jpg) no-repeat;
+    background-size: 100%
+}
+
+.screen-background-shape8 {
+    display: none;
+    height: 750px;
+    right: 0;
+    width: 30px;
+    top: 0;
+    background-color: #fff;
+    border: 1px solid #147b43;
+    background: url(../img/ym.svg);
+    background-size: contain
+}
+
+.screen-background-shape6 {
+    height: 250px;
+    top: 305px;
+    text-align: center;
+    width: 100%;
+    z-index: 2;
+    background-size: contain
+}
+
+.screen-background-shape6 h2 {
+    position: absolute;
+    left: -20px;
+    top: 210px
+}
+
+.screen-background-shape7 {
+    display: none;
+    height: 750px;
+    left: 0;
+    width: 30px;
+    top: 0;
+    border: 1px solid #147b43;
+    background: url(../img/ym.svg);
+    background-size: contain
+}
+
+.login-form {
+    width: 100%;
+    padding: 137px 30px 30px;
+    position: relative;
+    top: 200px;
+    text-align: center
+}
+
+.login-field {
+    padding: 20px 0;
+    position: relative
+}
+
+.login-icon {
+    position: absolute;
+    top: 35px;
+    color: #fff;
+    display: none
+}
+
+.login-input {
+    border: 2px solid #fff;
+    border-radius: 20px 20px 0 0;
+    text-align: center;
+    background: 0 0;
+    padding: 10px 10px 10px 24px;
+    font-weight: 800;
+    width: 100%;
+    transition: .2s;
+    height: 50px;
+    border: 1px solid #147b43;
+    text-align: center;
+    color: #147b43
+}
+
+input::placeholder {
+    color: #147b43
+}
+
+.login-input:active,
+.login-input:focus,
+.login-input:hover {
+    outline: 0
+}
+
+.pspeed {
+    margin-top: -18px
+}
+
+select {
+    text-align: center;
+    padding: 10px 10px 10px 24px;
+    font-weight: 800;
+    width: 100%;
+    transition: .2s;
+    height: 50px;
+    margin-bottom: 15px;
+    margin-top: 5px;
+    border: 1px solid #147b43;
+    text-align: center;
+    color: #147b43;
+    background: transparent
+}
+
+option {
+    background: #147b43;
+    color: #1e1e26
+}
+
+.app-submit,
+.login-submit {
+    position: relative;
+    background-color: #147b43;
+    font-size: 16px;
+    height: 50px;
+    margin-top: 0;
+    padding: 16px 20px;
+    border-radius: 0 0 20px 20px;
+    border: 1px solid #fff;
+    text-transform: uppercase;
+    font-weight: 700;
+    text-align: center;
+    width: 100%;
+    color: #fff;
+    cursor: pointer;
+    transition: transform .3s .1s ease-out, opacity .1s .3s, background-color .1s 1s;
+    z-index: 1
+}
+
+.app-submit:after,
+.login-submit:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -1.3rem;
+    margin-top: -1.2rem;
+    width: 38px;
+    height: 38px;
+    border: 2px dotted #fff;
+    border-radius: 50%;
+    border-left: none;
+    border-bottom: none;
+    transition: opacity .1s .2s;
+    opacity: 0
+}
+
+.app-submit.processing,
+.login-submit.processing {
+    opacity: .8;
+    border: 0;
+    background-color: #1e1e26;
+    font-size: 0 !important
+}
+
+.app-submit.processing:after,
+.login-submit.processing:after {
+    opacity: 1;
+    -webkit-animation: rotate .5s .4s infinite linear;
+    animation: rotate .5s .4s infinite linear
+}
+
+.app-submit.success,
+.login-submit.success {
+    transition: transform 1s ease-out, opacity .1s .3s, background-color 50ms;
+    transform: scale(100);
+    opacity: 1;
+    z-index: 2
+}
+
+.login-submit.processing i {
+    display: none
+}
+
+.app-submit.success:after,
+.login-submit.success:after {
+    transition: opacity .1s 0s;
+    opacity: 0;
+    -webkit-animation: none;
+    animation: none
+}
+
+.app-submit:active,
+.app-submit:focus,
+.app-submit:hover,
+.login-submit:active,
+.login-submit:focus,
+.login-submit:hover {
+    border-color: #000000;
+    outline: 0
+}
+
+.button-icon {
+    font-size: 24px;
+    margin-left: auto;
+    color: #000000
+}
+
+.social-login {
+    height: 140px;
+    width: 160px;
+    text-align: center;
+    float: left;
+    margin-top: 20px;
+    color: #d5a538
+}
+
+.social-icons {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center
+}
+
+.social-login-icon {
+    padding: 20px 10px;
+    color: #d5a538;
+    text-decoration: none;
+    text-shadow: 0 0 8px #000000
+}
+
+.social-login-icon:hover {
+    transform: scale(1.5)
+}
+
+.network-name,
+.network-prefix {
+    color: #d5a538;
+    padding: 10px 0 0 190px;
+    text-align: center;
+    font-size: 25px;
+    font-weight: 700
+}
+
+.network-name {
+    color: #d5a538;
+    padding: 5px 0 0 120px;
+    font-size: 40px;
+    white-space: nowrap
+}
+
+.svg-icon {
+    cursor: pointer
+}
+
+.svg-icon path {
+    stroke: rgba(255, 255, 255, .9);
+    fill: rgba(255, 255, 255, .9);
+    stroke-width: 1
+}
+
+.logo {
+    width: 80px;
+    left: 90px
+}
+
+.contact {
+    margin-top: 10px
+}
+
+.contact.back {
+    margin-top: 65px
+}
+
+.price-icon {
+    top: 170px;
+    border: 0;
+    height: 30px;
+    text-align: center;
+    border-radius: 10px;
+    width: 100px;
+    left: 12px;
+    background-color: #d5a538;
+    color: #147b43;
+    padding: 0
+}
+
+.app-logout.back,
+.sell-point-icon {
+    padding: 5px;
+    border-radius: 10px;
+    height: 50px;
+    width: 80px;
+    margin: -15px 45px 0 0;
+    background-color: #d5a538;
+    color: #147b43;  
+}
+
+.out {
+    padding: 5px;
+    border-radius: 10px;
+    height: 50px;
+    width: 80px;
+    margin: 20px;
+    background-color: #fff;
+    color: #1e1e26
+}
+
+.sell-point-icon {
+    top: 140px;
+    border: 0;
+    height: 30px;
+    text-align: center;
+    border-radius: 10px;
+    width: 100px;
+    margin: -20px 50px 0 0;
+    left: 90%
+}
+
+.sell-point-icon {
+    margin: 0;
+    margin-left: 45px;
+    color: #147b43
+}
+
+.password-field {
+    display: none
+}
+
+#login.inactive,
+.app {
+    opacity: 0;
+    transform: scale(1.1)
+}
+
+#login {
+    transition: opacity .1s, transform .3s
+}
+
+.app {
+    display: none;
+    transition: opacity .1s, transform .3s cubic-bezier(.68, -.45, .465, 1.25);
+    transform: scale(1.2)
+}
+
+#login,
+.app.active {
+    opacity: 1
+}
+
+.app-logout {
+    cursor: pointer;
+    transition: transform .4s .2s, opacity .1s .7s, background-color .1s .2s;
+    transform: scale(0)
+}
+
+.app.active,
+.app.active .app-logout {
+    transform: scale(1)
+}
+
+.app-logout.clicked {
+    border: 0;
+    background-color: #000000;
+    font-size: 0;
+    transform: scale(30) !important;
+    opacity: .9
+}
+
+.error-container {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    padding-top: 200px;
+    background-color: #6b98b45b;
+    display: none
+}
+
+.error-container.active {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: block;
+    z-index: 2
+}
+
+.error-container .error .fade-in {
+    transform: scale(0);
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 15px 15px 0 0
+}
+
+.error-container.zoom .error .fade-in {
+    transform: scale(1);
+    transition: transform .1s .1s ease-out
+}
+
+.error {
+    position: relative;
+    text-align: center;
+    font-size: 20px;
+    width: 60%;
+    max-width: 320px;
+    min-width: 300px;
+    color: #fff;
+    margin: 0 auto;
+    display: block
+}
+
+.price-div,
+.sell-point-div,
+.status-div {
+    padding: 10px 10px 0;
+    height: 439px;
+    width: 100%
+}
+
+div.wrapper {
+    height: 100%;
+    overflow: auto;
+    background: rgba(125, 192, 205, .468);
+    border-radius: 10px;
+    padding: 5px;
+    text-align: center
+}
+
+.status-div div.wrapper {
+    height: unset
+}
+
+div.wrapper::-webkit-scrollbar {
+    width: .1em
+}
+
+div.wrapper::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, .3)
+}
+
+div.wrapper::-webkit-scrollbar-thumb {
+    background-color: #000000;
+    outline: 1px solid #000000
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+    font-size: 14px
+}
+
+table td {
+    color: #1e1e26;
+    background-color: #fff;
+    padding: 10px 4px 10px 0
+}
+
+table td:first-child {
+    font-weight: 700
+}
+
+tbody td:hover:before,
+td,
+th {
+    background-color: rgba(255, 255, 255, .2)
+}
+
+td,
+th {
+    font-size: 11px;
+    padding: 15px;
+    background: #ddd;
+    border-bottom: 2px solid #fff;
+    color: #1e1e26
+}
+
+tbody tr:last-child td {
+    border-bottom: 2px solid #fff
+}
+
+.info,
+tbody td,
+th {
+    text-align: center
+}
+
+thead th {
+    background-color: #fff;
+    color: #1e1e26
+}
+
+tbody tr:hover {
+    background-color: rgba(255, 255, 255, .3)
+}
+
+tbody tr:nth-child(odd) td {
+    background-color: #147b43;
+    color: #fff
+}
+
+.sell-point td {
+    font-size: 13px
+}
+
+tbody td:hover:before {
+    content: "";
+    left: 0;
+    right: 0;
+    top: -9999px;
+    bottom: -9999px;
+    z-index: -1
+}
+
+.title {
+    border-radius: 15px;
+    padding: 10px 0;
+    font-weight: 900;
+    font-size: 20px;
+    color: #1e1e26;
+    background:  #fff;
+    margin: 15px
+}
+
+[data-fit-text] {
+    display: inline-block;
+    width: 220px
+}
+
+.pro h5,
+h6,
+span {
+    color: #fff
+}
+
+.section .marquee {
+    top: 100px;
+    position: absolute;
+    -webkit-animation: marquee 7s linear infinite;
+    animation: marquee 20s linear infinite;
+    display: inline-block;
+    white-space: nowrap;
+    height: 30px;
+    font-size: 23px
+}
+
+.section .marquee:hover {
+    -webkit-animation-play-state: paused;
+    animation-play-state: paused
+}
+
+.extra-submit {
+    width: 80%;
+    height: 44px
+}
+
+.extra-submit:last-child {
+    margin-top: 10px;
+    right: 20%
+}
+
+.cut-connection {
+    height: 60px;
+    width: 60px;
+    margin-top: -5px
+}
+
+.grid {
+    float: right;
+    width: 21.9%;
+    height: 72px;
+    margin: 5px;
+    background-position: center;
+    background-size: 70px;
+    background-repeat: no-repeat
+}
+
+.app-store {
+    margin: auto 50px auto auto;
+    position: absolute
+}
+
+.date-field {
+    color: #147b43;
+    font-size: 12px;
+    padding-right: 11px;
+    padding-top: 10px
+}
+
+.login-form {
+    padding-top: 145px
+}
+
+#loan-explain {
+    padding: 25px
+}
+
+#loan-explain .contact-text {
+    margin-bottom: 10px
+}
+
+#loan-button {
+    right: 15%;
+    width: 70%
+}
+
+.wspeed {
+    color: #d5a538;
+    font-size: 20px
+}
+
+#error {
+    color: #000
+}

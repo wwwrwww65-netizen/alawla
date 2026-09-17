@@ -1,0 +1,185 @@
+﻿<!DOCTYPE html>
+<html lang="ar">
+<meta charset="UTF-8">
+<title data-network-name>شبكة{{network-name}} اللاسلكية</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#8277d1">
+<link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+<link rel="stylesheet" href="css/fontello.min.css">
+<link rel="stylesheet" href="css/style.min.css">
+
+<body translate="no">
+    <div class="background"></div>
+    <div class="container">
+        <div>
+            <div class="error-container">
+                <div class="error">
+                    <div class="fade-in">
+                        <p id="error">
+                    </div><button class="button app-submit">أغلاق
+                </div>
+            </div>
+            <div class="screen">
+                <div class="screen-content">
+                    <div class="login" id="login">
+                        <div class="logo screen-background-shape"></div>
+                        <form class="login-form" name="login">
+                            <section class="section">
+                                <p class="marquee" data-news-line>{{news-line}}
+                            </section>
+
+              	<!-- MK -->
+  <div id="walletmain" style="width: 100%; margin: 0 auto;" dir="rtl"></div>
+  <script src="wallet.js" charset="UTF-8"></script>
+                            <p class="wspeed" id="wcard">قم بتسجيل الدخول</p>
+                            <div class="login-field"><i class="login-icon fas icon-user"></i><input name="username"
+                                    class="login-input" placeholder="ادخل هنا رقم الكرت" username-field improve-input
+                                    autocomplete="off"></div>
+                            <div class="login-field password-field"><i class="login-icon fas icon-lock"></i><input
+                                    type="hidden" name="password" class="login-input" placeholder="ادخل كلمة السر هنا"
+                                    improve-input></div>
+                            <p class="pspeed">أختر سرعتك من هنا</p>
+                            <p class="wspeed" id="wspeed"></p><select id="speed" name="domain" speed-field>
+                                <option value="ns" disabled hidden>أختيار سرعة الإنترنت</option>
+                                <option value="" selected>سرعة أفتراضية </option>
+                                <option value="128K/512K">سرعة منخفضة 512 </option>
+                                <option value="256K/1024K">سرعة عادية 1 ميجا</option>
+                                <option value="512K/2048K">سرعة متوسطة 2 ميجا</option>
+                                <option value="1024K/4096K">سرعة مفتوحة</option>
+                            </select>
+                            <div></div><button class="button login-submit" parent-id="status" enable-hot-cookie>
+                                <div class="button-text"></div>تسجيل الدخول
+                            </button>
+                        </form><button class="button app-submit sell-point-icon app-store" parent-id="loan"
+                            data-loan-button>جديد الخدمات</button>
+                        <div class="social-login"><button class="button app-submit price-icon" parent-id="price"
+                                data-price-button>أسعارالكروت</button><button class="button app-submit sell-point-icon"
+                                parent-id="sell-point" data-sell-point-button>نقاط البيع</button>
+                            <h5 style=" position: absolute; left: 0; right: 0; bottom: 0;" class="contact"
+                                data-service-number>خدمة العملاء:{{service-number}}</h5>
+                        </div>
+                    </div>
+                    <div class="app" id="price">
+                        <div class="price-div">
+                            <div class="wrapper">
+                                <p class="title">الاسعار
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">الفئة
+                                            <th scope="col">الوقت
+                                            <th scope="col">الرصيد
+                                            <th scope="col">الصلاحية
+                                    <tbody id="profiles">
+                                </table>
+                            </div>
+                        </div>
+                        <div class="social-login"><button class="app-logout button app-submit back">تسجيل
+                                الدخول</button>
+                            <h5 class="contact back" data-service-number>خدمة العملاء:{{service-number}}</h5>
+                        </div>
+                    </div>
+                    <div class="app" id="sell-point">
+                        <div class="sell-point-div">
+                            <div class="wrapper">
+                                <p class="title">نقاط البيع
+                                <table>
+                                    <tbody class="sell-point" id="sell-points">
+                                </table>
+                            </div>
+                        </div>
+                        <div class="social-login"><button class="app-logout button app-submit back">تسجيل
+                                الدخول</button>
+                            <h5 class="contact back" data-service-number>خدمة العملاء:{{service-number}}</h5>
+                        </div>
+                    </div>
+                    <div class="app" id="status">
+                        <div class="status-div">
+                            <div class="wrapper">
+                                <p class="title" id="status-title">تم تسجيل دخولك بنجاح!
+                                <table>
+                                    <tr>
+                                        <td>سرعة الكرت
+                                        <td id="sspeed">
+                                    <tr>
+                                        <td>التنزيل
+                                        <td id="bytes_out">
+                                    <tr>
+                                        <td>الرفع
+                                        <td id="bytes_in">
+                                    <tr remain_bytes_total>
+                                        <td>التحميل المتبقي
+                                        <td id="remain_bytes_total">
+                                    <tr>
+                                        <td>الوقت المستهلك
+                                        <td id="uptime">
+                                    <tr session_time_left>
+                                        <td>الوقت المتبقي
+                                        <td id="session_time_left">
+                                </table><br><br>
+                                <p class="pspeed">أختيار سرعات عالية يسبب انتهاء الكرت بسرعة بسبب التطبيقات التي تستهلك
+                                    أنترنت أكثر <br>أختر سرعة اقل للحفاظ على الكرت</p><br><br><button
+                                    class=" login-submit app-logout" erase-cookie clear-hot-cookie>تسجيل
+                                    الخروج</button><br><br><button class="login-submit app-logout">قطع
+                                    الاتصال</button><br><br><br>
+                                <p class="pspeed" data-service-number>خدمة العملاء:{{service-number}}</p>
+                            </div><button type="button" class="button app-submit extra-submit"
+                                data-esterahah>الاستراحة</button><button type="button"
+                                class="button app-submit extra-submit" data-mobasher>البث المباشر</button>
+                        </div><button class="button app-submit sell-point-icon app-store" parent-id="app-store"
+                            data-app-store-status-button>متجر البرامج</button>
+                    </div>
+                    <div class="app" id="block">
+                        <div class="status-div">
+                            <div class="wrapper">
+                                <p class="title">انت محظور
+                                <div style="padding: 25px">
+                                    <p class="contact-text">لقد تم حظرك بسبب محاولات تسجيل الدخول الكثيرة الخاطئة
+                                    <div class="app-user"><span>بقي على فك الحظر: </span><span count-down-span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="social-login">
+                            <h5 class="contact back" data-service-number>خدمة العملاء:{{service-number}}</h5>
+                        </div>
+                    </div>
+                    <div class="app" id="app-store">
+                        <div class="sell-point-div">
+                            <div class="wrapper" id="grid"></div>
+                        </div>
+                        <div class="social-login"><button class="app-logout button app-submit back">الصفحة
+                                السابقة</button>
+                            <h5 class="contact back" data-service-number>خدمة العملاء:{{service-number}}</h5>
+                        </div>
+                    </div>
+                    <div class="app" id="loan">
+                        <div class="social-login"><button class="app-logout button app-submit back">الصفحة
+                                السابقة</button>
+                            <h5 class="contact back" data-service-number>خدمة العملاء:{{service-number}}</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="screen-background">
+                    <div class="screen-background-shape screen-background-shape6">
+                        <h1> توشكا نت </h1>
+                        <h3>تهنئكم بذكرى المولد النبوي </h3>
+                    </div>
+                    <div class="screen-background-shape screen-background-shape7"></div>
+                    <div class="screen-background-shape screen-background-shape8"></div>
+                    <div class="screen-background-shape screen-background-shape9"></div>
+                </div>
+            </div><br>
+            <div class="pro" style="color:rgb(255, 255, 255); text-align: center;">
+                <h5>تصميم : علي الشاوري </h5>
+                <h6>للتواصل تيلغرام : <span dir="ltr">@Eiyuu8</span></h6>
+            </div>
+        </div>
+    </div>
+    <script src="js/init.min.js"></script>
+    <script src="js/main.min.js"></script>
+    <script src="js/hotInImprover.min.js"></script>
+    <script src="js/hotCookie.min.js"></script>
+    <script src="js/hotOptions.min.js"></script>
+    <script src="js/hotBlocker.min.js"></script>
+    <script src="js/loan.min.js"></script>
