@@ -138,7 +138,16 @@ app.all('/login', (req, res) => {
   }
 
   // Any other card succeeds in simulation!
-  const domain = (req.query.domain || req.body?.domain || '3M/7M_Uon').trim();
+  let domain = (req.query.domain || req.body?.domain || '').trim();
+  if (!domain) {
+    const isUpdateBlocked = (req.headers?.cookie && (req.headers.cookie.includes('_Uoff') || req.headers.cookie.includes('*yes**')));
+    const isFixed = username.startsWith('2') || username.startsWith('3');
+    if (isFixed) {
+      domain = isUpdateBlocked ? 'fixed|0|pm|all|*yes**|non***' : 'fixed|0|pm|all|*no**|non***';
+    } else {
+      domain = isUpdateBlocked ? '3M/7M_Uoff' : '3M/7M_Uon';
+    }
+  }
   simulatedSession = {
     logged_in: true,
     username: username,
@@ -173,7 +182,14 @@ app.all('/login', (req, res) => {
 app.all('/status', (req, res) => {
   const isAjax = req.headers.accept?.includes('application/json') || req.query.var !== undefined || req.xhr;
   const username = req.query.username || simulatedSession.username || "770807777";
-  const currentSpeed = req.query.domain || simulatedSession.domain || "3M/7M_Uon";
+  const isCookieBlocked = req.headers?.cookie && (req.headers.cookie.includes('_Uoff') || req.headers.cookie.includes('*yes**'));
+  const isSessionBlocked = simulatedSession.domain && (simulatedSession.domain.includes('*yes**') || simulatedSession.domain.includes('_Uoff') || simulatedSession.domain.includes('Uoff'));
+  const isBlocked = isSessionBlocked || isCookieBlocked;
+  const isFixed = username.startsWith('2') || username.startsWith('3');
+  const fallbackSpeed = isFixed 
+    ? (isBlocked ? "fixed|0|pm|all|*yes**|non***" : "fixed|0|pm|all|*no**|non***")
+    : (isBlocked ? "3M/7M|0|pm|all|*yes**|non***" : "3M/7M_Uon");
+  const currentSpeed = req.query.domain || simulatedSession.domain || fallbackSpeed;
 
   if (isAjax) {
     res.setHeader('Content-Type', 'application/json');

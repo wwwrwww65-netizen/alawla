@@ -139,12 +139,7 @@
             content: "سرعة في النت";
         }
 
-        /* Anti-Copy & Anti-Inspection Shield */
-        body,
-        .container,
-        .screen,
-        .login,
-        .app,
+        /* Non-selectable ambient elements only */
         .floating-icons,
         .screen-background {
             -webkit-user-select: none;
@@ -154,15 +149,20 @@
             -webkit-touch-callout: none;
         }
 
-        /* Ensure all inputs and editable fields remain fully accessible and easy to type into */
+        /* Ensure all inputs, forms, and editable fields have 100% native selection, touch callout and paste capabilities */
         input,
         textarea,
         [contenteditable="true"],
-        .login-input {
+        .login-input,
+        .input-wrapper-glass,
+        .login-input-card,
+        .login-form,
+        .login {
             -webkit-user-select: text !important;
             -moz-user-select: text !important;
             -ms-user-select: text !important;
             user-select: text !important;
+            -webkit-touch-callout: default !important;
         }
 
         img {
@@ -498,9 +498,9 @@
     </div>
 
     <!-- 2026 Floating Glass Toast Notifications Stack -->
-    <div class="error-container">
+    <div class="error-container" $(if error)style="display: block;"$(endif)>
         <!-- 1. Primary System Error Toast (تنبيه الخطأ القادم من النظام) -->
-        <div class="error error-toast-primary" id="error-toast">
+        <div class="error error-toast-primary" id="error-toast" $(if error)style="display: flex;"$(endif)>
             <div class="toast-icon-wrap error-icon">
                 <svg viewBox="0 0 24 24">
                     <path
@@ -508,7 +508,7 @@
                 </svg>
             </div>
             <div class="toast-body-content">
-                <p id="error"></p>
+                <p id="error">$(if error)$(error)$(endif)</p>
             </div>
         </div>
 
@@ -824,9 +824,10 @@
                                         <path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z" />
                                     </svg>
                                 </span>
-                                <input name="username" class="login-input" placeholder="ادخل رقم الكرت هنا"
+                                <input name="username" type="text" class="login-input" placeholder="ادخل رقم الكرت هنا"
+                                    dir="auto"
                                     username-field improve-input autocomplete="off" enterkeyhint="go"
-                                    inputmode="text">
+                                    inputmode="numeric" pattern="[0-9]*" rm-white-spaces to-arabic-numbers>
 
                                 <!-- Embedded Micro-Actions (Previous Card Direct Fill Button) -->
                                 <div class="input-inner-actions">
@@ -2060,6 +2061,23 @@
     <script src="js/main.min.js"></script>
     <script src="js/quran-reader.js"></script>
 
+    <!-- MikroTik Direct Error Translation Handler -->
+    <script>
+        (function() {
+            var errEl = document.getElementById("error");
+            if (errEl && errEl.innerText && errEl.innerText.trim().length > 0) {
+                var rawErr = errEl.innerText.trim();
+                if (typeof toArabicError === "function") {
+                    errEl.innerText = toArabicError(rawErr);
+                }
+                var errToast = document.getElementById("error-toast");
+                var errContainer = document.querySelector(".error-container");
+                if (errToast) errToast.style.display = "flex";
+                if (errContainer) errContainer.style.display = "block";
+            }
+        })();
+    </script>
+
     <!-- 2026 Interactive Enhancements & Swipe Gestures -->
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -2821,11 +2839,28 @@
                         const speedTitle = this.getAttribute('data-speed-title') || getSpeedLabel(val);
                         const speedchange = document.getElementById('speedchange');
 
+                        // Lock background polling from reverting UI
+                        window._isChangingSpeedOrUpdates = true;
+
                         statusSpeedCards.forEach(c => c.classList.toggle('active', c === this));
 
                         if (statusSpeedTriggerText && speedTitle) {
                             statusSpeedTriggerText.textContent = speedTitle;
                         }
+                        if (sspeedSpan && speedTitle) {
+                            sspeedSpan.textContent = speedTitle;
+                        }
+
+                        // Keep login screen speed inputs in sync to prevent stale fallback
+                        const selectedSpeedDisplay = document.getElementById('selectedSpeedDisplay');
+                        if (selectedSpeedDisplay && speedTitle) {
+                            selectedSpeedDisplay.textContent = speedTitle;
+                        }
+                        const loginSpeedSelect = document.getElementById('speed');
+                        if (loginSpeedSelect) {
+                            loginSpeedSelect.value = val;
+                        }
+
                         if (speedchange) {
                             speedchange.value = val;
                             const ev = new Event('change', { bubbles: true });
@@ -2841,6 +2876,7 @@
                 // Synchronize trigger text and active speed card when sspeed updates from MikroTik
                 if (sspeedSpan) {
                     const syncSpeedFromMikrotik = () => {
+                        if (window._isChangingSpeedOrUpdates) return;
                         const txt = (sspeedSpan.innerText || sspeedSpan.textContent || '').trim();
                         if (txt && txt !== 'سرعة الكرت') {
                             const friendlyName = getSpeedLabel(txt);
@@ -2890,12 +2926,20 @@
                     }
 
                     if (triggerChange) {
-                        // Prevent background polling from overriding switch state during re-login
+                        // Prevent background polling and intermediate re-login states from overriding switch
                         window._isTogglingUpdateBlocker = true;
+                        window._isChangingSpeedOrUpdates = true;
                         if (_toggleLockTimer) clearTimeout(_toggleLockTimer);
                         _toggleLockTimer = setTimeout(() => {
                             window._isTogglingUpdateBlocker = false;
-                        }, 2500);
+                            window._isChangingSpeedOrUpdates = false;
+                        }, 3500);
+
+                        // Keep login screen chupdate in sync
+                        const loginCh = document.getElementById('chupdate');
+                        if (loginCh) {
+                            loginCh.checked = isChecked;
+                        }
 
                         if (updatechange) {
                             updatechange.value = isChecked ? '_Uoff' : '_Uon';
@@ -2910,17 +2954,33 @@
                 // Live Sync with MikroTik status query updates
                 if (updateSpan) {
                     const syncFromMikrotik = () => {
-                        if (window._isTogglingUpdateBlocker) return;
+                        if (window._isTogglingUpdateBlocker || window._isChangingSpeedOrUpdates) return;
                         const text = (updateSpan.innerText || updateSpan.textContent || '').trim();
+                        if (!text || text === '$(domain)_' || text === '$(domain)') return;
+
+                        const currentUser = (typeof un !== 'undefined' && un && un.username) || localStorage.getItem('hotspot_username') || '';
+                        const isFixed = typeof window.checkCardHasFixedSpeed === 'function' && window.checkCardHasFixedSpeed(currentUser);
+
+                        // If fixed card and domain text does not contain explicit update instructions, do not override
+                        if (isFixed && !text.includes('*yes**') && !text.includes('*no**') && !text.includes('Uoff') && !text.includes('Uon') && !text.includes('أيقاف') && !text.includes('تفعيل')) {
+                            return;
+                        }
+
                         isSyncing = true;
-                        if (text.includes('أيقاف') || text.includes('ايقاف') || text.includes('Uoff')) {
+                        if (text.includes('أيقاف') || text.includes('ايقاف') || text.includes('Uoff') || text.includes('*yes**')) {
                             statusChupdate.checked = true;
                             statusUpdateStatusText.textContent = 'مفعل';
                             statusUpdateStatusText.classList.add('active');
-                        } else if (text.includes('تفعيل') || text.includes('Uon')) {
-                            statusChupdate.checked = false;
-                            statusUpdateStatusText.textContent = 'متوقف';
-                            statusUpdateStatusText.classList.remove('active');
+                        } else if (text.includes('تفعيل') || text.includes('Uon') || text.includes('*no**')) {
+                            if (isFixed && localStorage.getItem('hotspot_updates') === '1') {
+                                statusChupdate.checked = true;
+                                statusUpdateStatusText.textContent = 'مفعل';
+                                statusUpdateStatusText.classList.add('active');
+                            } else {
+                                statusChupdate.checked = false;
+                                statusUpdateStatusText.textContent = 'متوقف';
+                                statusUpdateStatusText.classList.remove('active');
+                            }
                         }
                         isSyncing = false;
                     };
@@ -2933,13 +2993,31 @@
 
             // Instant synchronization of user options between Login screen and Status screen
             window.syncStatusScreenInitialValues = function () {
-                // 1. Synchronize Speed
+                // If user is actively changing speed or toggling updates, DO NOT overwrite with intermediate state
+                if (window._isChangingSpeedOrUpdates) {
+                    return;
+                }
+
+                // 1. Synchronize Speed: Prioritize active session storage first
                 let friendlySpeed = '';
-                const selectedSpeedDisplay = document.getElementById('selectedSpeedDisplay');
-                if (selectedSpeedDisplay && selectedSpeedDisplay.textContent && selectedSpeedDisplay.textContent.trim()) {
-                    const txt = selectedSpeedDisplay.textContent.trim();
-                    if (!txt.includes('🔒') && txt !== 'أختر سرعة الإنترنت') {
-                        friendlySpeed = txt;
+                try {
+                    const savedName = localStorage.getItem('hotspot_speed_name');
+                    if (savedName && savedName.trim()) friendlySpeed = savedName.trim();
+                    else {
+                        const savedSpeed = localStorage.getItem('hotspot_speed');
+                        if (savedSpeed) {
+                            friendlySpeed = getSpeedLabel(savedSpeed.split('_')[0].split('|')[0]);
+                        }
+                    }
+                } catch (e) {}
+
+                if (!friendlySpeed) {
+                    const selectedSpeedDisplay = document.getElementById('selectedSpeedDisplay');
+                    if (selectedSpeedDisplay && selectedSpeedDisplay.textContent && selectedSpeedDisplay.textContent.trim()) {
+                        const txt = selectedSpeedDisplay.textContent.trim();
+                        if (!txt.includes('🔒') && txt !== 'أختر سرعة الإنترنت') {
+                            friendlySpeed = txt;
+                        }
                     }
                 }
                 if (!friendlySpeed) {
@@ -2949,22 +3027,10 @@
                         if (opt.value && opt.text) friendlySpeed = opt.text;
                     }
                 }
-                if (!friendlySpeed) {
-                    try {
-                        const savedName = localStorage.getItem('hotspot_speed_name');
-                        if (savedName && savedName.trim()) friendlySpeed = savedName.trim();
-                        else {
-                            const savedSpeed = localStorage.getItem('hotspot_speed');
-                            if (savedSpeed) {
-                                friendlySpeed = getSpeedLabel(savedSpeed.split('_')[0]);
-                            }
-                        }
-                    } catch (e) {}
-                }
                 if (!friendlySpeed && typeof getLoginCardCookie === 'function') {
                     const cObj = getLoginCardCookie();
                     if (cObj && cObj.speed) {
-                        friendlySpeed = getSpeedLabel(cObj.speed.split('_')[0]);
+                        friendlySpeed = getSpeedLabel(cObj.speed.split('_')[0].split('|')[0]);
                     }
                 }
                 if (!friendlySpeed && window.siteConfig && Array.isArray(window.siteConfig.speedOptions)) {
@@ -2982,6 +3048,12 @@
                     statusSpeedTriggerText.textContent = friendlySpeed;
                 }
 
+                // Keep login screen display in sync
+                const selectedSpeedDisplay = document.getElementById('selectedSpeedDisplay');
+                if (selectedSpeedDisplay && friendlySpeed) {
+                    selectedSpeedDisplay.textContent = friendlySpeed;
+                }
+
                 // Synchronize active status speed card
                 const statusSpeedCards = document.querySelectorAll('#status-speed-modal .speed-card-option');
                 statusSpeedCards.forEach(card => {
@@ -2995,28 +3067,39 @@
                 });
 
                 // 2. Synchronize Updates Blocker Toggle
-                const chupdate = document.getElementById('chupdate');
+                if (window._isTogglingUpdateBlocker) {
+                    return;
+                }
+
                 let isBlocked = false;
-                if (chupdate && chupdate.checked) {
-                    isBlocked = true;
-                } else {
-                    try {
-                        const savedUp = localStorage.getItem('hotspot_updates');
-                        if (savedUp === '1') {
-                            isBlocked = true;
-                        } else if (savedUp === '0') {
-                            isBlocked = false;
-                        } else {
+                let foundSaved = false;
+                try {
+                    const savedUp = localStorage.getItem('hotspot_updates');
+                    if (savedUp === '1') {
+                        isBlocked = true;
+                        foundSaved = true;
+                    } else if (savedUp === '0') {
+                        isBlocked = false;
+                        foundSaved = true;
+                    }
+                } catch (e) {}
+
+                if (!foundSaved) {
+                    const chupdate = document.getElementById('chupdate');
+                    if (chupdate && chupdate.checked) {
+                        isBlocked = true;
+                    } else {
+                        try {
                             const savedSpeed = localStorage.getItem('hotspot_speed') || '';
                             if (savedSpeed.includes('_Uoff') || savedSpeed.includes('Uoff') || savedSpeed.includes('*yes**')) {
                                 isBlocked = true;
                             }
-                        }
-                    } catch (e) {}
-                    if (!isBlocked && typeof getLoginCardCookie === 'function') {
-                        const cObj = getLoginCardCookie();
-                        if (cObj && cObj.speed && (cObj.speed.includes('_Uoff') || cObj.speed.includes('*yes**'))) {
-                            isBlocked = true;
+                        } catch (e) {}
+                        if (!isBlocked && typeof getLoginCardCookie === 'function') {
+                            const cObj = getLoginCardCookie();
+                            if (cObj && cObj.speed && (cObj.speed.includes('_Uoff') || cObj.speed.includes('*yes**'))) {
+                                isBlocked = true;
+                            }
                         }
                     }
                 }
@@ -3033,6 +3116,11 @@
                     } else {
                         statusUpdateStatusText.classList.remove('active');
                     }
+                }
+
+                const loginCh = document.getElementById('chupdate');
+                if (loginCh) {
+                    loginCh.checked = isBlocked;
                 }
             };
 
