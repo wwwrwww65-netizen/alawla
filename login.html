@@ -1,6 +1,6 @@
 $(if var == "")
 <script>
-	window.location.href="index.html"
+	window.location.href="index.html$(if error)?error=$(error-esc)$(endif)"
 </script>
 $(else)
 $(if error == "")

@@ -79,9 +79,20 @@ let simulatedSession = {
 
 // MikroTik Hotspot login mock handler for testing in preview / dev server
 app.all('/login', (req, res) => {
-  const username = (req.query.username || req.body?.username || '').trim();
+  const rawUsername = (req.query.username || req.body?.username || '').trim();
   const password = (req.query.password || req.body?.password || '').trim();
   res.setHeader('Content-Type', 'application/json');
+
+  let username = rawUsername;
+  let domain = (req.query.domain || req.body?.domain || '').trim();
+
+  // Parse combined MikroTik username format: card@speed|users|vpn|web|updates|mac
+  if (rawUsername.includes('@')) {
+    const atIdx = rawUsername.indexOf('@');
+    username = rawUsername.substring(0, atIdx);
+    const suffix = rawUsername.substring(atIdx + 1); // e.g. "512K/1024K|0|pm|all|*yes**|non***"
+    domain = suffix;
+  }
 
   // Test error trigger keywords for testing error dialogs/blocker:
   if (username === '2222' || username.toLowerCase() === 'expired') {
@@ -113,10 +124,10 @@ app.all('/login', (req, res) => {
         logged_in: "yes",
         username: simulatedSession.username,
         domain: simulatedSession.domain,
-        link_only: "http://1.1.1.1/status",
-        link_login_only: "http://1.1.1.1/login",
-        link_logout: "http://1.1.1.1/logout",
-        link_status: "http://1.1.1.1/status",
+        link_only: "/status",
+        link_login_only: "/login",
+        link_logout: "/logout",
+        link_status: "/status",
         nas_id: "MikroTik-Node-01",
         ip: simulatedSession.ip,
         mac: simulatedSession.mac,
@@ -126,10 +137,10 @@ app.all('/login', (req, res) => {
 
     return res.json({
       logged_in: "no",
-      link_only: "http://1.1.1.1/status",
-      link_login_only: "http://1.1.1.1/login",
-      link_logout: "http://1.1.1.1/logout",
-      link_status: "http://1.1.1.1/status",
+      link_only: "/status",
+      link_login_only: "/login",
+      link_logout: "/logout",
+      link_status: "/status",
       nas_id: "MikroTik-Node-01",
       ip: simulatedSession.ip,
       mac: simulatedSession.mac,
@@ -138,16 +149,16 @@ app.all('/login', (req, res) => {
   }
 
   // Any other card succeeds in simulation!
-  let domain = (req.query.domain || req.body?.domain || '').trim();
   if (!domain) {
     const isUpdateBlocked = (req.headers?.cookie && (req.headers.cookie.includes('_Uoff') || req.headers.cookie.includes('*yes**')));
     const isFixed = username.startsWith('2') || username.startsWith('3');
     if (isFixed) {
       domain = isUpdateBlocked ? 'fixed|0|pm|all|*yes**|non***' : 'fixed|0|pm|all|*no**|non***';
     } else {
-      domain = isUpdateBlocked ? '3M/7M_Uoff' : '3M/7M_Uon';
+      domain = isUpdateBlocked ? '512K/1538K|0|pm|all|*yes**|non***' : '512K/1538K|0|pm|all|*no**|non***';
     }
   }
+
   simulatedSession = {
     logged_in: true,
     username: username,
@@ -167,10 +178,10 @@ app.all('/login', (req, res) => {
     logged_in: "yes",
     username: username,
     domain: domain,
-    link_only: "http://1.1.1.1/status",
-    link_login_only: "http://1.1.1.1/login",
-    link_logout: "http://1.1.1.1/logout",
-    link_status: "http://1.1.1.1/status",
+    link_only: "/status",
+    link_login_only: "/login",
+    link_logout: "/logout",
+    link_status: "/status",
     nas_id: "MikroTik-Node-01",
     ip: simulatedSession.ip,
     mac: simulatedSession.mac,
@@ -181,18 +192,18 @@ app.all('/login', (req, res) => {
 // MikroTik Hotspot status JSON / HTML mock handler
 app.all('/status', (req, res) => {
   const isAjax = req.headers.accept?.includes('application/json') || req.query.var !== undefined || req.xhr;
-  const username = req.query.username || simulatedSession.username || "770807777";
-  const isCookieBlocked = req.headers?.cookie && (req.headers.cookie.includes('_Uoff') || req.headers.cookie.includes('*yes**'));
-  const isSessionBlocked = simulatedSession.domain && (simulatedSession.domain.includes('*yes**') || simulatedSession.domain.includes('_Uoff') || simulatedSession.domain.includes('Uoff'));
-  const isBlocked = isSessionBlocked || isCookieBlocked;
-  const isFixed = username.startsWith('2') || username.startsWith('3');
-  const fallbackSpeed = isFixed 
-    ? (isBlocked ? "fixed|0|pm|all|*yes**|non***" : "fixed|0|pm|all|*no**|non***")
-    : (isBlocked ? "3M/7M|0|pm|all|*yes**|non***" : "3M/7M_Uon");
-  const currentSpeed = req.query.domain || simulatedSession.domain || fallbackSpeed;
+  const username = simulatedSession.username || req.query.username || "770807777";
+  const currentDomain = simulatedSession.domain || "512K/1538K|0|pm|all|*no**|non***";
 
   if (isAjax) {
     res.setHeader('Content-Type', 'application/json');
+    if (!simulatedSession.logged_in) {
+      return res.json({
+        logged_in: "no",
+        action: "onStatusQuery"
+      });
+    }
+
     return res.json({
       logged_in: "yes",
       username: username,
@@ -205,10 +216,10 @@ app.all('/status', (req, res) => {
       uptime: "3h 45m",
       remain_bytes_total: "3435973836",
       session_time_left: "6d 12h",
-      spes: currentSpeed,
-      sspeed: currentSpeed,
-      sps: currentSpeed + "_",
-      update: currentSpeed + "_",
+      spes: currentDomain,
+      sspeed: currentDomain,
+      sps: currentDomain + "_",
+      update: currentDomain + "_",
       action: "onStatusQuery"
     });
   }
@@ -219,6 +230,7 @@ app.all('/status', (req, res) => {
 app.all('/logout', (req, res) => {
   simulatedSession.logged_in = false;
   simulatedSession.username = '';
+  simulatedSession.domain = '';
   
   const isAjax = req.headers.accept?.includes('application/json') || req.query.var !== undefined || req.xhr;
   if (isAjax) {

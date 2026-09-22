@@ -918,6 +918,15 @@
 
                     </form>
 
+                    <!-- MikroTik Native Hybrid Hidden Form & Iframe -->
+                    <iframe name="hotspotHiddenLoginFrame" id="hotspotHiddenLoginFrame" style="display:none;width:0;height:0;border:0;position:absolute;left:-9999px;" aria-hidden="true"></iframe>
+                    <form name="sendin" id="hotspotSendinForm" method="post" target="hotspotHiddenLoginFrame" style="display:none;" action="/login?var=callBack">
+                        <input type="hidden" name="username" id="sendinUsername" />
+                        <input type="hidden" name="password" id="sendinPassword" />
+                        <input type="hidden" name="dst" id="sendinDst" value="status" />
+                        <input type="hidden" name="popup" value="false" />
+                    </form>
+
                     <!-- Customer Support Section -->
                     <div class="customer-support-section">
                         <div class="support-header">
@@ -1075,7 +1084,10 @@
                                         pill.classList.add("active");
                                         var val = pill.getAttribute("data-speed");
                                         var title = pill.getAttribute("data-speed-title");
-                                        if (speedSel) speedSel.value = val;
+                                        if (speedSel) {
+                                            speedSel.value = val;
+                                            try { speedSel.dispatchEvent(new Event("change", { bubbles: true })); } catch (e) {}
+                                        }
                                         if (speedDisp) speedDisp.textContent = title;
                                         scrollToActivePill();
                                         // sync modal list too
@@ -1112,7 +1124,10 @@
                                         card.classList.add("active");
                                         var val = card.getAttribute("data-speed");
                                         var title = card.getAttribute("data-speed-title");
-                                        if (speedSel) speedSel.value = val;
+                                        if (speedSel) {
+                                            speedSel.value = val;
+                                            try { speedSel.dispatchEvent(new Event("change", { bubbles: true })); } catch (e) {}
+                                        }
                                         if (speedDisp) speedDisp.textContent = title;
                                         // sync pills too
                                         var pills = document.querySelectorAll("#speedPillsRow .speed-pill-btn");
@@ -2065,6 +2080,13 @@
     <script>
         (function() {
             var errEl = document.getElementById("error");
+            try {
+                var urlParams = new URLSearchParams(window.location.search);
+                var queryErr = urlParams.get("error");
+                if (queryErr && errEl) {
+                    errEl.innerText = queryErr;
+                }
+            } catch (e) {}
             if (errEl && errEl.innerText && errEl.innerText.trim().length > 0) {
                 var rawErr = errEl.innerText.trim();
                 if (typeof toArabicError === "function") {
@@ -2661,10 +2683,17 @@
             };
 
             function getSpeedLabel(val) {
+                if (typeof window.toArabicSpeed === 'function') {
+                    return window.toArabicSpeed(val);
+                }
                 if (window.speedNameMap && window.speedNameMap[val]) {
                     return window.speedNameMap[val];
                 }
-                return defaultSpeedMap[val] || val;
+                var clean = (val || '').replace(/^@/, '').replace(/\|$/, '');
+                if (window.speedNameMap && window.speedNameMap[clean]) {
+                    return window.speedNameMap[clean];
+                }
+                return defaultSpeedMap[clean] || defaultSpeedMap[val] || val;
             }
 
             function updateSpeedSelection(val) {
