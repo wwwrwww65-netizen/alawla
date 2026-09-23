@@ -14,6 +14,7 @@ window.siteConfig = {
     // 3. أرقام خدمة العملاء والواتساب
     "supportPhone": "770807056",
     "service-number": "770807056",
+    "supportNumbers": ["770807056-779213699"],
     "whatsappPhone": "967770807056",
     "whatsappMsg": "مرحبا خدمة عملاء شبكة {network-name} اللاسلكية",
 
@@ -179,6 +180,16 @@ window.siteConfig = {
     "mobaV": true,
     "redirect-to-esterahah": "http://2.2.2.2",
     "redirect-to-mobasher": "http://2.2.2.2:85/",
+    "restLinks": [
+        {
+            "name": "الاستراحة",
+            "url": "http://2.2.2.2/"
+        },
+        {
+            "name": "بث مباشر",
+            "url": "http://2.2.2.2:85/"
+        }
+    ],
 
     // 10. إعدادات المصحف الشريف
     "quranUrl": "",
