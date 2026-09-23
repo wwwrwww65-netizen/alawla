@@ -1,4 +1,4 @@
-window.siteConfig = {
+var siteConfig = window.siteConfig = {
     // 1. اسم الشبكة والعناوين والهوية
     "siteName": "يمن نت",
     "network-name": "يمن نت",
@@ -221,6 +221,7 @@ window.siteConfig = {
     "sell-point-button": true,
     "show-date-field": true
 };
+var hotspotConfig = window.hotspotConfig = window.siteConfig;
 
 // جسر التوافق البرمجي لضمان عمل كافة الوظائف القديمة والحديثة معاً
 if (typeof window.hotspotConfig === 'object' && window.hotspotConfig !== null) {
